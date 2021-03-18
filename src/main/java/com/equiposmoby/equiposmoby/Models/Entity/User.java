@@ -4,7 +4,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Data
+/*@Data
 @Entity
 @Table(name = "usuarios")
 public class User implements Serializable {
@@ -17,4 +17,4 @@ public class User implements Serializable {
 
     private String password;
 
-}
+}*/
