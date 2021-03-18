@@ -23,6 +23,6 @@ public class UserDao implements IUserDao{
 
     @Override
     public List<User> guardar(User newUser) {
-        return null;
+        em.persist();
     }
 }
