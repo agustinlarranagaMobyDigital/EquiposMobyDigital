@@ -1,4 +1,4 @@
-package com.equiposmoby.equiposmoby.Models;
+package com.equiposmoby.equiposmoby.Models.Entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;

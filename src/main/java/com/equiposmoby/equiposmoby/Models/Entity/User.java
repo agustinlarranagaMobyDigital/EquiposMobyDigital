@@ -1,11 +1,13 @@
-package com.equiposmoby.equiposmoby.Models;
+package com.equiposmoby.equiposmoby.Models.Entity;
+import lombok.Data;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+@Data
 @Entity
 @Table(name = "users")
 public class User {
-
     private String email;
     private String password;
 
