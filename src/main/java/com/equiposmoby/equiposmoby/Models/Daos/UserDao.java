@@ -21,7 +21,8 @@ public class UserDao implements IUserDao{
         return em.createQuery("from User").getResultList();
     }
 
-
-
-
+    @Override
+    public List<User> guardar(User newUser) {
+        return null;
+    }
 }
