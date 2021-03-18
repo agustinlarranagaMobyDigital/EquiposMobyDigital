@@ -4,11 +4,11 @@ import lombok.Data;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-@Data
+/*@Data
 @Entity
 @Table(name = "users")
 public class User {
     private String email;
     private String password;
 
-}
+}*/
