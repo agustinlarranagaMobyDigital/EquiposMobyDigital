@@ -8,8 +8,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-@Repository
-public class UserDao implements IUserDao{
+@Repository("usuarioDAO")
+public class UserDao implements IDao<User , Integer>{
 
     @PersistenceContext
     private EntityManager em;
@@ -17,12 +17,25 @@ public class UserDao implements IUserDao{
     @SuppressWarnings("unchecked")
     @Transactional(readOnly = true)
     @Override
-    public List<User> obtenerLista() {
-        return em.createQuery("from User").getResultList();
+    public List<User> traerTodas() {
+       return em.createQuery("from User").getResultList();
     }
 
+    @Transactional
     @Override
-    public List<User> guardar(User newUser) {
-        em.persist();
+    public void agregar(User user) {
+        em.persist(user);
+    }
+
+    @Transactional
+    @Override
+    public void eliminar(User user) {
+        em.remove(user);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public User buscar(String email){
+        return em.find(User.class , email);
     }
 }
