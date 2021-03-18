@@ -5,8 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 @Data //Crea los getters and setter, equals, toString.
 @AllArgsConstructor /// Crea el constructor con todos los atributos
@@ -15,31 +15,27 @@ import java.util.Date;
 @Table(name = "reuniones")
 public class Reunion implements Serializable {
 
-    /** Es una clave primaria */
-
-    ///Falta colum
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
 
     @Temporal(TemporalType.DATE)
-    private Date fecha;         /** CAMBIAR  por localDateTime*/
+    @Column(name = "fecha")
+    private LocalDateTime fecha;
 
     @Temporal(TemporalType.TIME)
-
-    @Column /**Crea la columna de la base de datos. */
-
+    @Column(name = "hora_inicial")
     private DateTimeFormatter horaInicial;
+
     @Temporal(TemporalType.TIME)
+    @Column(name = "hora_final")
     private DateTimeFormatter horaFinal;
 
-    /** Es una foreing key */
+
+    @JoinColumn(name = "id_tipo_reunion")
     @ManyToOne
-    ///En vez de colum va JoinColum.
-    private - id_tipo_reunion; ///Tipo reunion.
-
-
+    private TipoReunion id_tipoReunion;
 
 
 }
