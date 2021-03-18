@@ -13,6 +13,7 @@ public class UserController {
     @Autowired
     private IUsuarioServices userService;
 
+
     @RequestMapping("/listado")
     public String listar(Model model){
         model.addAttribute("titulo" , "Listado de Usuarios");

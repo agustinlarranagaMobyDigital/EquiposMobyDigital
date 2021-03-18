@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReunionJefeLider /*extends Reunion*/{
+public class ReunionJefeLider extends Reunion{
 
-   /* private Lider lider;
+   private Lider lider;
 
-    private Jefe jefe;*/
+    private Jefe jefe;
 }

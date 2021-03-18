@@ -5,9 +5,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+/*
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor*/
 public class Daily /*extends Reunion*/{
 
     /*private Equipo equipo;*/
+
 }
