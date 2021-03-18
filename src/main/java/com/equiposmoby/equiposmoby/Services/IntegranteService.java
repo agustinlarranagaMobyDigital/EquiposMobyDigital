@@ -1,20 +1,44 @@
 package com.equiposmoby.equiposmoby.Services;
 
-import com.equiposmoby.equiposmoby.Models.Daos.IntegranteRepository;
+import com.equiposmoby.equiposmoby.Models.Daos.IDao;
+import com.equiposmoby.equiposmoby.Models.Entity.Integrante;
+import com.equiposmoby.equiposmoby.Models.Entity.Lenguaje;
 import com.equiposmoby.equiposmoby.Models.Entity.Programador;
+import com.equiposmoby.equiposmoby.Models.Entity.Puesto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class IntegranteService {
 
     @Autowired
-    private IntegranteRepository integranteDAO;
+    @Qualifier("integranteDAO")
+    private IDao integranteDAO;
 
-    public void addProgramador(Programador programador){
-        integranteDAO.addProgramador(programador);
+
+
+    public void add(Integrante integrante){
+        integranteDAO.agregar(integrante);
     }
 
+    @Autowired
+    @Qualifier("lenguajeDAO")
+    private IDao lenguajeDAO;
+
+    public List<Lenguaje> getLenguajes() {
+        return lenguajeDAO.traerTodas();
+    }
+
+
+    @Autowired
+    @Qualifier("puestoDAO")
+    private IDao puestoDAO;
+
+    public List<Puesto> getPuestos() {
+        return puestoDAO.traerTodas();
+    }
 
 }
