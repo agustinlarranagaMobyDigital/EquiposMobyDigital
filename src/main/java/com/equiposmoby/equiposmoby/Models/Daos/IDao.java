@@ -9,4 +9,5 @@ public interface IDao<T,t>{
     void eliminar(T t);
     T buscar(String txt);
 
+
 }

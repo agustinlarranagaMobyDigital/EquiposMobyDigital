@@ -31,9 +31,15 @@ public class IntegranteDAO implements IDao<Integrante, Integer> {
     }
 
     @Override
-    public void delete(Integrante integrante) {
-
+    public void eliminar(Integrante integrante) {
+        em.remove(integrante);
     }
+
+    @Override
+    public Integrante buscar(String txt) {
+        return em.find(Integrante.class , txt);
+    }
+
 
 
 

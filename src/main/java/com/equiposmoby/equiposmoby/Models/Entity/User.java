@@ -8,6 +8,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "usuarios")
 public class User implements Serializable {
+
     @Id
     private String email;
 

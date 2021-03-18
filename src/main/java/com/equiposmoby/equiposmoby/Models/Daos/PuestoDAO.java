@@ -5,12 +5,14 @@ import com.equiposmoby.equiposmoby.Models.Entity.Puesto;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 
 @Repository(value = "puestoDAO")
 public class PuestoDAO implements IDao<Puesto, Integer> {
 
+    private EntityManager em;
     @Override
     @Transactional(readOnly = true)
     public List<Puesto> traerTodas() {
@@ -23,7 +25,13 @@ public class PuestoDAO implements IDao<Puesto, Integer> {
     }
 
     @Override
-    public void delete(Puesto puesto) {
+    public void eliminar(Puesto puesto) {
 
     }
+
+    @Override
+    public Puesto buscar(String txt) {
+        return null;
+    }
+
 }

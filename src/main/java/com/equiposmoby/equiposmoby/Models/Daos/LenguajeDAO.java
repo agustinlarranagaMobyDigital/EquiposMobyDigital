@@ -25,7 +25,13 @@ public class LenguajeDAO implements IDao<Lenguaje, Integer> {
     public void agregar(Lenguaje lenguaje) { em.persist(lenguaje); }
 
     @Override
-    public void delete(Lenguaje lenguaje) {
+    public void eliminar(Lenguaje lenguaje) {
 
     }
+
+    @Override
+    public Lenguaje buscar(String txt) {
+        return null;
+    }
+
 }

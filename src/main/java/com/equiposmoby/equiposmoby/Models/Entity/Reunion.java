@@ -1,12 +1,23 @@
 package com.equiposmoby.equiposmoby.Models.Entity;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import javax.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.Entity;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Column;
+import javax.persistence.TemporalType;
+import javax.persistence.Temporal;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.io.Serializable;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.time.LocalDateTime;
+
 
 @Data //Crea los getters and setter, equals, toString.
 @AllArgsConstructor /// Crea el constructor con todos los atributos
@@ -15,31 +26,28 @@ import java.util.Date;
 @Table(name = "reuniones")
 public class Reunion implements Serializable {
 
-    /** Es una clave primaria */
-
-    ///Falta colum
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
 
     @Temporal(TemporalType.DATE)
-    private Date fecha;         /** CAMBIAR  por localDateTime*/
+    @Column(name = "fecha")
+    private LocalDateTime fecha;
 
     @Temporal(TemporalType.TIME)
+    @Column(name = "hora_inicial")
+    private LocalDateTime horaInicial;
 
-    @Column /**Crea la columna de la base de datos. */
-
-    private DateTimeFormatter horaInicial;
     @Temporal(TemporalType.TIME)
-    private DateTimeFormatter horaFinal;
+    @Column(name = "hora_final")
+    private LocalDateTime horaFinal;
 
-    /** Es una foreing key */
+
+    @JoinColumn(name = "id_tipo_reunion")
     @ManyToOne
-    ///En vez de colum va JoinColum.
-    private int id_tipo_reunion; ///Tipo reunion.
-
-
+    private TipoReunion id_tipoReunion;
 
 
 }
+
