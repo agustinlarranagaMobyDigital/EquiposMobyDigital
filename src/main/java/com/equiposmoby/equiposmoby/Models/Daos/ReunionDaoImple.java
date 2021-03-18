@@ -27,4 +27,9 @@ public class ReunionDaoImple implements IDao <Reunion,Integer>{
     public void delete(Reunion reunion) {
         em.remove(reunion);
     }
+
+    @Override
+    public void guardar() {
+
+    }
 }
