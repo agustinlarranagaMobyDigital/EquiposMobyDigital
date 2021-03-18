@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Capacitaciones extends Reunion {
-
-    private List<Programador> programadores;
+public class Capacitaciones /*extends Reunion*/ {
+/*
+    private List<Programador> programadores;*/
 }

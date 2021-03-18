@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Lider extends Integrante {
+public class Lider /*extends Integrante*/ {
 
-    private List<String> dominios;
+    /*private List<String> dominios;*/
 }

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Daily extends Reunion{
+public class Daily /*extends Reunion*/{
 
-    private Equipo equipo;
+    /*private Equipo equipo;*/
 }
