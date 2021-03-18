@@ -26,8 +26,10 @@ public  class Integrante implements Serializable {
 
     private int experiencia;
 
-    // Foreing Keys
+    private boolean jefe;
 
+    // Foreing Keys
+/*
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_equipo")
     private Equipo equipo;
@@ -36,7 +38,7 @@ public  class Integrante implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_puesto")
     private Puesto puesto;
-
+*/
     @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "integrante_x_lenguaje",

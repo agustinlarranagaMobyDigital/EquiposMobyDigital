@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class UserDao implements IUserDao{
+public class UserDao implements IUserDao<User,Integer>{
 
     @PersistenceContext
     private EntityManager em;
@@ -22,7 +22,7 @@ public class UserDao implements IUserDao{
     }
 
     @Override
-    public List<User> guardar(User newUser) {
-        em.persist();
+    public void guardar(User newUser) {
+        em.persist(newUser);
     }
 }

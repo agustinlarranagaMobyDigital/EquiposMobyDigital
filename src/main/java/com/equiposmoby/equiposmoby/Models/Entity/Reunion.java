@@ -37,7 +37,7 @@ public class Reunion implements Serializable {
     /** Es una foreing key */
     @ManyToOne
     ///En vez de colum va JoinColum.
-    private - id_tipo_reunion; ///Tipo reunion.
+    private int id_tipo_reunion; ///Tipo reunion.
 
 
 

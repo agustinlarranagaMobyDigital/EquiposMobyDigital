@@ -4,7 +4,7 @@ import com.equiposmoby.equiposmoby.Models.Entity.User;
 
 import java.util.List;
 
-public interface IUserDao {
+public interface IUserDao<U, I extends Number> {
 
     public List<User> obtenerLista();
 
