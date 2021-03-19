@@ -1,5 +1,6 @@
 package com.equiposmoby.equiposmoby.Models.Entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import lombok.AllArgsConstructor;
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "equipos")
-public class Equipo {
+public class Equipo implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
