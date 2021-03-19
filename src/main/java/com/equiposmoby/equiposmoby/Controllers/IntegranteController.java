@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -26,23 +28,36 @@ public class IntegranteController {
 
         Integrante integrante = new Integrante();
 
-        List<Lenguaje> lenguajes = integranteService.getLenguajes();
-        List<Puesto> puestos = integranteService.getPuestos();
+
 
         model.addAttribute("titulo",titulo);
         model.addAttribute("h1","Formulario del nuevo empleado de Moby Digital!");
         model.addAttribute("integrante",integrante);
-        model.addAttribute("lenguajes",lenguajes);
-        model.addAttribute("puestos",puestos);
 
         return "formIntegrante";
     }
 
 
     @PostMapping(value = "/addIntegrante")
-    public String addIntegrante(Model model,  Integrante integrante ){
+    public String addIntegrante(Model model, Integrante integrante){
 
-        integranteService.add(integrante);
+
+        List<Lenguaje> listaLenguajes = integranteService.getLenguajes();
+        integrante.setLenguajes(listaLenguajes);
+
+        List<Integrante> listaparaLenguajes = new ArrayList<>();
+        listaparaLenguajes.add(integrante);
+        for (int i = 0; i < listaLenguajes.size(); i++) {
+            listaLenguajes.get(i).setIntegrantes(listaparaLenguajes);
+        }
+
+        System.out.println("listaLenguajes = " +  integrante.getLenguajes().toString());
+
+        List<Puesto> listaPuestos = integranteService.getPuestos();
+        integrante.setPuesto(listaPuestos.get(1));
+
+
+      //  integranteService.add(integrante);
 
         return "redirect:formIntegrante";
     }
