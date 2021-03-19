@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.NamedNativeQuery;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +22,8 @@ public class IntegranteDAO implements IDao<Integrante, Integer> {
 
 
     @Override
-    public List traerTodas() {
-        return null;
+    public List<Integrante> traerTodas() {
+        return em.createQuery("from Integrante").getResultList();
     }
 
     @Transactional
@@ -41,7 +42,10 @@ public class IntegranteDAO implements IDao<Integrante, Integer> {
         return em.find(Integrante.class , txt);
     }
 
-
+    @Override
+    public Integrante getById(Integer id) {
+        return em.find(Integrante.class, id);
+    }
 
 
 }
