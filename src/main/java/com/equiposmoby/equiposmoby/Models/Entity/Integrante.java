@@ -15,7 +15,8 @@ public  class Integrante implements Serializable {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_integrante")
     private int id;
 
     private String nombre;
@@ -40,7 +41,7 @@ public  class Integrante implements Serializable {
     @JoinColumn(name = "id_puesto")
     private Puesto puesto;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "integrante_x_lenguaje",
             joinColumns = @JoinColumn(name = "id_integrante"),
@@ -52,13 +53,14 @@ public  class Integrante implements Serializable {
     @JoinColumn(name = "id_agenda")
     private Agenda agenda;
 
-/*
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario")
-    private Usuario usuario; */
+    private User usuario;
 
     /*public void setLenguajes(List <Lenguaje> lista){
         lenguajes = lista;
     }*/
+
 
 }
