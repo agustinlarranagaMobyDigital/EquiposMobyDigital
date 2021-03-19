@@ -25,8 +25,6 @@
     <!-- DATOS QUE SIRVEN PARA HACER LAS CONECCIONES CON LAS DEMAS TABLAS-->
 
     <!-- PUESTO-->
-
-
     <label for="puesto">Puesto: </label>
 
     <select id="puesto" th:field="*{puesto}">
@@ -34,6 +32,15 @@
         <option th:each="p:${listaPuestos}" th:text="${p.nombre}" th:value="${p.id}"></option>
     </select>
     <br><br>
+
+    <!-- EQUIPOS
+    <label for="equipo">Equipo: </label>
+
+    <select id="equipo" th:field="*{equipo}">
+        <option value=""> Seleccione uno </option>
+        <option th:each="e:${listaEquipos}" th:text="${e.nombre}" th:value="${e.id}"></option>
+    </select>
+    <br><br>-->
 
     <!-- LENGUAJES-->
 
