@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ReunionJefeLider extends Reunion{
 
-    private Lider lider;
+   private Lider lider;
 
     private Jefe jefe;
 }

@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Capacitaciones extends Reunion {
+public class Capacitacion extends Reunion {
 
     private List<Programador> programadores;
 }

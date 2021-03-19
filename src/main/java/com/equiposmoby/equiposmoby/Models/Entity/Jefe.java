@@ -25,4 +25,5 @@ public class Jefe extends Integrante{
     }
     public String mensaje(){return "";}
 
+
 }
