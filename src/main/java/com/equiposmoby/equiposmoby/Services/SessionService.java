@@ -60,7 +60,6 @@ public class SessionService {
     }
 
     public Map<String , String> crearUsuario(BindingResult result ,User userNew){
-
         Map <String , String> error = new HashMap<>();
         result.getFieldErrors().forEach(err -> {
             error.put(
@@ -95,4 +94,5 @@ public class SessionService {
            /* integranteDAO.agregar(nuevoJefe);*/
         }
     }
+
 }
