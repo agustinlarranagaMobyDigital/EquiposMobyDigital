@@ -2,6 +2,7 @@ package com.equiposmoby.equiposmoby.Controllers;
 
 import com.equiposmoby.equiposmoby.Models.Entity.User;
 import com.equiposmoby.equiposmoby.Services.IUsuarioServices;
+import com.equiposmoby.equiposmoby.Services.IntegranteService;
 import com.equiposmoby.equiposmoby.Services.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,13 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.text.ParseException;
 import java.util.Map;
 
 @Controller
 public class SessionController {
 
-    @Autowired
-    private IUsuarioServices usuarioServices;
 
     @Autowired
     private SessionService sessionService;
@@ -31,12 +31,11 @@ public class SessionController {
 
         model.addAttribute("titulo" , "Iniciar Sesion");
         model.addAttribute("mensaje" , "Iniciar Sesion");
-
         return sessionService.sesionIniciada(session , "login");
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam String email, @RequestParam String password , HttpServletRequest request , Model model){
+    public String login(@RequestParam String email, @RequestParam String password , HttpServletRequest request , Model model) throws ParseException {
         model.addAttribute("mensaje" , "Iniciar Sesion");
         model.addAttribute("titulo" , "Iniciar Sesion");
 
