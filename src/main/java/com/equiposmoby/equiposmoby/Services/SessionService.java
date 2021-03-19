@@ -53,7 +53,10 @@ public class SessionService {
         return errores;
     }
 
-    public Map<String , String> crearUsuario(BindingResult result , User usuario){
+    public Map<String , String> crearUsuario(BindingResult result ,User userNew){
+
+
+
         Map <String , String> error = new HashMap<>();
         result.getFieldErrors().forEach(err -> {
             error.put(
@@ -62,14 +65,16 @@ public class SessionService {
                             .concat(" ")
                             .concat(Objects.requireNonNull(err.getDefaultMessage())));});
 
-        User buscado = (User) userDao.buscar(usuario.getEmail());
+        User buscado = (User) userDao.buscar(userNew.getEmail());
         if(error.isEmpty()){
             if(buscado == null){
-                userDao.agregar(usuario);
+                userDao.agregar(userNew);
             }else {
                 error.put("creado" , "este usuario ya existe");
             }
         }
         return error;
     }
+
+
 }
