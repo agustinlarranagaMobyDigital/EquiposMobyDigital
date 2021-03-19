@@ -43,7 +43,6 @@ public class Reunion implements Serializable {
     @Column(name = "hora_final")
     private LocalDateTime horaFinal;
 
-
     @JoinColumn(name = "id_tipo_reunion")
     @ManyToOne
     private TipoReunion id_tipoReunion;*/
