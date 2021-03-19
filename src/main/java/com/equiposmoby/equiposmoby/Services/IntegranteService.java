@@ -12,23 +12,50 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import javax.servlet.http.PushBuilder;
+import java.util.*;
+
 
 @Service
 public class IntegranteService {
+
+    // ------------------------------------------------------------------------ INYECCIONES
 
     @Autowired
     @Qualifier("integranteDAO")
     private IDao integranteDAO;
 
+    @Autowired
+    @Qualifier("lenguajeDAO")
+    private IDao lenguajeDAO;
 
+    @Autowired
+    @Qualifier("puestoDAO")
+    private IDao puestoDAO;
+
+    @Autowired
+    @Qualifier("usuarioDAO")
+    private IDao userDao;
+
+    // ------------------------------------------------------------------------ METODOS DE INTEGRANTE
 
     public void add(Integrante integrante){
         integranteDAO.agregar(integrante);
     }
 
-    @Autowired
-    @Qualifier("lenguajeDAO")
-    private IDao lenguajeDAO;
+    public List<Integrante> listar(){
+        return integranteDAO.traerTodas();
+    }
+
+    public void eliminar(Integer id){
+        Integrante integrante = getById(id);
+        integranteDAO.eliminar(integrante);
+    }
+
+    public Integrante getById (Integer id){
+        return (Integrante) integranteDAO.getById(id);
+    }
+    // ------------------------------------------------------------------------ METODOS PARA FOREING CLASES
 
     public List<Lenguaje> getLenguajes() {
         return lenguajeDAO.traerTodas();
@@ -36,7 +63,6 @@ public class IntegranteService {
 
     public Lenguaje getLenguajeByID(Integer id){
         Lenguaje resultado = null;
-
         List<Lenguaje> lista = getLenguajes();
         for (Lenguaje lenguaje: lista){
             if(id == lenguaje.getId()){
@@ -46,10 +72,6 @@ public class IntegranteService {
         }
         return resultado;
     }
-
-    @Autowired
-    @Qualifier("puestoDAO")
-    private IDao puestoDAO;
 
     public List<Puesto> getPuestos() {
         return puestoDAO.traerTodas();
@@ -67,11 +89,24 @@ public class IntegranteService {
         return resultado;
     }
 
+/*
+    public Equipo getEquipoByID (Integer id){
+        Equipo resultado = null;
+        List<Puesto> lista = equipoDAO.traerTodas();
+        for (Equipo equipo: lista){
+            if(id == equipo.getId()){
+                resultado = equipo;
+                break;
+            }
+        }
+        return resultado;
+    }
 
+    public List<Equipo> getEquipo() {
+        return equipoDAO.traerTodas();
+    }
+    */
 
-    @Autowired
-    @Qualifier("usuarioDAO")
-    private IDao userDao;
     public Map<String , String> crearUsuario(BindingResult result ,String email, String pass){
 
         User userNew = new User();
