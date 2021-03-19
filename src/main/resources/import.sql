@@ -9,7 +9,5 @@ insert into lenguajes (nombre) values ( 'html' );
 insert into lenguajes (nombre) values ( 'php' );
 insert into lenguajes (nombre) values ( 'css' );
 
-INSERT INTO usuarios (email , password) VALUES ('isaias' , 'isaias22');
-INSERT INTO usuarios (email , password) VALUES ('carlos' , 'isaias22');
 
 
