@@ -9,6 +9,7 @@
 
 <form th:action="@{/addIntegrante}" th:object="${integrante}" method="post">
 
+
 <!-- DATOS NATIVOS DE LA ENTIDAD INTEGRANTE -->
     <label for="nombre">Nombre: </label>
     <input type="text" th:field="*{nombre}" id="nombre" > <br><br>
@@ -25,8 +26,6 @@
     <!-- DATOS QUE SIRVEN PARA HACER LAS CONECCIONES CON LAS DEMAS TABLAS-->
 
     <!-- PUESTO-->
-
-
     <label for="puesto">Puesto: </label>
 
     <select id="puesto" th:field="*{puesto}">
@@ -35,8 +34,16 @@
     </select>
     <br><br>
 
-    <!-- LENGUAJES-->
+    <!-- EQUIPOS
+    <label for="equipo">Equipo: </label>
 
+    <select id="equipo" th:field="*{equipo}">
+        <option value=""> Seleccione uno </option>
+        <option th:each="e:${listaEquipos}" th:text="${e.nombre}" th:value="${e.id}"></option>
+    </select>
+    <br><br>-->
+
+    <!-- LENGUAJES-->
     <label>Lenguajes: </label>
      <div th:each=" lenguaje : ${listaLenguajes}">
          <input type="checkbox" th:value="${lenguaje.id}" th:field="*{lenguajes}" >
@@ -53,7 +60,6 @@
      <input type="text" name="password" id="password" > <br><br>
 
 
-    <!-- EQUIPO -->
 
      <input type="submit" >
  </form>
