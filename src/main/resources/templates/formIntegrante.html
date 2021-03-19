@@ -9,7 +9,7 @@
 
 <form th:action="@{/addIntegrante}" th:object="${integrante}" method="post">
 
-
+<!-- DATOS NATIVOS DE LA ENTIDAD INTEGRANTE -->
     <label for="nombre">Nombre: </label>
     <input type="text" th:field="*{nombre}" id="nombre" > <br><br>
 
@@ -21,29 +21,39 @@
 
     <label for="nacimiento">Nacimiento: </label>
     <input type="text" th:field="*{fechaNacimiento}" id="nacimiento"> <br><br>
-<!--
+
+    <!-- DATOS QUE SIRVEN PARA HACER LAS CONECCIONES CON LAS DEMAS TABLAS-->
+
+    <!-- PUESTO-->
+
+
     <label for="puesto">Puesto: </label>
-    <select id="puesto">
+
+    <select id="puesto" th:field="*{puesto}">
         <option value=""> Seleccione uno </option>
-        <option th:each="puesto:${listaPuestos}" th:text="${puesto.nombre}"  th:value="${puesto}" th:field="*{puesto}" ></option>
+        <option th:each="p:${listaPuestos}" th:text="${p.nombre}" th:value="${p.id}"></option>
     </select>
     <br><br>
 
-      <label>Lenguajes: </label>
+    <!-- LENGUAJES-->
+
+    <label>Lenguajes: </label>
      <div th:each=" lenguaje : ${listaLenguajes}">
-         <input type="checkbox" th:value="${lenguaje.id}" name="lenguajes" >
+         <input type="checkbox" th:value="${lenguaje.id}" th:field="*{lenguajes}" >
          <label th:text="${lenguaje.nombre}"></label>
-     </div><br><br>-->
+     </div><br><br>
 
 
+    <!-- USUARIO -->
 
      <label for="email">Email: </label>
-     <input type="text" th:field="*{nombre}" id="email" > <br><br>
+     <input type="text" name="email" id="email" > <br><br>
 
      <label for="password">Contrasena: </label>
-     <input type="text" th:field="*{nombre}" id="password" > <br><br>
+     <input type="text" name="password" id="password" > <br><br>
 
 
+    <!-- EQUIPO -->
 
      <input type="submit" >
  </form>
