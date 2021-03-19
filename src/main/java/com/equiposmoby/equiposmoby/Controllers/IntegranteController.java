@@ -28,11 +28,13 @@ public class IntegranteController {
 
         Integrante integrante = new Integrante();
 
-
+        List<Puesto> listaPuestos = integranteService.getPuestos();
+        List<Lenguaje> listaLenguajes = integranteService.getLenguajes();
 
         model.addAttribute("titulo",titulo);
         model.addAttribute("h1","Formulario del nuevo empleado de Moby Digital!");
         model.addAttribute("integrante",integrante);
+
 
         return "formIntegrante";
     }
