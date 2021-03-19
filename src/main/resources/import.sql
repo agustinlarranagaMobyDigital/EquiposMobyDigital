@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 
 insert into puestos (nombre) values ( 'frontend' );
 insert into puestos (nombre) values ( 'backend' );
@@ -15,4 +13,5 @@ INSERT INTO usuarios (id , email , password) VALUES (1 , 'isaias' , 'isaias22');
 INSERT INTO usuarios (id , email , password) VALUES (2 , 'carlos' , 'isaias22');
 INSERT INTO usuarios (id , email , password) VALUES (3 , 'martin' , 'isaias22');
 SELECT * FROM usuarios;
->>>>>>> a8a469e179df61bc62d75702745bb96e3326450d
+
+

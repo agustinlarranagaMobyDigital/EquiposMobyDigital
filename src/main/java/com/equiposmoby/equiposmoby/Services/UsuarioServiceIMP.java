@@ -17,6 +17,7 @@ public class UsuarioServiceIMP implements IUsuarioServices{
     public List<User> traerTodas(){
         return userDAO.traerTodas();
     }
+
     public void agregar(User usuario){
         userDAO.agregar(usuario);
     }
