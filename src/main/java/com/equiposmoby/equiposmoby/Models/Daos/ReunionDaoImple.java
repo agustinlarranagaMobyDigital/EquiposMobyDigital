@@ -31,5 +31,10 @@ public class ReunionDaoImple implements IDao <Reunion,Integer>{
         return em.find(Reunion.class , txt);
     }
 
+    @Override
+    public Reunion getById(Integer id) {
+        return null;
+    }
+
 
 }
