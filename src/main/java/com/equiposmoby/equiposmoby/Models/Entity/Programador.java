@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Programador extends Integrante{
 
-    private String puesto;
+   // private String puesto;
     List<String> tecnologias;
 
 }

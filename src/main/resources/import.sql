@@ -11,5 +11,5 @@ insert into lenguajes (nombre) values ( 'css' );
 
 INSERT INTO usuarios (email , password) VALUES ('isaias' , 'isaias22');
 INSERT INTO usuarios (email , password) VALUES ('carlos' , 'isaias22');
-INSERT INTO usuarios (email , password) VALUES ('martin' , 'isaias22');
+
 

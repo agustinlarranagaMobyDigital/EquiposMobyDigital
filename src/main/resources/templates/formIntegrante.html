@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${titulo}" ></title>
+</head>
+<body>
+<h1 th:text="${h1}"></h1>
+
+<form th:action="@{/addIntegrante}" th:object="${integrante}" method="post">
+
+
+    <label for="nombre">Nombre: </label>
+    <input type="text" th:field="*{nombre}" id="nombre" > <br><br>
+
+    <label for="apellido">Apellido </label>
+    <input type="text" th:field="*{apellido}" id="apellido"> <br><br>
+
+    <label for="exp">Anos de experiencia: </label>
+    <input type="number" th:field="*{experiencia}" id="exp"> <br><br>
+
+    <label for="nacimiento">Nacimiento: </label>
+    <input type="text" th:field="*{fechaNacimiento}" id="nacimiento"> <br><br>
+<!--
+    <label for="puesto">Puesto: </label>
+    <select id="puesto">
+        <option value=""> Seleccione uno </option>
+        <option th:each="puesto:${listaPuestos}" th:text="${puesto.nombre}"  th:value="${puesto}" th:field="*{puesto}" ></option>
+    </select>
+    <br><br>
+
+      <label>Lenguajes: </label>
+     <div th:each=" lenguaje : ${listaLenguajes}">
+         <input type="checkbox" th:value="${lenguaje.id}" name="lenguajes" >
+         <label th:text="${lenguaje.nombre}"></label>
+     </div><br><br>-->
+
+
+
+     <label for="email">Email: </label>
+     <input type="text" th:field="*{nombre}" id="email" > <br><br>
+
+     <label for="password">Contrasena: </label>
+     <input type="text" th:field="*{nombre}" id="password" > <br><br>
+
+
+
+     <input type="submit" >
+ </form>
+

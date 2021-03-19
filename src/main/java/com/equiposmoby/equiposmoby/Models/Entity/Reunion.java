@@ -48,5 +48,6 @@ public class Reunion implements Serializable {
     private TipoReunion id_tipoReunion;*/
 
 
+
 }
 

@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 public class Daily extends Reunion{
 
    /* private Equipo equipo;*/
+
 }
