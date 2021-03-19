@@ -30,7 +30,7 @@ public class Reunion implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
-
+/*
     @Temporal(TemporalType.DATE)
     @Column(name = "fecha")
     private LocalDateTime fecha;
@@ -47,7 +47,7 @@ public class Reunion implements Serializable {
     @JoinColumn(name = "id_tipo_reunion")
     @ManyToOne
     private TipoReunion id_tipoReunion;
-
+*/
 
 }
 

@@ -10,6 +10,10 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+
     private String email;
 
     private String password;
