@@ -46,7 +46,7 @@ public class Reunion implements Serializable {
 
     @JoinColumn(name = "id_tipo_reunion")
     @ManyToOne
-    private TipoReunion id_tipoReunion;*/
+    private TipoReunion id_tipoReunion; */
 
 
 }
