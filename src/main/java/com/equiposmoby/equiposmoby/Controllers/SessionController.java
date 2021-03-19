@@ -2,7 +2,9 @@ package com.equiposmoby.equiposmoby.Controllers;
 
 import com.equiposmoby.equiposmoby.Models.Entity.User;
 import com.equiposmoby.equiposmoby.Services.IUsuarioServices;
+import com.equiposmoby.equiposmoby.Services.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,91 +15,81 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
-@RequestMapping("/login")
+@Controller
 public class SessionController {
 
     @Autowired
     private IUsuarioServices usuarioServices;
-    @GetMapping("/")
-    public String loginView(Model model, HttpSession session ){
 
-        if( session.getAttribute("User") != null){
-            return "redirect:/app";
-        }
-        model.addAttribute("titulo" , "login");
-        model.addAttribute("mensaje" , "login");
+    @Autowired
+    private SessionService sessionService;
 
-        return "login";
+    @GetMapping("/login")
+    public String loginView(Model model , HttpSession session){
+
+        model.addAttribute("titulo" , "Iniciar Sesion");
+        model.addAttribute("mensaje" , "Iniciar Sesion");
+
+        return sessionService.sesionIniciada(session , "login");
     }
 
     @PostMapping("/login")
     public String login(@RequestParam String email, @RequestParam String password , HttpServletRequest request , Model model){
-        model.addAttribute("mensaje" , "login");
-        model.addAttribute("titulo" , "login");
+        model.addAttribute("mensaje" , "Iniciar Sesion");
+        model.addAttribute("titulo" , "Iniciar Sesion");
 
+        Map<String , String> error = sessionService.crearSesion(email , password , request);
 
-        Map<String , String> error = new HashMap<>();
-        User logUser = usuarioServices.buscar(email , password);
-
-        if (email.isEmpty()){
-            error.put("email", "No puede estar vacio");
+        if(!error.isEmpty()) {
+            model.addAttribute("email", email);
+            model.addAttribute("password", password);
+            model.addAttribute("error", error);
+            return "login";
+        }else{
+            return "redirect:/app";
         }
 
-        if(password.isEmpty()){
-            error.put("password" , "No puede estar vacio");
-        }
 
-        if(logUser.getEmail().isEmpty()){
-            error.put("incorrecto" , "usuario o contraseña no son correctos");
-        }
-
-        if(! error.isEmpty()){
-            model.addAttribute("email" , email);
-            model.addAttribute("password" , password);
-            model.addAttribute("error" , error);
-            return  "login";
-        }
-
-        request.getSession().setAttribute("User", logUser);
-        return "redirect:/app";
     }
 
     @GetMapping("/registration")
     public String registrationView(Model model , HttpSession session){
 
-        if( session.getAttribute("User") != null){
-            return "redirect:/app";
-        }
-        User usuario = new User();;
-        model.addAttribute("mensaje" , "registration");
-        model.addAttribute("titulo" , "registration");
+        User usuario = new User();
+        model.addAttribute("mensaje" , "Registrarse");
+        model.addAttribute("titulo" , "Registrarse");
         model.addAttribute("usuario" , usuario);
 
-        return "registration";
+        return sessionService.sesionIniciada(session , "registration");
     }
 
     @PostMapping("/registration")
     public String registration(@Valid User usuario , BindingResult result, Model model ){
 
-        model.addAttribute("mensaje" , "llego");
-        model.addAttribute("titulo" , "resultados");
+        model.addAttribute("mensaje" , "Registrarse");
+        model.addAttribute("titulo" , "Registrarse");
         model.addAttribute("usuario" , usuario);
-        if(result.hasErrors()){
-            Map <String , String> error = new HashMap<>();
-            result.getFieldErrors().forEach(err -> {
-                error.put(err.getField(), "el campo " . concat(err.getField()).concat(" ").concat(Objects.requireNonNull(err.getDefaultMessage())));});
+        Map<String , String> error = sessionService.crearUsuario(result , usuario);
 
-            model.addAttribute("error" , error);
 
+        if(!error.isEmpty()){
+            model.addAttribute("error" , error );
             return  "registration";
         }
 
-        usuarioServices.agregar(usuario);
 
-        return "redirect:/login/";
+
+        return "redirect:/login";
     }
+
+    @GetMapping("/logout")
+    public String salir(HttpSession session){
+        session.invalidate();
+        return "redirect:/login";
+
+    }
+
+
 }

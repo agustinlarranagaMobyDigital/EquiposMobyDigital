@@ -11,7 +11,7 @@
 <div class="content">
     <div class="content-form">
         <h3 th:text="${mensaje}"></h3>
-        <form th:action="@{/login/}"  method="post">
+        <form th:action="@{/login}"  method="post">
             <div class="content-input">
 
                 <label for="email">Email: </label>
@@ -38,6 +38,7 @@
             </div>
 
             <input class="submit" type="submit" value="Login">
+            <div class="error" th:if="${error != null && error.containsKey('incorrecto')}" th:text="${error.get('incorrecto')}"></div>
         </form>
 
     </div>

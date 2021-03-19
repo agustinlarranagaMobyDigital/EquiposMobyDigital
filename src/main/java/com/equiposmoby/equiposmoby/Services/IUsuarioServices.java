@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IUsuarioServices {
     List<User> traerTodas();
-    void agregar(User usuario);
+    boolean agregar(User usuario);
     void eliminar(User usuario);
     User buscar(String txt, String password);
 }
