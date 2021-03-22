@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Repository(value = "integranteDAO")
@@ -18,9 +18,9 @@ public class IntegranteDAO implements IDao<Integrante, Integer> {
     private EntityManager em;
 
 
-
+    @Transactional(readOnly = true)
     @Override
-    public List traerTodas() {
+    public List<Integrante> traerTodas() {
         return null;
     }
 
@@ -39,8 +39,5 @@ public class IntegranteDAO implements IDao<Integrante, Integer> {
     public Integrante buscar(String txt) {
         return em.find(Integrante.class , txt);
     }
-
-
-
 
 }
