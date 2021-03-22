@@ -15,11 +15,12 @@ public class Lenguaje implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name =  "id_lenguaje")
     private int id;
 
     private String nombre;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "integrante_x_lenguaje",
             joinColumns = @JoinColumn(name = "id_lenguaje"),

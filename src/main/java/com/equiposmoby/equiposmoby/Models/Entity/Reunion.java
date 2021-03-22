@@ -42,5 +42,6 @@ public class Reunion implements Serializable {
     private List <TipoReunion> listaTipoReunion;
 
 
+
 }
 

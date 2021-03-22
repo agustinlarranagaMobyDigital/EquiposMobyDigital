@@ -10,9 +10,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Programador /*extends Integrante*/{
+public class Programador extends Integrante{
 
-    private String puesto;
-    List<String> tecnologias;
+    private List<String> tecnologias;
 
 }

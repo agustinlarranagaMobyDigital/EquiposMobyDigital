@@ -39,4 +39,9 @@ public class UserDao implements IDao<User , Integer>{
 
         return em.find(User.class , email);
     }
+
+    @Override
+    public User getById(Integer id) {
+        return null;
+    }
 }
