@@ -50,6 +50,7 @@ public class IntegranteService {
     public void eliminar(Integer id){
         Integrante integrante = getById(id);
         integranteDAO.eliminar(integrante);
+        userDao.eliminar(userDao.buscar(integrante.getUsuario().getEmail()));
     }
 
     public Integrante getById (Integer id){

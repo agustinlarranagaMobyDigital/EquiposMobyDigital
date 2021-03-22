@@ -5,7 +5,9 @@ import com.equiposmoby.equiposmoby.Services.IUsuarioServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
@@ -37,6 +39,12 @@ public class UserController {
         model.addAttribute("titulo" , "Agregar");
         model.addAttribute("usuarios" , userService.traerTodas());
         return "listar-usuarios";
+    }
+
+    @PostMapping("/eliminar")
+    public String eliminar(Model model , @RequestParam String email){
+        userService.eliminar(email);
+        return "redirect:/app";
     }
 
 
