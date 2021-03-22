@@ -6,6 +6,7 @@ import com.equiposmoby.equiposmoby.Models.Entity.Agenda;
 import com.equiposmoby.equiposmoby.Models.Entity.Integrante;
 import com.equiposmoby.equiposmoby.Models.Entity.Reunion;
 import com.equiposmoby.equiposmoby.excepciones.AgendaNoCreadaException;
+import com.equiposmoby.equiposmoby.excepciones.AgendaNoEncontradaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,19 +24,21 @@ public class AgendaService {
 
     public Boolean agregar(Integer idAgenda, Reunion reunion) {
 
-        Agenda agenda = agendaDAO.buscarPorId(idAgenda);
+        Agenda agenda = agendaDAO.buscarPorId(idAgenda)
+                .orElseThrow(AgendaNoEncontradaException::new);
         List<Reunion> reunionList = new ArrayList<>();
         try {
             reunionList.add(reunion);
             agenda.setReuniones(reunionList);
             return true;
-        }catch (AgendaNoCreadaException ex){
-            throw new AgendaNoCreadaException("No se pudo crear la agenda");
+        } catch (AgendaNoCreadaException ex) {
+            throw new AgendaNoCreadaException();
         }
     }
 
-    public Boolean agregarAgendaIntegrante(Integrante integrante){
+    public Boolean agregarAgendaIntegrante(Integer idIntegrante) {
 
+        Integrante integrante = integranteDAO.getById(idIntegrante);
         Agenda agenda = Agenda.builder()
                 .reuniones(new ArrayList<Reunion>())
                 .build();
@@ -44,15 +47,10 @@ public class AgendaService {
         return true;
     }
 
-    public void modificar(Integrante integrante, Agenda a){
-
-        integrante.setAgenda(a);
-        integranteDAO.agregar(integrante);
-    }
-
     public Reunion eliminarEvento(Integer idAgenda, Integer idReunion) {
 
-        Agenda agenda = agendaDAO.buscarPorId(idAgenda);
+        Agenda agenda = agendaDAO.buscarPorId(idAgenda)
+                .orElseThrow(AgendaNoEncontradaException::new);
         List<Reunion> reuniones = agenda.getReuniones();
         for (Reunion reunion : reuniones) {
             if (reunion.getIdReunion().equals(idReunion)) {
@@ -66,17 +64,18 @@ public class AgendaService {
 
     public Agenda eliminar(Integer idAgenda) {
 
-        Agenda agenda = agendaDAO.buscarPorId(idAgenda);
+        Agenda agenda = agendaDAO.buscarPorId(idAgenda)
+                .orElseThrow(AgendaNoEncontradaException::new);
         agendaDAO.eliminar(agenda);
         return agenda;
     }
 
-    public List<Agenda> traerAgendas(){
+    public List<Agenda> traerAgendas() {
 
         return agendaDAO.traerTodas();
     }
 
-    public Agenda traerPorId(Integer idAgenda){
+    public Agenda traerPorId(Integer idAgenda) {
 
         return agendaDAO.getById(idAgenda);
     }

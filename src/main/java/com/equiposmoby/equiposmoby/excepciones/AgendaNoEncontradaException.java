@@ -2,5 +2,5 @@ package com.equiposmoby.equiposmoby.excepciones;
 
 public class AgendaNoEncontradaException extends RuntimeException{
 
-    public AgendaNoEncontradaException(String msj){super(msj);}
+    public AgendaNoEncontradaException(){super("Agenda no encontrada");}
 }

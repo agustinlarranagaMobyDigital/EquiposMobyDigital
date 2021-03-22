@@ -27,9 +27,9 @@ public class AgendaController {
     private final AgendaService agendaService;
 
     @PostMapping("/integrante/{id-integrante}")
-    public ResponseEntity agregarAgenda(@PathVariable (name = "id-integrante") Integrante integrante){
+    public ResponseEntity agregarAgenda(@PathVariable (name = "id-integrante") Integer idIntegrante){
 
-        if(agendaService.agregarAgendaIntegrante(integrante)){
+        if(agendaService.agregarAgendaIntegrante(idIntegrante)){
             return ResponseEntity.ok("Agenda creada");
         }else{
             return ResponseEntity.of(Optional.empty());

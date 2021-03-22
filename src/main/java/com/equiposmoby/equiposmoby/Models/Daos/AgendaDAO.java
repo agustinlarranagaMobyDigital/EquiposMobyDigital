@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class AgendaDAO implements IDao<Agenda, Integer> {
@@ -44,7 +45,7 @@ public class AgendaDAO implements IDao<Agenda, Integer> {
         if (em.find(Agenda.class, id) != null) {
             return em.find(Agenda.class, id);
         } else {
-            throw new AgendaNoEncontradaException("Agenda no encontrada");
+            throw new AgendaNoEncontradaException();
         }
     }
 
@@ -56,12 +57,8 @@ public class AgendaDAO implements IDao<Agenda, Integer> {
         return agenda;
     }
 
-    public Agenda buscarPorId(Integer id) {
+    public Optional<Agenda> buscarPorId(Integer id) {
 
-        if (em.find(Agenda.class, id) != null) {
-            return em.find(Agenda.class, id);
-        } else {
-            throw new AgendaNoEncontradaException("Agenda no encontrada");
-        }
+        return Optional.ofNullable(em.find(Agenda.class, id));
     }
 }
