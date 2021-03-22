@@ -14,8 +14,6 @@ public class ReunionService implements IReunionServices {
     @Autowired
     private ReunionDaoImple ReunionDAO;
 
-
-
     @Override
     public List<Reunion> traerTodas() {
         return ReunionDAO.traerTodas();
