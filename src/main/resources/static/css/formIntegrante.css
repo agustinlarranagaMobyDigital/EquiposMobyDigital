@@ -96,29 +96,30 @@ form option {
 }
 
 .content-lenguajes{
-    width: 100%;
+    margin-top: 10px;
+    width: 80%;
     display: flex;
     align-items: flex-start;
-    justify-content: start;
+    justify-content: flex-start;
     flex-flow: column;
-    background: #706c6c;
+
+
 }
 
 .lenguaje {
     width: 50%;
     display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-
+    align-items: flex-end;
+    justify-content: flex-end;
 }
 
-.lenguaje > input{
-    border: none;
-    outline: none;
-    border-bottom: 0px solid #000;
-    margin-left: 20px;
-    background: none;
+.lenguaje > label{
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
 
 .submit {
     width: 100%;

@@ -152,4 +152,62 @@ public class IntegranteService {
         return  (User) userDao.buscar(email);
     }
 
+    public ArrayList<Integrante> getOrderIntegrante(){
+
+        ArrayList<Integrante> integrantes = obtenerLideres();
+
+        integrantes.addAll(obtenerProgramadoresBKN());
+        integrantes.addAll(obtenerProgramadoresFTN());
+        integrantes.addAll(obtenerProgramadoresTester());
+
+        return integrantes;
+    }
+
+    public ArrayList<Integrante> obtenerLideres(){
+        ArrayList<Integrante> lideres = new ArrayList<>();
+
+        List<Integrante> integrantes = integranteDAO.traerTodas();
+        for (Integrante nuevo : integrantes){
+            if (nuevo.getPuesto().getNombre().equals("lider")){
+                lideres.add(nuevo);
+            }
+        }
+        return lideres;
+    }
+
+    public ArrayList<Integrante> obtenerProgramadoresBKN(){
+        ArrayList<Integrante> programadores = new ArrayList<>();
+
+        List<Integrante> integrantes = integranteDAO.traerTodas();
+        for (Integrante nuevo : integrantes){
+            if (nuevo.getPuesto().getNombre().equals("backend")){
+                programadores.add(nuevo);
+            }
+        }
+        return programadores;
+    }
+
+    public ArrayList<Integrante> obtenerProgramadoresFTN(){
+        ArrayList<Integrante> programadores = new ArrayList<>();
+
+        List<Integrante> integrantes = integranteDAO.traerTodas();
+        for (Integrante nuevo : integrantes){
+            if (nuevo.getPuesto().getNombre().equals("frontend")){
+                programadores.add(nuevo);
+            }
+        }
+        return programadores;
+    }
+
+    public ArrayList<Integrante> obtenerProgramadoresTester(){
+        ArrayList<Integrante> programadores = new ArrayList<>();
+
+        List<Integrante> integrantes = integranteDAO.traerTodas();
+        for (Integrante nuevo : integrantes){
+            if (nuevo.getPuesto().getNombre().equals("tester")){
+                programadores.add(nuevo);
+            }
+        }
+        return programadores;
+    }
 }

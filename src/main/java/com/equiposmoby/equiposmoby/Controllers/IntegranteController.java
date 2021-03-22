@@ -6,6 +6,7 @@ import com.equiposmoby.equiposmoby.Models.Editors.LenguajePropertieEditor;
 import com.equiposmoby.equiposmoby.Models.Editors.PuestoPropertieEditor;
 import com.equiposmoby.equiposmoby.Models.Entity.*;
 import com.equiposmoby.equiposmoby.Services.IntegranteService;
+import com.equiposmoby.equiposmoby.Services.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +42,9 @@ public class IntegranteController {
     @Autowired
     private EquipoPropertieEditor equipoPropertieEditor;
 
+    @Autowired
+    private SessionService sessionService;
+
     @InitBinder
     public void initBinder(WebDataBinder binder){
         binder.registerCustomEditor(Puesto.class,"puesto",puestoPropertieEditor);
@@ -48,7 +54,8 @@ public class IntegranteController {
 
 
     @RequestMapping(value = "/formIntegrante")
-    public String formIntegrante (Model model){
+    public String formIntegrante (Model model , HttpSession session){
+
 
         Integrante integrante = new Integrante();
 
@@ -57,7 +64,6 @@ public class IntegranteController {
         List<Lenguaje> listaLenguajes = integranteService.getLenguajes();
         List<Equipo> listaEquipos = integranteService.getEquipos();
 
-
         model.addAttribute("titulo",titulo);
         model.addAttribute("h1","Formulario del nuevo empleado de Moby Digital!");
         model.addAttribute("integrante",integrante);
@@ -65,13 +71,13 @@ public class IntegranteController {
         model.addAttribute("listaLenguajes",listaLenguajes);
         model.addAttribute("listaEquipos",listaEquipos);
 
-        return "formIntegrante";
+        return sessionService.sesionIniciada(session , "formIntegrante") ;
     }
 
 
-    @PostMapping(value = "/addIntegrante")
+    @PostMapping(value = "/formIntegrante")
     public String addIntegrante(@Valid Integrante integrante,BindingResult result, Model model, 
-                                @RequestParam String email,@RequestParam String password){
+                                @RequestParam String email,@RequestParam String password , HttpSession session){
 
         Map<String,String> errores = integranteService.crearUsuario(result,email,password);
 
@@ -90,15 +96,15 @@ public class IntegranteController {
             integranteService.add(integrante);
 
             // muestro la lista
-            return  "redirect:/listaIntegrantes";
+            return sessionService.sesionIniciada(session , "redirect:/listaIntegrantes") ;
         }else{
             model.addAttribute("errores", errores);
-            return "formIntegrante";
+            return sessionService.sesionIniciada(session , "formIntegrante") ;
         }
     }
 
     @RequestMapping(value ="/formIntegrante/{id}")
-    public String editar(Model model, @PathVariable(value = "id") Integer id){
+    public String editar(Model model, @PathVariable(value = "id") Integer id , HttpSession session){
 
         // Agarrando el integrante a editar
         Integrante integrante = null;
@@ -129,23 +135,24 @@ public class IntegranteController {
             model.addAttribute("listaPuestos",listaPuestos);
             model.addAttribute("listaLenguajes",listaLenguajes);
             //    model.addAttribute("listaEquipos",listaEquipos);
-
         }
-        return "formIntegrante";
+            return sessionService.sesionIniciada(session , "formIntegrante") ;
     }
 
     @RequestMapping(value ="/eliminar/{id}")
-    public String eliminar(Model model, @PathVariable(value = "id") Integer id){
+    public String eliminar(Model model, @PathVariable(value = "id") Integer id , HttpSession session){
 
-        integranteService.eliminar(id);
-        return  "redirect:/listaIntegrantes";
+        if(session.getAttribute("Usuario") != null){
+            integranteService.eliminar(id);
+        }
+        return sessionService.sesionIniciada(session , "redirect:/listaIntegrantes") ;
     }
 
 
     @RequestMapping(value = "/listaIntegrantes")
-    public String listarIntegrantes (Model model){
+    public String listarIntegrantes (Model model , HttpSession session){
 
-        List<Integrante> lista = integranteService.listar();
+        List<Integrante> lista = integranteService.getOrderIntegrante();
 
         System.out.println(" = " + lista.get(0).getLenguajes().get(0).getNombre());
 
@@ -154,6 +161,6 @@ public class IntegranteController {
         model.addAttribute("h1","Lista de los empleados de Moby Digital!");
         model.addAttribute("lista",lista);
 
-        return "listaIntegrantes";
+        return sessionService.sesionIniciada(session , "listaIntegrantes") ;
     }
 }
