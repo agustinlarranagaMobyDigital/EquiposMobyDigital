@@ -93,7 +93,7 @@ public class IntegranteController {
         }
     }
 
-    @RequestMapping(value ="/addIntegrante/{id}")
+    @RequestMapping(value ="/formIntegrante/{id}")
     public String editar(Model model, @PathVariable(value = "id") Integer id){
 
         // Agarrando el integrante a editar
@@ -107,7 +107,7 @@ public class IntegranteController {
         List<Lenguaje> listaLenguajes = integranteService.getLenguajes();
         //  List<Equipo> listaEquipos = integranteService.getEquipos();
 
-        // Cargando el model
+
         model.addAttribute("titulo",titulo);
         model.addAttribute("h1","Formulario del nuevo empleado de Moby Digital!");
         model.addAttribute("integrante",integrante);
@@ -122,7 +122,7 @@ public class IntegranteController {
     public String eliminar(Model model, @PathVariable(value = "id") Integer id){
 
         integranteService.eliminar(id);
-        return "listaIntegrantes";
+        return  "redirect:/listaIntegrantes";
     }
 
 

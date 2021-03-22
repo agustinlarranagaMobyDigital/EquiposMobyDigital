@@ -30,6 +30,7 @@
 
     <select id="puesto" th:field="*{puesto}">
         <option value=""> Seleccione uno </option>
+        <option th:if=" ${integrante.id}"></option>
         <option th:each="p:${listaPuestos}" th:text="${p.nombre}" th:value="${p.id}"></option>
     </select>
     <br><br>
@@ -60,7 +61,7 @@
      <input type="text" name="password" id="password" > <br><br>
 
 
-
+    <input type="hidden" name="id" id="id" th:field="*{id}" th:value="${integrante.id}"> <br><br>
      <input type="submit" >
  </form>
 
