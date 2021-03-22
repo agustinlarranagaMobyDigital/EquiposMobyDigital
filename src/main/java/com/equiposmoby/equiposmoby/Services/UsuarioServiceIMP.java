@@ -29,8 +29,9 @@ public class UsuarioServiceIMP implements IUsuarioServices{
     }
 
     @Override
-    public void eliminar(User usuario) {
-        userDAO.eliminar(usuario);
+    public void eliminar(String email)
+    {
+        userDAO.eliminar(userDAO.buscar(email));
     }
 
     public User buscar(String email, String password){

@@ -10,9 +10,9 @@
 <table>
     <thead>
     <tr>
-        <th>Id</th>
-        <th>Nombre</th>
         <th>Email</th>
+        <th>Contraseña</th>
+        <th>Eliminar</th>
 
     </tr>
     </thead>
@@ -20,6 +20,10 @@
     <tr th:each="usuario : ${usuarios}">
         <td th:text="${usuario.email}"></td>
         <td th:text="${usuario.password}"></td>
+        <form th:action="@{/eliminar}" method="post">
+            <input type="text" th:value="${usuario.email}" name="email" style="display: none">
+            <input type="submit" value="eliminar">
+        </form>
     </tr>
     </tbody>
 </table>
