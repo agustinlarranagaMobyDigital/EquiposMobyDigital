@@ -64,15 +64,22 @@ public class IntegranteService {
     public void eliminar(Integer id){
         Integrante integrante = getById(id);
         integranteDAO.eliminar(integrante);
+<<<<<<< HEAD
         userDao.eliminar(userDao.buscar(integrante.getUsuario().getEmail()));
+=======
+>>>>>>> 8c4cb718bbe3b7f112ce0261fac776c164c6e96f
     }
 
     public Integrante getById (Integer id){
         return (Integrante) integranteDAO.getById(id);
     }
+<<<<<<< HEAD
 
 
     // ------------------------------------------------------------------------ METODOS EXTERNOS
+=======
+    // ------------------------------------------------------------------------ METODOS PARA FOREING CLASES
+>>>>>>> 8c4cb718bbe3b7f112ce0261fac776c164c6e96f
 
     public List<Lenguaje> getLenguajes() {
         return lenguajeDAO.traerTodas();
@@ -80,6 +87,10 @@ public class IntegranteService {
 
     public Lenguaje getLenguajeByID(Integer id){
         Lenguaje resultado = null;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8c4cb718bbe3b7f112ce0261fac776c164c6e96f
         List<Lenguaje> lista = getLenguajes();
         for (Lenguaje lenguaje: lista){
             if(id == lenguaje.getId()){
@@ -105,11 +116,18 @@ public class IntegranteService {
         }
         return resultado;
     }
+<<<<<<< HEAD
 
 
     public Equipo getEquipoByID (Integer id){
         Equipo resultado = null;
         List<Equipo> lista = equipoDAO.traerTodas();
+=======
+/*
+    public Equipo getEquipoByID (Integer id){
+        Equipo resultado = null;
+        List<Puesto> lista = equipoDAO.traerTodas();
+>>>>>>> 8c4cb718bbe3b7f112ce0261fac776c164c6e96f
         for (Equipo equipo: lista){
             if(id == equipo.getId()){
                 resultado = equipo;
@@ -119,10 +137,17 @@ public class IntegranteService {
         return resultado;
     }
 
+<<<<<<< HEAD
     public List<Equipo> getEquipos() {
         return equipoDAO.traerTodas();
     }
 
+=======
+    public List<Equipo> getEquipo() {
+        return equipoDAO.traerTodas();
+    }
+    */
+>>>>>>> 8c4cb718bbe3b7f112ce0261fac776c164c6e96f
 
     public Map<String , String> crearUsuario(BindingResult result ,String email, String pass){
 
@@ -153,6 +178,7 @@ public class IntegranteService {
         return  (User) userDao.buscar(email);
     }
 
+<<<<<<< HEAD
     public ArrayList<Integrante> getOrderIntegrante(){
 
         ArrayList<Integrante> integrantes = obtenerLideres();
@@ -211,4 +237,7 @@ public class IntegranteService {
         }
         return programadores;
     }
+=======
+
+>>>>>>> 8c4cb718bbe3b7f112ce0261fac776c164c6e96f
 }

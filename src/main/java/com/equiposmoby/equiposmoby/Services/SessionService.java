@@ -65,6 +65,12 @@ public class SessionService {
     }
 
     public Map<String , String> crearUsuario(BindingResult result ,User userNew){
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 8c4cb718bbe3b7f112ce0261fac776c164c6e96f
         Map <String , String> error = new HashMap<>();
         result.getFieldErrors().forEach(err -> {
             error.put(
@@ -84,6 +90,7 @@ public class SessionService {
         return error;
     }
 
+<<<<<<< HEAD
     private void createJefe() throws ParseException {
 
 
@@ -99,5 +106,7 @@ public class SessionService {
            /* integranteDAO.agregar(nuevoJefe);*/
         }
     }
+=======
+>>>>>>> 8c4cb718bbe3b7f112ce0261fac776c164c6e96f
 
 }

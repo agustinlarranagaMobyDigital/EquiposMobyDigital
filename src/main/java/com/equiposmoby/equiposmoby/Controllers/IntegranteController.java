@@ -1,10 +1,12 @@
 package com.equiposmoby.equiposmoby.Controllers;
 
-
 import com.equiposmoby.equiposmoby.Models.Editors.EquipoPropertieEditor;
 import com.equiposmoby.equiposmoby.Models.Editors.LenguajePropertieEditor;
 import com.equiposmoby.equiposmoby.Models.Editors.PuestoPropertieEditor;
-import com.equiposmoby.equiposmoby.Models.Entity.*;
+import com.equiposmoby.equiposmoby.Models.Entity.Integrante;
+import com.equiposmoby.equiposmoby.Models.Entity.Lenguaje;
+import com.equiposmoby.equiposmoby.Models.Entity.Puesto;
+import com.equiposmoby.equiposmoby.Models.Entity.User;
 import com.equiposmoby.equiposmoby.Services.IntegranteService;
 import com.equiposmoby.equiposmoby.Services.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
