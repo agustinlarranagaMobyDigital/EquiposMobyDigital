@@ -5,11 +5,19 @@ import com.equiposmoby.equiposmoby.Models.Entity.Integrante;
 import com.equiposmoby.equiposmoby.Models.Entity.Reunion;
 import com.equiposmoby.equiposmoby.Services.AgendaService;
 import lombok.AllArgsConstructor;
+import org.apache.catalina.connector.Response;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Controller
@@ -18,10 +26,49 @@ public class AgendaController {
 
     private final AgendaService agendaService;
 
-    @PostMapping()
-    public void agregarEvento(Integer idAgenda, Reunion reunion){
+    @PostMapping("/integrante/{id-integrante}")
+    public ResponseEntity agregarAgenda(@PathVariable (name = "id-integrante") Integrante integrante){
 
-        agendaService.agregar(idAgenda, reunion);
+        if(agendaService.agregarAgendaIntegrante(integrante)){
+            return ResponseEntity.ok("Agenda creada");
+        }else{
+            return ResponseEntity.of(Optional.empty());
+        }
+    }
+
+    @PostMapping("/{id-agenda}")
+    public ResponseEntity agregarEvento(@PathVariable(value = "id-agenda")Integer idAgenda, @RequestBody Reunion reunion){
+
+        if(agendaService.agregar(idAgenda, reunion)){
+            return ResponseEntity.ok("Evento creado");
+        }else{
+            return ResponseEntity.of(Optional.empty());
+        }
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Agenda>> traerTodas(){
+
+        return ResponseEntity.ok(agendaService.traerAgendas());
+    }
+
+    @GetMapping("/{id-agenda}")
+    public ResponseEntity<Agenda> traerPorId(@PathVariable(value = "id-agenda")Integer idAgenda){
+
+        return ResponseEntity.ok(agendaService.traerPorId(idAgenda));
+    }
+
+    @DeleteMapping("/{id-agenda}" + "/{id-reunion}")
+    public ResponseEntity<Reunion> eliminarReunion(@PathVariable(value = "id-agenda")Integer idAgenda,
+                                   @PathVariable(value = "id-reunion") Integer idReunion){
+
+        return ResponseEntity.ok(agendaService.eliminarEvento(idAgenda,idReunion));
+    }
+
+    @DeleteMapping("/{id-agenda}")
+    public ResponseEntity<Agenda> eliminarAgenda(@PathVariable(value = "id-agenda")Integer idAgenda){
+
+        return ResponseEntity.ok(agendaService.eliminar(idAgenda));
     }
 
 }

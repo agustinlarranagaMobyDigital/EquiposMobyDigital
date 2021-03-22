@@ -37,7 +37,8 @@ public class EquipoServiceIMP implements IEquipoService{
     public Equipo buscar(String lider, String nombre) {
         Equipo equipoBuscado = (Equipo) equipoDAO.buscar(lider);
         if(!equipoBuscado.getNombre().isEmpty()){
-            if(buscado)
+          //  if(buscado)
         }
+        return null;
     }
 }
