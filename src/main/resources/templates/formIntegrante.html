@@ -57,14 +57,14 @@
     </select>
     <br><br>
 
-    <!-- EQUIPOS
+    <!-- EQUIPOS-->
     <label for="equipo">Equipo: </label>
 
     <select id="equipo" th:field="*{equipo}">
         <option value=""> Seleccione uno </option>
         <option th:each="e:${listaEquipos}" th:text="${e.nombre}" th:value="${e.id}"></option>
     </select>
-    <br><br>-->
+    <br><br>
 
     <!-- LENGUAJES-->
 

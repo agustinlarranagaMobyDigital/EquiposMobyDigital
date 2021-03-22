@@ -4,10 +4,7 @@ package com.equiposmoby.equiposmoby.Controllers;
 import com.equiposmoby.equiposmoby.Models.Editors.EquipoPropertieEditor;
 import com.equiposmoby.equiposmoby.Models.Editors.LenguajePropertieEditor;
 import com.equiposmoby.equiposmoby.Models.Editors.PuestoPropertieEditor;
-import com.equiposmoby.equiposmoby.Models.Entity.Integrante;
-import com.equiposmoby.equiposmoby.Models.Entity.Lenguaje;
-import com.equiposmoby.equiposmoby.Models.Entity.Puesto;
-import com.equiposmoby.equiposmoby.Models.Entity.User;
+import com.equiposmoby.equiposmoby.Models.Entity.*;
 import com.equiposmoby.equiposmoby.Services.IntegranteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,8 +43,7 @@ public class IntegranteController {
     public void initBinder(WebDataBinder binder){
         binder.registerCustomEditor(Puesto.class,"puesto",puestoPropertieEditor);
         binder.registerCustomEditor(Lenguaje.class,"lenguajes",lenguajePropertieEditor);
-
-       // binder.registerCustomEditor(Equipo.class,"equipo",equipoPropertieEditor);
+        binder.registerCustomEditor(Equipo.class,"equipo",equipoPropertieEditor);
     }
 
 
@@ -59,7 +55,7 @@ public class IntegranteController {
         List<Puesto> listaPuestos= integranteService.getPuestos();
 
         List<Lenguaje> listaLenguajes = integranteService.getLenguajes();
-      //  List<Equipo> listaEquipos = integranteService.getEquipos();
+        List<Equipo> listaEquipos = integranteService.getEquipos();
 
 
         model.addAttribute("titulo",titulo);
@@ -67,7 +63,7 @@ public class IntegranteController {
         model.addAttribute("integrante",integrante);
         model.addAttribute("listaPuestos",listaPuestos);
         model.addAttribute("listaLenguajes",listaLenguajes);
-    //    model.addAttribute("listaEquipos",listaEquipos);
+        model.addAttribute("listaEquipos",listaEquipos);
 
         return "formIntegrante";
     }
@@ -77,7 +73,6 @@ public class IntegranteController {
     public String addIntegrante(@Valid Integrante integrante,BindingResult result, Model model, 
                                 @RequestParam String email,@RequestParam String password){
 
-        // 1.usuario 2.equipo 3.agenda 4.lenguajes 5.puesto
         Map<String,String> errores = integranteService.crearUsuario(result,email,password);
 
         if(errores.isEmpty()){
@@ -87,7 +82,6 @@ public class IntegranteController {
             integrante.setUsuario(user);
 
             // si eligio lider, le asigno true al campo booleano
-
             if(integrante.getPuesto().getNombre().equals("lider")){
                 integrante.setJefe(true);
             }

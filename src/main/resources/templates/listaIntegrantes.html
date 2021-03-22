@@ -32,8 +32,7 @@
             <td> <p  th:each=" lenguaje : ${integrante.getLenguajes()}" th:text="${lenguaje.nombre}"></p> </td>
 
             <td th:text="${integrante.puesto.nombre}"></td>
-            <!-- Falta la clase equipo
-            <td th:text="${integrante.equipo.nombre}"></td>-->
+            <td th:text="${integrante.equipo.nombre}"></td>
             <!-- link a la agenda de ese integrante
            <a></a>-->
             <td><a th:href="@{/formIntegrante/} + ${integrante.id}" th:text="editar"></a></td>

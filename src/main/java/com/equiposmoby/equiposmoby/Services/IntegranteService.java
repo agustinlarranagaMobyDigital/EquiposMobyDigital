@@ -21,6 +21,9 @@ public class IntegranteService {
 
     // ------------------------------------------------------------------------ INYECCIONES
 
+   /* @Autowired
+    private AgendaService agendaService; */
+
     @Autowired
     @Qualifier("integranteDAO")
     private IDao integranteDAO;
@@ -34,13 +37,24 @@ public class IntegranteService {
     private IDao puestoDAO;
 
     @Autowired
+    @Qualifier("equipoDAO")
+    private IDao equipoDAO;
+
+    @Autowired
     @Qualifier("usuarioDAO")
     private IDao userDao;
 
-    // ------------------------------------------------------------------------ METODOS DE INTEGRANTE
+    // ------------------------------------------------------------------------ METODOS INTERNOS
 
     public void add(Integrante integrante){
+        agregarAgenda(integrante);
         integranteDAO.agregar(integrante);
+    }
+
+    public boolean agregarAgenda(Integrante integrante){
+        //boolean todook = agendaService.agregarAgendaIntegrante(integrante);
+        //return todook;
+        return true;
     }
 
     public List<Integrante> listar(){
@@ -55,7 +69,9 @@ public class IntegranteService {
     public Integrante getById (Integer id){
         return (Integrante) integranteDAO.getById(id);
     }
-    // ------------------------------------------------------------------------ METODOS PARA FOREING CLASES
+
+
+    // ------------------------------------------------------------------------ METODOS EXTERNOS
 
     public List<Lenguaje> getLenguajes() {
         return lenguajeDAO.traerTodas();
@@ -89,7 +105,7 @@ public class IntegranteService {
         return resultado;
     }
 
-/*
+
     public Equipo getEquipoByID (Integer id){
         Equipo resultado = null;
         List<Puesto> lista = equipoDAO.traerTodas();
@@ -105,7 +121,7 @@ public class IntegranteService {
     public List<Equipo> getEquipo() {
         return equipoDAO.traerTodas();
     }
-    */
+
 
     public Map<String , String> crearUsuario(BindingResult result ,String email, String pass){
 
