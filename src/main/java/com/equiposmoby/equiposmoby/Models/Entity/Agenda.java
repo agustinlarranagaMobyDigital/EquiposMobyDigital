@@ -20,5 +20,5 @@ public class Agenda implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Integer id_agenda;
 }

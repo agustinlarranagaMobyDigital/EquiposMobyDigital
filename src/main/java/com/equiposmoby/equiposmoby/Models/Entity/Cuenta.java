@@ -21,7 +21,8 @@ public class Cuenta implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+
+    private Integer id_cuenta;
 
     @Column
     private String nombre;

@@ -1,5 +1,6 @@
 package com.equiposmoby.equiposmoby.Models.Daos;
 
+import com.equiposmoby.equiposmoby.Models.Entity.Lenguaje;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

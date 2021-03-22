@@ -34,4 +34,9 @@ public class EquipoDAO implements IDao<Equipo, Integer>{
         return null;
     }
 
+    @Override
+    public Equipo getById(Integer id) {
+        return null;
+    }
+
 }

@@ -33,11 +33,17 @@ public class EquipoServiceIMP implements IEquipoService{
         equipoDAO.eliminar(equipo);
     }
 
+
     @Override
     public Equipo buscar(String lider, String nombre) {
         Equipo equipoBuscado = (Equipo) equipoDAO.buscar(lider);
         if(!equipoBuscado.getNombre().isEmpty()){
-            if(buscado)
+            if(equipoBuscado != null){
+                return equipoBuscado;
+            }
         }
+        return new Equipo();
     }
+
+
 }
