@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "integrantes")
-public  class Integrante implements Serializable {
+public  class    Integrante implements Serializable {
 
 
     @Id

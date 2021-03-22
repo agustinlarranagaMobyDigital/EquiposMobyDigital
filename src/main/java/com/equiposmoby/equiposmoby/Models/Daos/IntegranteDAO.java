@@ -9,8 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.NamedNativeQuery;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository(value = "integranteDAO")
@@ -20,10 +18,11 @@ public class IntegranteDAO implements IDao<Integrante, Integer> {
     private EntityManager em;
 
 
-
+    @Transactional(readOnly = true)
     @Override
     public List<Integrante> traerTodas() {
         return em.createQuery("from Integrante").getResultList();
+
     }
 
     @Transactional
