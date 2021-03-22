@@ -32,6 +32,7 @@ public class LenguajeDAO implements IDao<Object, Integer> {
         return null;
     }
 
+
     @Override
     public Lenguaje getById(Integer id) {
         return em.find(Lenguaje.class, id);

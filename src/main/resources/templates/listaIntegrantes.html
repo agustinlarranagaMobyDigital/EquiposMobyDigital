@@ -1,43 +1,52 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+
 <body>
     <table>
         <thead>
-        <tr>
-            <th>Id</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Fecha de nacimiento</th>
-            <th>Email</th>
-            <th>Años de experiencia</th>
-            <th>Lenguajes</th>
-            <th>Puesto</th>
-            <th>Equipo</th>
-            <th>Agenda</th>
-        </tr>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Fecha de nacimiento</th>
+                <th>Email</th>
+                <th>Años de experiencia</th>
+                <th>Lenguajes</th>
+                <th>Puesto</th>
+                <th>Equipo</th>
+                <th>Agenda</th>
+            </tr>
         </thead>
         <tbody>
-        <tr th:each="integrante : ${lista}">
-            <td th:text="${integrante.id}"></td>
-            <td th:text="${integrante.nombre}"></td>
-            <td th:text="${integrante.apellido}"></td>
-            <td th:text="${integrante.fechaNacimiento}"></td>
-            <td th:text="${integrante.usuario.email}"></td>
-            <td th:text="${integrante.experiencia}"></td>
-            <!-- lista de lenguajes -->
-            <td> <p  th:each=" lenguaje : ${integrante.getLenguajes()}" th:text="${lenguaje.nombre}"></p> </td>
-            <td th:text="${integrante.puesto.nombre}"></td>
-            <!--td th:text="${integrante.equipo.nombre}"><--/td>
+            <tr th:each="integrante : ${lista}">
+                <td th:text="${integrante.id}"></td>
+                <td th:text="${integrante.nombre}"></td>
+                <td th:text="${integrante.apellido}"></td>
+                <td th:text="${integrante.fechaNacimiento}"></td>
+                <td th:text="${integrante.usuario.email}"></td>
+                <td th:text="${integrante.experiencia}"></td>
+                <!-- lista de lenguajes -->
+                <td>
+                    <p th:each=" lenguaje : ${integrante.getLenguajes()}" th:text="${lenguaje.nombre}"></p>
+                </td>
+                <td th:text="${integrante.puesto.nombre}"></td>
+                <!--td th:text="${integrante.equipo.nombre}"><--/td>
             <!--link a la agenda de ese integrante
            <a></a>-->
-            <td><a th:href="@{/formIntegrante/} + ${integrante.id}" th:text="editar"></a></td>
-            <td><a th:href="@{/eliminar/} + ${integrante.id}" th:text="eliminar"></a></td>
-        </tr>
+                <td>
+                    <a th:href="@{/formIntegrante/} + ${integrante.id}" th:text="editar"></a>
+                </td>
+                <td>
+                    <a th:href="@{/eliminar/} + ${integrante.id}" th:text="eliminar"></a>
+                </td>
+            </tr>
         </tbody>
     </table>
 </body>
+
 </html>

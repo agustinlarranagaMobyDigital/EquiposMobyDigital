@@ -26,7 +26,6 @@ public class Reunion implements Serializable {
     @Column(name = "id_reunion")
     private Integer idReunion;
 
-
     @DateTimeFormat (iso = DateTimeFormat.ISO.DATE_TIME)
     @Column(name = "fecha")
     private Date fecha;
@@ -44,7 +43,7 @@ public class Reunion implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_tipo_reunion")
-    private List<TipoReunion> idTipoReunion;
+    private List <TipoReunion> listaTipoReunion;
 
 
 

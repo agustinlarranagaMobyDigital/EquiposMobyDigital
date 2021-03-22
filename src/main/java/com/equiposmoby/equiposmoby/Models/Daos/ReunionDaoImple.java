@@ -1,6 +1,4 @@
 package com.equiposmoby.equiposmoby.Models.Daos;
-
-import com.equiposmoby.equiposmoby.Models.Entity.Puesto;
 import com.equiposmoby.equiposmoby.Models.Entity.Reunion;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;

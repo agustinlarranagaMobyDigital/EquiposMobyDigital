@@ -95,15 +95,13 @@ form option {
     background: none;
 }
 
-.content-lenguajes{
+.content-lenguajes {
     margin-top: 10px;
     width: 80%;
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
     flex-flow: column;
-
-
 }
 
 .lenguaje {
@@ -113,13 +111,12 @@ form option {
     justify-content: flex-end;
 }
 
-.lenguaje > label{
+.lenguaje>label {
     width: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-
 
 .submit {
     width: 100%;

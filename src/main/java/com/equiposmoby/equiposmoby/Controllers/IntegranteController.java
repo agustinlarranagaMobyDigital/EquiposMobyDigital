@@ -4,6 +4,12 @@ import com.equiposmoby.equiposmoby.Models.Editors.EquipoPropertieEditor;
 import com.equiposmoby.equiposmoby.Models.Editors.LenguajePropertieEditor;
 import com.equiposmoby.equiposmoby.Models.Editors.PuestoPropertieEditor;
 import com.equiposmoby.equiposmoby.Models.Entity.*;
+
+import com.equiposmoby.equiposmoby.Models.Entity.Integrante;
+import com.equiposmoby.equiposmoby.Models.Entity.Lenguaje;
+import com.equiposmoby.equiposmoby.Models.Entity.Puesto;
+import com.equiposmoby.equiposmoby.Models.Entity.User;
+
 import com.equiposmoby.equiposmoby.Services.IntegranteService;
 import com.equiposmoby.equiposmoby.Services.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +28,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +45,6 @@ public class IntegranteController {
     @Autowired
     private LenguajePropertieEditor lenguajePropertieEditor;
 
-
     @Autowired
     private EquipoPropertieEditor equipoPropertieEditor;
 
@@ -50,7 +55,6 @@ public class IntegranteController {
     public void initBinder(WebDataBinder binder){
         binder.registerCustomEditor(Puesto.class,"puesto",puestoPropertieEditor);
         binder.registerCustomEditor(Lenguaje.class,"lenguajes",lenguajePropertieEditor);
-
         binder.registerCustomEditor(Equipo.class,"equipo",equipoPropertieEditor);
 
     }
@@ -65,6 +69,7 @@ public class IntegranteController {
         List<Puesto> listaPuestos= integranteService.getPuestos();
 
         List<Lenguaje> listaLenguajes = integranteService.getLenguajes();
+
         List<Equipo> listaEquipos = integranteService.getEquipos();
 
         model.addAttribute("titulo",titulo);

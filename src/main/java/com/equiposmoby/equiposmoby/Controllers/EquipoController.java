@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
 
 @Controller
 public class EquipoController {
@@ -21,5 +20,13 @@ public class EquipoController {
         model.addAttribute("equipos", equipoServiceIMP.traerTodas());
 
         return "agregarEquipo";
+    }
+
+    @RequestMapping("/listarEquipos")
+    public String listarEquipo(Model model){
+        model.addAttribute("titulo" , "Listar Equipo");
+        model.addAttribute("Equipos" , equipoServiceIMP.traerTodas());
+
+        return "listar-equipos";
     }
 }

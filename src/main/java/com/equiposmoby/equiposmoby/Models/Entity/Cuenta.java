@@ -16,17 +16,14 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "Cuentas")
+@Table(name = "cuentas")
 public class Cuenta implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_cuenta;
 
-    @Column
     private String nombre;
 
-    @Column
     private Double valor;
 }
