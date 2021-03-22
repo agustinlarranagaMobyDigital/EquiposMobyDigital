@@ -8,6 +8,6 @@ public interface IDao<T,t>{
     void agregar(T t);
     void eliminar(T t);
     T buscar(String txt);
-
+    T getById(Integer id);
 
 }

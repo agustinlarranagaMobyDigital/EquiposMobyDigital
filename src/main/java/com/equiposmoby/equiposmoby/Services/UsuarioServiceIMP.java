@@ -17,8 +17,15 @@ public class UsuarioServiceIMP implements IUsuarioServices{
     public List<User> traerTodas(){
         return userDAO.traerTodas();
     }
-    public void agregar(User usuario){
-        userDAO.agregar(usuario);
+
+    public boolean agregar(User usuario){
+
+        User buscado = (User) userDAO.buscar(usuario.getEmail());
+        if(buscado.getEmail().isEmpty()){
+            userDAO.agregar(usuario);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -28,11 +35,12 @@ public class UsuarioServiceIMP implements IUsuarioServices{
 
     public User buscar(String email, String password){
         User buscado = (User) userDAO.buscar(email);
-        if(!buscado.getEmail().isEmpty()){
-            if (buscado.getPassword().equals(password)){
-                return buscado;
-            }
+
+        if(buscado !=null && !password.isEmpty()){
+           if (buscado.getPassword().equals(password)){
+               return buscado;
+           }
         }
-        return new User();
+        return  new User();
     }
 }

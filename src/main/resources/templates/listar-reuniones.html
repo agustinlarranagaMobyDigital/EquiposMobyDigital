@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${titulo}"></title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>Fecha</th>
+        <th>Hora Inicial</th>
+        <th>Hora Final</th>
+        <th>Tipo Reunion</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="reunion : ${reuniones}">
+        <td th:text="${reunion.fecha}"></td>
+        <td th:text="${reunion.horaInicial}"></td>
+        <td th:text="${reunion.horaFinal}"></td>
+
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
+
+

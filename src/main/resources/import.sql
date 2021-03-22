@@ -9,7 +9,8 @@ insert into lenguajes (nombre) values ( 'html' );
 insert into lenguajes (nombre) values ( 'php' );
 insert into lenguajes (nombre) values ( 'css' );
 
-INSERT INTO usuarios (email , password) VALUES ('isaias' , 'isaias22');
-INSERT INTO usuarios (email , password) VALUES ('carlos' , 'isaias22');
-INSERT INTO usuarios (email , password) VALUES ('martin' , 'isaias22');
+INSERT INTO reuniones (fecha , hora_inicial , hora_final) VALUES ( '2008-12-25 05:30:00' , '2008-12-25 05:30:00' , '2008-12-25 05:30:00');
+
+
+
 

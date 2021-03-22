@@ -17,4 +17,12 @@ public class User implements Serializable {
     @NotEmpty
     private String password;
 
+    public User(String email , String password){
+        this.email = email;
+        this.password = password;
+    }
+
+    public User() {
+
+    }
 }

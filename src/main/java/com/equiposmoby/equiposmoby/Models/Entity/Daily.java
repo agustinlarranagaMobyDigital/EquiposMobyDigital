@@ -12,4 +12,5 @@ public class Daily /*extends Reunion*/{
 
     /*private Equipo equipo;*/
 
+
 }

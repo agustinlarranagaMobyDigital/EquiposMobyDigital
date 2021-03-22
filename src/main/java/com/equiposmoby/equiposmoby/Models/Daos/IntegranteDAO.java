@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository(value = "integranteDAO")
@@ -18,10 +18,11 @@ public class IntegranteDAO implements IDao<Integrante, Integer> {
     private EntityManager em;
 
 
-
+    @Transactional(readOnly = true)
     @Override
-    public List traerTodas() {
-        return null;
+    public List<Integrante> traerTodas() {
+        return em.createQuery("from Integrante").getResultList();
+
     }
 
     @Transactional
@@ -40,7 +41,10 @@ public class IntegranteDAO implements IDao<Integrante, Integer> {
         return em.find(Integrante.class , txt);
     }
 
-
+    @Override
+    public Integrante getById(Integer id) {
+        return em.find(Integrante.class, id);
+    }
 
 
 }

@@ -4,19 +4,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Column;
-import javax.persistence.TemporalType;
-import javax.persistence.Temporal;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 
 @Data //Crea los getters and setter, equals, toString.
@@ -30,23 +20,27 @@ public class Reunion implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
-/*
-    @Temporal(TemporalType.DATE)
+
+
+    @DateTimeFormat (iso = DateTimeFormat.ISO.DATE_TIME)
     @Column(name = "fecha")
-    private LocalDateTime fecha;
+    private Date fecha;
 
-    @Temporal(TemporalType.TIME)
+
+    @DateTimeFormat (iso = DateTimeFormat.ISO.DATE_TIME)
     @Column(name = "hora_inicial")
-    private LocalDateTime horaInicial;
+    private Date horaInicial;
 
-    @Temporal(TemporalType.TIME)
+
+    @DateTimeFormat (iso = DateTimeFormat.ISO.DATE_TIME)
     @Column(name = "hora_final")
-    private LocalDateTime horaFinal;
+    private Date horaFinal;
 
-
+/*
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_tipo_reunion")
-    @ManyToOne
-    private TipoReunion id_tipoReunion;*/
+    private List<TipoReunion> idTipoReunion;
+*/
 
 
 }
