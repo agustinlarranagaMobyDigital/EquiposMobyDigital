@@ -28,8 +28,9 @@
             <td th:text="${integrante.fechaNacimiento}"></td>
             <td th:text="${integrante.usuario.email}"></td>
             <td th:text="${integrante.experiencia}"></td>
-            <!-- lista de lenguajes
-            <td th:text="${integrante.nombre}"></td>-->
+
+            <td> <p  th:each=" lenguaje : ${integrante.getLenguajes()}" th:text="${lenguaje.nombre}"></p> </td>
+
             <td th:text="${integrante.puesto.nombre}"></td>
             <!-- Falta la clase equipo
             <td th:text="${integrante.equipo.nombre}"></td>-->

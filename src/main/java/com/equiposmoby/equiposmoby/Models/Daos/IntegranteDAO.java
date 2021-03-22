@@ -31,6 +31,7 @@ public class IntegranteDAO implements IDao<Integrante, Integer> {
         em.persist(integrante);
     }
 
+    @Transactional
     @Override
     public void eliminar(Integrante integrante) {
         em.remove(integrante);

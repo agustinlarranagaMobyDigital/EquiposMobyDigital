@@ -103,28 +103,28 @@ public class IntegranteController {
         }
     }
 
-    @RequestMapping(value ="/addIntegrante/{id}")
+    @RequestMapping(value ="/formIntegrante/{id}")
     public String editar(Model model, @PathVariable(value = "id") Integer id){
 
         // Agarrando el integrante a editar
         Integrante integrante = null;
         if(id > 0 ){
             integrante = integranteService.getById(id);
+
+            // Cargando las listas
+            List<Puesto> listaPuestos= integranteService.getPuestos();
+            List<Lenguaje> listaLenguajes = integranteService.getLenguajes();
+            //  List<Equipo> listaEquipos = integranteService.getEquipos();
+
+            // Cargando el model
+            model.addAttribute("titulo",titulo);
+            model.addAttribute("h1","Formulario del nuevo empleado de Moby Digital!");
+            model.addAttribute("integrante",integrante);
+            model.addAttribute("listaPuestos",listaPuestos);
+            model.addAttribute("listaLenguajes",listaLenguajes);
+            //    model.addAttribute("listaEquipos",listaEquipos);
+
         }
-
-        // Cargando las listas
-        List<Puesto> listaPuestos= integranteService.getPuestos();
-        List<Lenguaje> listaLenguajes = integranteService.getLenguajes();
-        //  List<Equipo> listaEquipos = integranteService.getEquipos();
-
-        // Cargando el model
-        model.addAttribute("titulo",titulo);
-        model.addAttribute("h1","Formulario del nuevo empleado de Moby Digital!");
-        model.addAttribute("integrante",integrante);
-        model.addAttribute("listaPuestos",listaPuestos);
-        model.addAttribute("listaLenguajes",listaLenguajes);
-        //    model.addAttribute("listaEquipos",listaEquipos);
-
         return "formIntegrante";
     }
 
@@ -140,6 +140,9 @@ public class IntegranteController {
     public String listarIntegrantes (Model model){
 
         List<Integrante> lista = integranteService.listar();
+
+        System.out.println(" = " + lista.get(0).getLenguajes().get(0).getNombre());
+
 
         model.addAttribute("titulo",titulo);
         model.addAttribute("h1","Lista de los empleados de Moby Digital!");
