@@ -11,7 +11,7 @@
             <th>Id</th>
             <th>Nombre</th>
             <th>Apellido</th>
-            <th>Cumpleaños</th>
+            <th>Fecha de nacimiento</th>
             <th>Email</th>
             <th>Años de experiencia</th>
             <th>Lenguajes</th>
@@ -28,8 +28,8 @@
             <td th:text="${integrante.fechaNacimiento}"></td>
             <td th:text="${integrante.usuario.email}"></td>
             <td th:text="${integrante.experiencia}"></td>
-            <!-- lista de lenguajes
-            <td th:text="${integrante.nombre}"></td>-->
+            <!-- lista de lenguajes -->
+            <td th:text="${integrante.nombre}"></td>>
             <td th:text="${integrante.puesto.nombre}"></td>
             <!-- Falta la clase equipo
             <td th:text="${integrante.equipo.nombre}"></td>-->
@@ -37,8 +37,6 @@
            <a></a>-->
             <td><a th:href="@{/insert/} + ${integrante.id}" th:text="editar"></a></td>
             <td><a th:href="@{/eliminar/} + ${integrante.id}" th:text="eliminar"></a></td>
-
-
         </tr>
         </tbody>
     </table>

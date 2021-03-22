@@ -30,7 +30,12 @@ public class SessionService {
 
     public String sesionIniciada(HttpSession session , String vista){
 
-        return session.getAttribute("usuario") != null ?  "redirect:/app" : vista;
+        if(vista.equals("login")){
+            return session.getAttribute("usuario") != null ?  "redirect:/app" : vista;
+        }
+        else {
+            return session.getAttribute("usuario") == null ?  "redirect:/login" : vista;
+        }
     }
 
     public Map<String , String> crearSesion(String email , String password , HttpServletRequest request) throws ParseException {

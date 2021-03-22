@@ -23,7 +23,6 @@ public class Equipo implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-
     private String nombre;
 
     private Lider lider;

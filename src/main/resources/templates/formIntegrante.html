@@ -31,7 +31,7 @@
 <div class="content">
 <h1 th:text="${h1}"></h1>
 
-<form th:action="@{/addIntegrante}" th:object="${integrante}" method="post">
+<form th:action="@{/formIntegrante}" th:object="${integrante}" method="post">
 
 <!-- DATOS NATIVOS DE LA ENTIDAD INTEGRANTE -->
     <label for="nombre">Nombre: </label>
@@ -55,7 +55,6 @@
         <option value=""> Seleccione uno </option>
         <option th:each="p:${listaPuestos}" th:text="${p.nombre}" th:value="${p.id}"></option>
     </select>
-    <br><br>
 
     <!-- EQUIPOS
     <label for="equipo">Equipo: </label>
@@ -69,12 +68,13 @@
     <!-- LENGUAJES-->
 
     <label>Lenguajes: </label>
-     <div  class="content-lenguajes" th:each=" lenguaje : ${listaLenguajes}">
-         <div class="lenguaje">
-         <input type="checkbox" th:value="${lenguaje.id}" th:field="*{lenguajes}" >
-         <label th:text="${lenguaje.nombre}"></label>
-         </div>
-     </div>
+    <div class="content-lenguajes">
+        <div  class="lenguaje" th:each=" lenguaje : ${listaLenguajes}">
+            <input type="checkbox" th:value="${lenguaje.id}" th:field="*{lenguajes}" >
+            <label th:text="${lenguaje.nombre}"></label>
+        </div>
+    </div>
+
 
 
     <!-- USUARIO -->
