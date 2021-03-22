@@ -25,12 +25,8 @@ import java.util.Optional;
 public class AgendaController {
 
     private final AgendaService agendaService;
-/*
-    @PostMapping("/integrante/{id-integrante}")
-    public ResponseEntity agregarAgenda(@PathVariable (name = "id-integrante") Integer idIntegrante){
 
 
-    }*/
     @PostMapping("/{id-agenda}")
     public ResponseEntity agregarEvento(@PathVariable(value = "id-agenda")Integer idAgenda, @RequestBody Reunion reunion){
 

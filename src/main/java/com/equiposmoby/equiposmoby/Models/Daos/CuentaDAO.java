@@ -2,13 +2,14 @@ package com.equiposmoby.equiposmoby.Models.Daos;
 
 import com.equiposmoby.equiposmoby.Models.Entity.Cuenta;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository(value = "cuentaDaoJPA")
-public class CuentaDAO implements IDao {
+public class CuentaDAO implements IDao <Cuenta,Integer> {
 
     @PersistenceContext
     private EntityManager em;
@@ -18,13 +19,14 @@ public class CuentaDAO implements IDao {
         return em.createQuery("from Cuenta").getResultList();
     }
 
+    @Transactional
     @Override
-    public void agregar(Object o) {
-
+    public void agregar(Cuenta cuenta) {
+        em.persist(cuenta);
     }
 
     @Override
-    public void eliminar(Object o) {
+    public void eliminar(Cuenta cuenta) {
 
     }
 

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <title th:text="${titulo}"></title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/formIntegrante.css}" type="text/css">
+</head>
+
+<body>
+<header>
+    <nav>
+        <div class="logo">
+            <img src="img/uc.png" alt="">
+        </div>
+
+        <div class="menu">
+            <ul>
+                <li>Home</li>
+                <li>Agenda</li>
+                <li>Equipo</li>
+                <li>Yo</li>
+                <li><a th:href="@{/logout}">Logout</a></li>
+            </ul>
+        </div>
+
+
+    </nav>
+
+</header>
+<div class="content">
+    <h1 th:text="${h1}"></h1>
+
+    <form th:action="@{/agregarCuenta}" th:object="${cuenta}" method="post">
+
+        <!-- DATOS NATIVOS DE LA ENTIDAD EQUIPO -->
+        <label for="nombre">Nombre: </label>
+        <input type="text" th:field="*{nombre}" id="nombre">
+
+        <label for="valor">Valor: </label>
+        <input type="number" step="0.01" th:field="*{valor}" id="valor">
+
+        <input class="submit" type="submit">
+    </form>
+
+</div>
+</body>
+
+</html>
