@@ -114,11 +114,23 @@ public class IntegranteController {
             // Cargando las listas
             List<Puesto> listaPuestos= integranteService.getPuestos();
             List<Lenguaje> listaLenguajes = integranteService.getLenguajes();
+
+            for (int i = 0; i < integrante.getLenguajes().size(); i++) {
+                for (int j = 0; j < listaLenguajes.size(); j++) {
+                    if (listaLenguajes.get(j).getNombre().equals(integrante.getLenguajes().get(i).getNombre())){
+                        listaLenguajes.remove(j);
+                    }
+                }
+            }
+
+            for (int i = 0; i < listaLenguajes.size(); i++) {
+                System.out.println("listaLenguajes.get(i).getNombre() = " + listaLenguajes.get(i).getNombre());
+            }
             //  List<Equipo> listaEquipos = integranteService.getEquipos();
 
             // Cargando el model
             model.addAttribute("titulo",titulo);
-            model.addAttribute("h1","Formulario del nuevo empleado de Moby Digital!");
+            model.addAttribute("h1","Formulario para editar un empleado de Moby Digital!");
             model.addAttribute("integrante",integrante);
             model.addAttribute("listaPuestos",listaPuestos);
             model.addAttribute("listaLenguajes",listaLenguajes);
@@ -132,7 +144,7 @@ public class IntegranteController {
     public String eliminar(Model model, @PathVariable(value = "id") Integer id){
 
         integranteService.eliminar(id);
-        return "listaIntegrantes";
+        return  "redirect:/listaIntegrantes";
     }
 
 

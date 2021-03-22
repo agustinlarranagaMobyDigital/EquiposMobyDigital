@@ -36,7 +36,7 @@
             <td th:text="${integrante.equipo.nombre}"></td>-->
             <!-- link a la agenda de ese integrante
            <a></a>-->
-            <td><a th:href="@{/insert/} + ${integrante.id}" th:text="editar"></a></td>
+            <td><a th:href="@{/formIntegrante/} + ${integrante.id}" th:text="editar"></a></td>
             <td><a th:href="@{/eliminar/} + ${integrante.id}" th:text="eliminar"></a></td>
 
 

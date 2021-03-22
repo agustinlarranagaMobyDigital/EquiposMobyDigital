@@ -69,12 +69,21 @@
     <!-- LENGUAJES-->
 
     <label>Lenguajes: </label>
-     <div  class="content-lenguajes" th:each=" lenguaje : ${listaLenguajes}">
-         <div class="lenguaje">
-         <input type="checkbox" th:value="${lenguaje.id}" th:field="*{lenguajes}" >
-         <label th:text="${lenguaje.nombre}"></label>
-         </div>
-     </div>
+    <div>
+
+        <div  class="content-lenguajes" th:if="${integrante.id} > 0" th:each=" lenguaje : ${integrante.getLenguajes()}">
+            <input type="checkbox" th:value="${lenguaje.id}" th:field="*{lenguajes}" >
+            <label th:text="${lenguaje.nombre}"></label>
+        </div>
+
+        <div  class="content-lenguajes" th:each=" lenguaje : ${listaLenguajes}">
+            <div class="lenguaje">
+                <input type="checkbox" th:value="${lenguaje.id}" th:field="*{lenguajes}" >
+                <label th:text="${lenguaje.nombre}"></label>
+            </div>
+        </div>
+    </div>
+
 
 
     <!-- USUARIO -->
@@ -85,7 +94,7 @@
      <input type="text" name="password" id="password" >
 
 
-    <!-- EQUIPO -->
+    <input type="hidden" th:field="${integrante.id}">
 
      <input class="submit" type="submit" >
  </form>
