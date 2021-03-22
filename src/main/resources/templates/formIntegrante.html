@@ -44,9 +44,7 @@
     <input type="number" th:field="*{experiencia}" id="exp">
 
     <label for="nacimiento">Nacimiento: </label>
-
     <input type="text" th:field="*{fechaNacimiento}" id="nacimiento">
-
 
     <!-- DATOS QUE SIRVEN PARA HACER LAS CONECCIONES CON LAS DEMAS TABLAS-->
 
@@ -59,49 +57,39 @@
         <option th:each="p:${listaPuestos}" th:text="${p.nombre}" th:value="${p.id}"></option>
     </select>
 
-    <!-- EQUIPOS
+    <!-- EQUIPOS>
     <label for="equipo">Equipo: </label>
     <select id="equipo" th:field="*{equipo}">
         <option value=""> Seleccione uno </option>
         <option th:each="e:${listaEquipos}" th:text="${e.nombre}" th:value="${e.id}"></option>
     </select>
-    <br><br>-->
-
-    <!-- LENGUAJES-->
-    <label>Lenguajes: </label>
-     <div th:each=" lenguaje : ${listaLenguajes}">
-         <input type="checkbox" th:value="${lenguaje.id}" th:field="*{lenguajes}" >
-         <label th:text="${lenguaje.nombre}"></label>
-     </div><br><br>
-
-    <select id="equipo" th:field="*{equipo}">
-        <option value=""> Seleccione uno </option>
-        <option th:each="e:${listaEquipos}" th:text="${e.nombre}" th:value="${e.id}"></option>
-    </select>
-    <br><br>-->
-
+    -->
     <!-- LENGUAJES-->
 
     <label>Lenguajes: </label>
-    <div class="content-lenguajes">
-        <div  class="lenguaje" th:each=" lenguaje : ${listaLenguajes}">
+    <div>
+
+        <div  class="content-lenguajes" th:if="${integrante.id} > 0" th:each=" lenguaje : ${integrante.getLenguajes()}">
             <input type="checkbox" th:value="${lenguaje.id}" th:field="*{lenguajes}" >
             <label th:text="${lenguaje.nombre}"></label>
         </div>
+
+        <div  class="content-lenguajes" th:each=" lenguaje : ${listaLenguajes}">
+            <div class="lenguaje">
+                <input type="checkbox" th:value="${lenguaje.id}" th:field="*{lenguajes}" >
+                <label th:text="${lenguaje.nombre}"></label>
+            </div>
+        </div>
+
     </div>
 
-    <!-- USUARIO -->
-
-     <label for="email">Email: </label>
-     <input type="text" name="email" id="email" >
-
 
     <!-- USUARIO -->
 
      <label for="email">Email: </label>
      <input type="text" name="email" id="email" >
+
      <label for="password">Contrasena: </label>
-
      <input type="text" name="password" id="password" >
 
 

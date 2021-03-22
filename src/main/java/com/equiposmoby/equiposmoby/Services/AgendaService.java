@@ -36,9 +36,9 @@ public class AgendaService {
         }
     }
 
-    public Boolean agregarAgendaIntegrante(Integer idIntegrante) {
+    public Boolean agregarAgendaIntegrante(Integrante integrante) {
 
-        Integrante integrante = integranteDAO.getById(idIntegrante);
+       /* Integrante integrante = integranteDAO.getById(idIntegrante);*/
         Agenda agenda = Agenda.builder()
                 .reuniones(new ArrayList<Reunion>())
                 .build();

@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
-
-
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +21,10 @@ public class IntegranteService {
     // ------------------------------------------------------------------------ INYECCIONES
 
     @Autowired
+    @Qualifier("agendaDao")
+    private  IDao agendaDao;
+
+    @Autowired
     @Qualifier("integranteDAO")
     private IDao integranteDAO;
 
@@ -35,13 +37,29 @@ public class IntegranteService {
     private IDao puestoDAO;
 
     @Autowired
+    @Qualifier("equipoDAO")
+    private IDao equipoDAO;
+
+    @Autowired
     @Qualifier("usuarioDAO")
     private IDao userDao;
 
-    // ------------------------------------------------------------------------ METODOS DE INTEGRANTE
+    // ------------------------------------------------------------------------ METODOS INTERNOS
 
     public void add(Integrante integrante){
         integranteDAO.agregar(integrante);
+        agregarAgenda(integrante);
+    }
+
+    public boolean agregarAgenda(Integrante integrante){
+
+        Agenda agenda = Agenda.builder()
+                .reuniones(new ArrayList<Reunion>())
+                .build();
+        integrante.setAgenda(agenda);
+
+        agendaDao.agregar(agenda);
+        return true;
     }
 
     public List<Integrante> listar(){
@@ -50,6 +68,7 @@ public class IntegranteService {
 
     public void eliminar(Integer id){
         Integrante integrante = getById(id);
+
         integranteDAO.eliminar(integrante);
         userDao.eliminar(userDao.buscar(integrante.getUsuario().getEmail()));
     }
@@ -57,7 +76,8 @@ public class IntegranteService {
     public Integrante getById (Integer id){
         return (Integrante) integranteDAO.getById(id);
     }
-    // ------------------------------------------------------------------------ METODOS PARA FOREING CLASES
+
+    // ------------------------------------------------------------------------ METODOS EXTERNOS
 
     public List<Lenguaje> getLenguajes() {
         return lenguajeDAO.traerTodas();
@@ -90,10 +110,10 @@ public class IntegranteService {
         }
         return resultado;
     }
-/*
+
     public Equipo getEquipoByID (Integer id){
         Equipo resultado = null;
-        List<Puesto> lista = equipoDAO.traerTodas();
+        List<Equipo> lista = equipoDAO.traerTodas();
         for (Equipo equipo: lista){
             if(id == equipo.getId()){
                 resultado = equipo;
@@ -103,10 +123,10 @@ public class IntegranteService {
         return resultado;
     }
 
-    public List<Equipo> getEquipo() {
+    public List<Equipo> getEquipos() {
         return equipoDAO.traerTodas();
     }
-    */
+
 
     public Map<String , String> crearUsuario(BindingResult result ,String email, String pass){
 

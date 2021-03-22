@@ -40,7 +40,6 @@ public class PuestoDAO implements IDao<Puesto, Integer> {
     @Override
     public Puesto getById(Integer id) {
         return em.find(Puesto.class, id);
-
     }
 
 }

@@ -36,7 +36,6 @@ public class ReunionDaoImple implements IDao <Reunion,Integer>{
     @Override
     public Reunion getById(Integer id) {
         return em.find(Reunion.class , id);
-
     }
 
 

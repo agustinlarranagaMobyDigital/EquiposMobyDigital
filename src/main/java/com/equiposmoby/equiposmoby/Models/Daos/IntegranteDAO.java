@@ -13,7 +13,6 @@ import javax.persistence.PersistenceContext;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
-
 import java.util.List;
 
 @Repository(value = "integranteDAO")

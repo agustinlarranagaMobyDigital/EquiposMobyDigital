@@ -1,11 +1,9 @@
 package com.equiposmoby.equiposmoby.Controllers;
+
 import com.equiposmoby.equiposmoby.Models.Editors.EquipoPropertieEditor;
 import com.equiposmoby.equiposmoby.Models.Editors.LenguajePropertieEditor;
 import com.equiposmoby.equiposmoby.Models.Editors.PuestoPropertieEditor;
-import com.equiposmoby.equiposmoby.Models.Entity.Integrante;
-import com.equiposmoby.equiposmoby.Models.Entity.Lenguaje;
-import com.equiposmoby.equiposmoby.Models.Entity.Puesto;
-import com.equiposmoby.equiposmoby.Models.Entity.User;
+import com.equiposmoby.equiposmoby.Models.Entity.*;
 import com.equiposmoby.equiposmoby.Services.IntegranteService;
 import com.equiposmoby.equiposmoby.Services.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-
 
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,7 +50,9 @@ public class IntegranteController {
     public void initBinder(WebDataBinder binder){
         binder.registerCustomEditor(Puesto.class,"puesto",puestoPropertieEditor);
         binder.registerCustomEditor(Lenguaje.class,"lenguajes",lenguajePropertieEditor);
-       // binder.registerCustomEditor(Equipo.class,"equipo",equipoPropertieEditor);
+
+        binder.registerCustomEditor(Equipo.class,"equipo",equipoPropertieEditor);
+
     }
 
 
@@ -66,23 +65,21 @@ public class IntegranteController {
         List<Puesto> listaPuestos= integranteService.getPuestos();
 
         List<Lenguaje> listaLenguajes = integranteService.getLenguajes();
-      //  List<Equipo> listaEquipos = integranteService.getEquipos();
+        List<Equipo> listaEquipos = integranteService.getEquipos();
 
         model.addAttribute("titulo",titulo);
         model.addAttribute("h1","Formulario del nuevo empleado de Moby Digital!");
         model.addAttribute("integrante",integrante);
         model.addAttribute("listaPuestos",listaPuestos);
         model.addAttribute("listaLenguajes",listaLenguajes);
-    //    model.addAttribute("listaEquipos",listaEquipos);
+        model.addAttribute("listaEquipos",listaEquipos);
 
         return sessionService.sesionIniciada(session , "formIntegrante") ;
     }
-
     @PostMapping(value = "/formIntegrante")
     public String addIntegrante(@Valid Integrante integrante,BindingResult result, Model model, 
                                 @RequestParam String email,@RequestParam String password , HttpSession session){
 
-        // 1.usuario 2.equipo 3.agenda 4.lenguajes 5.puesto
         Map<String,String> errores = integranteService.crearUsuario(result,email,password);
 
         if(errores.isEmpty()){
@@ -92,7 +89,6 @@ public class IntegranteController {
             integrante.setUsuario(user);
 
             // si eligio lider, le asigno true al campo booleano
-
             if(integrante.getPuesto().getNombre().equals("lider")){
                 integrante.setJefe(true);
             }
@@ -115,31 +111,42 @@ public class IntegranteController {
         Integrante integrante = null;
         if(id > 0 ){
             integrante = integranteService.getById(id);
+
+            // Cargando las listas
+            List<Puesto> listaPuestos= integranteService.getPuestos();
+            List<Lenguaje> listaLenguajes = integranteService.getLenguajes();
+
+            for (int i = 0; i < integrante.getLenguajes().size(); i++) {
+                for (int j = 0; j < listaLenguajes.size(); j++) {
+                    if (listaLenguajes.get(j).getNombre().equals(integrante.getLenguajes().get(i).getNombre())){
+                        listaLenguajes.remove(j);
+                    }
+                }
+            }
+
+            for (int i = 0; i < listaLenguajes.size(); i++) {
+                System.out.println("listaLenguajes.get(i).getNombre() = " + listaLenguajes.get(i).getNombre());
+            }
+            //  List<Equipo> listaEquipos = integranteService.getEquipos();
+
+            // Cargando el model
+            model.addAttribute("titulo",titulo);
+            model.addAttribute("h1","Formulario para editar un empleado de Moby Digital!");
+            model.addAttribute("integrante",integrante);
+            model.addAttribute("listaPuestos",listaPuestos);
+            model.addAttribute("listaLenguajes",listaLenguajes);
+            //    model.addAttribute("listaEquipos",listaEquipos);
         }
-
-        // Cargando las listas
-        List<Puesto> listaPuestos= integranteService.getPuestos();
-        List<Lenguaje> listaLenguajes = integranteService.getLenguajes();
-        //  List<Equipo> listaEquipos = integranteService.getEquipos();
-
-        // Cargando el model
-        model.addAttribute("titulo",titulo);
-        model.addAttribute("h1","Formulario del nuevo empleado de Moby Digital!");
-        model.addAttribute("integrante",integrante);
-        model.addAttribute("listaPuestos",listaPuestos);
-        model.addAttribute("listaLenguajes",listaLenguajes);
-        //    model.addAttribute("listaEquipos",listaEquipos);
-
-        return sessionService.sesionIniciada(session , "formIntegrante") ;
+            return sessionService.sesionIniciada(session , "formIntegrante") ;
     }
 
     @RequestMapping(value ="/eliminar/{id}")
     public String eliminar(Model model, @PathVariable(value = "id") Integer id , HttpSession session){
 
-        if(session.getAttribute("Usuario") != null){
+        if(session.getAttribute("usuario") != null){
             integranteService.eliminar(id);
         }
-        return sessionService.sesionIniciada(session , "listaIntegrantes") ;
+        return sessionService.sesionIniciada(session , "redirect:/listaIntegrantes") ;
     }
 
 
@@ -148,12 +155,10 @@ public class IntegranteController {
 
         List<Integrante> lista = integranteService.getOrderIntegrante();
 
-
         model.addAttribute("titulo",titulo);
         model.addAttribute("h1","Lista de los empleados de Moby Digital!");
         model.addAttribute("lista",lista);
 
         return sessionService.sesionIniciada(session , "listaIntegrantes") ;
-
     }
 }

@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+@Repository("agendaDao")
 public class AgendaDAO implements IDao<Agenda, Integer> {
 
     @PersistenceContext

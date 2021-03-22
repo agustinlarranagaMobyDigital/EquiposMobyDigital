@@ -42,8 +42,6 @@ public class UserDao implements IDao<User , Integer>{
 
     @Override
     public User getById(Integer id) {
-
         return em.find(User.class , id);
-
     }
 }
