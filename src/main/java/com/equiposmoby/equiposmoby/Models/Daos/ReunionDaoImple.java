@@ -1,4 +1,6 @@
 package com.equiposmoby.equiposmoby.Models.Daos;
+
+import com.equiposmoby.equiposmoby.Models.Entity.Puesto;
 import com.equiposmoby.equiposmoby.Models.Entity.Reunion;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
@@ -33,7 +35,8 @@ public class ReunionDaoImple implements IDao <Reunion,Integer>{
 
     @Override
     public Reunion getById(Integer id) {
-        return null;
+        return em.find(Reunion.class , id);
+
     }
 
 

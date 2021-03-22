@@ -1,6 +1,4 @@
 package com.equiposmoby.equiposmoby.Controllers;
-
-
 import com.equiposmoby.equiposmoby.Models.Editors.EquipoPropertieEditor;
 import com.equiposmoby.equiposmoby.Models.Editors.LenguajePropertieEditor;
 import com.equiposmoby.equiposmoby.Models.Editors.PuestoPropertieEditor;
@@ -16,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 
+
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +42,7 @@ public class IntegranteController {
     @Autowired
     private LenguajePropertieEditor lenguajePropertieEditor;
 
+
     @Autowired
     private EquipoPropertieEditor equipoPropertieEditor;
 
@@ -52,7 +53,6 @@ public class IntegranteController {
     public void initBinder(WebDataBinder binder){
         binder.registerCustomEditor(Puesto.class,"puesto",puestoPropertieEditor);
         binder.registerCustomEditor(Lenguaje.class,"lenguajes",lenguajePropertieEditor);
-
        // binder.registerCustomEditor(Equipo.class,"equipo",equipoPropertieEditor);
     }
 
@@ -77,7 +77,6 @@ public class IntegranteController {
 
         return sessionService.sesionIniciada(session , "formIntegrante") ;
     }
-
 
     @PostMapping(value = "/formIntegrante")
     public String addIntegrante(@Valid Integrante integrante,BindingResult result, Model model, 
@@ -149,10 +148,12 @@ public class IntegranteController {
 
         List<Integrante> lista = integranteService.getOrderIntegrante();
 
+
         model.addAttribute("titulo",titulo);
         model.addAttribute("h1","Lista de los empleados de Moby Digital!");
         model.addAttribute("lista",lista);
 
         return sessionService.sesionIniciada(session , "listaIntegrantes") ;
+
     }
 }

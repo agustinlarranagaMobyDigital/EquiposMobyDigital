@@ -27,7 +27,6 @@ public class LenguajeDAO implements IDao<Object, Integer> {
     public void eliminar(Object lenguaje) {
 
     }
-
     @Override
     public Object buscar(String txt) {
         return null;
@@ -35,7 +34,7 @@ public class LenguajeDAO implements IDao<Object, Integer> {
 
     @Override
     public Lenguaje getById(Integer id) {
-        return null;
+        return em.find(Lenguaje.class, id);
     }
 
 }

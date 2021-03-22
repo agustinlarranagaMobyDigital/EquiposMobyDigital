@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
+
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
@@ -89,7 +90,6 @@ public class IntegranteService {
         }
         return resultado;
     }
-
 /*
     public Equipo getEquipoByID (Integer id){
         Equipo resultado = null;
