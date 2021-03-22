@@ -108,7 +108,7 @@ public class IntegranteService {
 
     public Equipo getEquipoByID (Integer id){
         Equipo resultado = null;
-        List<Puesto> lista = equipoDAO.traerTodas();
+        List<Equipo> lista = equipoDAO.traerTodas();
         for (Equipo equipo: lista){
             if(id == equipo.getId()){
                 resultado = equipo;
@@ -118,7 +118,7 @@ public class IntegranteService {
         return resultado;
     }
 
-    public List<Equipo> getEquipo() {
+    public List<Equipo> getEquipos() {
         return equipoDAO.traerTodas();
     }
 
