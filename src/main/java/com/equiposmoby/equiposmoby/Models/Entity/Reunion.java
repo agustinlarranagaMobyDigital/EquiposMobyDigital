@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 
 @Data //Crea los getters and setter, equals, toString.
@@ -20,7 +21,6 @@ public class Reunion implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
-
 
     @DateTimeFormat (iso = DateTimeFormat.ISO.DATE_TIME)
     @Column(name = "fecha")
@@ -36,11 +36,11 @@ public class Reunion implements Serializable {
     @Column(name = "hora_final")
     private Date horaFinal;
 
-/*
+
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_tipo_reunion")
-    private List<TipoReunion> idTipoReunion;
-*/
+    private List <TipoReunion> listaTipoReunion;
+
 
 }
 
