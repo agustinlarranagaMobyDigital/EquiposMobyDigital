@@ -1,10 +1,13 @@
 package com.equiposmoby.equiposmoby.Models.Entity;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -15,12 +18,13 @@ import java.util.List;
 @NoArgsConstructor  /// Contructor vacio
 @Entity
 @Table(name = "reuniones")
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class Reunion implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
+    @Column(name = "id_reunion")
+    private Integer idReunion;
 
 
     @DateTimeFormat (iso = DateTimeFormat.ISO.DATE_TIME)
