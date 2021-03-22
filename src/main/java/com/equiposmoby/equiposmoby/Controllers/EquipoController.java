@@ -15,13 +15,11 @@ public class EquipoController {
     @Autowired
     private EquipoServiceIMP equipoServiceIMP;
 
-    @RequestMapping(value = "/formAgregarEquipo")
-    public String formAgregarEquipo (Model model){
+    @RequestMapping(value = "/agregarEquipo")
+    public String agregarEquipo (Model model){
+        model.addAttribute("titulo", "Agregando un equipo");
+        model.addAttribute("equipos", equipoServiceIMP.traerTodas());
 
-        Equipo equipo = new Equipo();
-
-        List<Equipo>
-
-        return "formAgregarIntegrante";
+        return "agregarEquipo";
     }
 }

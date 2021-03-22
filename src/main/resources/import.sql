@@ -13,3 +13,6 @@ INSERT INTO usuarios (email , password) VALUES ('isaias' , 'isaias22');
 INSERT INTO usuarios (email , password) VALUES ('carlos' , 'isaias22');
 INSERT INTO usuarios (email , password) VALUES ('martin' , 'isaias22');
 
+INSERT INTO equipos (nombre, cuenta, agenda) VALUES ('equipo rocket', '2587', '5678');
+INSERT INTO equipos (nombre, cuenta, agenda) VALUES ('equipo amarillo', '4586', '6528');
+

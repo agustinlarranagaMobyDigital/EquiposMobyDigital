@@ -34,10 +34,9 @@ public class EquipoServiceIMP implements IEquipoService{
     }
 
     @Override
-    public Equipo buscar(String lider, String nombre) {
-        Equipo equipoBuscado = (Equipo) equipoDAO.buscar(lider);
-        if(!equipoBuscado.getNombre().isEmpty()){
-            if(buscado)
-        }
+    public Equipo buscar(String nombre) {
+        return (Equipo) equipoDAO.buscar(nombre);
     }
+
+
 }
