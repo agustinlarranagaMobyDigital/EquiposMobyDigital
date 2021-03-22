@@ -43,7 +43,6 @@ public class AgendaService {
                 .reuniones(new ArrayList<Reunion>())
                 .build();
         integrante.setAgenda(agenda);
-        integranteDAO.modificar(integrante);
         return true;
     }
 

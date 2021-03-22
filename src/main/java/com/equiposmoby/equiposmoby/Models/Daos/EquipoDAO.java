@@ -1,6 +1,7 @@
 package com.equiposmoby.equiposmoby.Models.Daos;
 
 import com.equiposmoby.equiposmoby.Models.Entity.Equipo;
+import com.equiposmoby.equiposmoby.Models.Entity.Integrante;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,7 +32,7 @@ public class EquipoDAO implements IDao<Equipo, Integer>{
 
     @Override
     public Equipo buscar(String txt) {
-        return null;
+        return em.find(Equipo.class , txt);
     }
 
     @Override
