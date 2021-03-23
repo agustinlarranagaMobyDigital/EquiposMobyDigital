@@ -16,7 +16,7 @@ public class UserController {
     private IUsuarioServices userService;
 
 
-    @RequestMapping("/listado")
+    @RequestMapping("/listarUsuarios")
     public String listar(Model model){
         model.addAttribute("titulo" , "Listado de Usuarios");
         model.addAttribute("usuarios" , userService.traerTodas());
