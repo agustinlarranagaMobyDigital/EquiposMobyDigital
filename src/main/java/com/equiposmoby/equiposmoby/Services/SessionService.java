@@ -1,7 +1,6 @@
 package com.equiposmoby.equiposmoby.Services;
 
 import com.equiposmoby.equiposmoby.Models.Daos.IDao;
-import com.equiposmoby.equiposmoby.Models.Daos.UserDao;
 import com.equiposmoby.equiposmoby.Models.Entity.Jefe;
 import com.equiposmoby.equiposmoby.Models.Entity.User;
 import org.springframework.beans.factory.annotation.Autowired;

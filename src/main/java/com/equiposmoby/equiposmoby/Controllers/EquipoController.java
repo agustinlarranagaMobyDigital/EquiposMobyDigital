@@ -1,7 +1,5 @@
 package com.equiposmoby.equiposmoby.Controllers;
 
-import com.equiposmoby.equiposmoby.Models.Entity.Agenda;
-import com.equiposmoby.equiposmoby.Models.Entity.Cuenta;
 import com.equiposmoby.equiposmoby.Models.Entity.Equipo;
 import com.equiposmoby.equiposmoby.Models.Entity.Integrante;
 import com.equiposmoby.equiposmoby.Services.EquipoServiceIMP;

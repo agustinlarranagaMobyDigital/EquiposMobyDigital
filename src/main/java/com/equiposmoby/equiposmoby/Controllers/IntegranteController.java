@@ -3,13 +3,11 @@ package com.equiposmoby.equiposmoby.Controllers;
 import com.equiposmoby.equiposmoby.Models.Editors.EquipoPropertieEditor;
 import com.equiposmoby.equiposmoby.Models.Editors.LenguajePropertieEditor;
 import com.equiposmoby.equiposmoby.Models.Editors.PuestoPropertieEditor;
-import com.equiposmoby.equiposmoby.Models.Entity.*;
-
+import com.equiposmoby.equiposmoby.Models.Entity.Equipo;
 import com.equiposmoby.equiposmoby.Models.Entity.Integrante;
 import com.equiposmoby.equiposmoby.Models.Entity.Lenguaje;
 import com.equiposmoby.equiposmoby.Models.Entity.Puesto;
 import com.equiposmoby.equiposmoby.Models.Entity.User;
-
 import com.equiposmoby.equiposmoby.Services.IntegranteService;
 import com.equiposmoby.equiposmoby.Services.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,18 +15,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpSession;
-
 import javax.validation.Valid;
-
 import java.util.List;
 import java.util.Map;
 
