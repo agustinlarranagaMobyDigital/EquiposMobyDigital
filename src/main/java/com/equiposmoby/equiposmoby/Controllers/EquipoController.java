@@ -46,14 +46,14 @@ public class EquipoController {
             Equipo equipo = Equipo.builder().arrayList(integrantes).cuenta(null).nombre(nombre).agenda(null).build();
             equipoServiceIMP.agregar(equipo);
 
-            return "listar-equipos";
+            return "redirect:/listarEquipos";
     }
 
 
     @RequestMapping("/listarEquipos")
     public String listarEquipo(Model model){
         model.addAttribute("titulo" , "Listar Equipo");
-        model.addAttribute("Equipos" , equipoServiceIMP.traerTodas());
+        model.addAttribute("equipos" , equipoServiceIMP.traerTodas());
 
         return "listar-equipos";
     }

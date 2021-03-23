@@ -19,6 +19,7 @@ public class EquipoDAO implements IDao<Equipo, Integer>{
     @Transactional(readOnly = true)
     public List<Equipo> traerTodas() { return em.createQuery("from Equipo").getResultList(); }
 
+    @Transactional
     @Override
     public void agregar(Equipo equipo) {
         em.persist(equipo);

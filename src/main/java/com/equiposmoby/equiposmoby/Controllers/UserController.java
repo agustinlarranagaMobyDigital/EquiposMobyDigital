@@ -23,12 +23,6 @@ public class UserController {
         return "listar-usuarios";
     }
 
-    @RequestMapping("/buscar")
-    public String buscar(Model model){
-        model.addAttribute("titulo" , "Buscar Isaias");
-        model.addAttribute("usuario" , userService.buscar("isaias", "isaias"));
-        return "buscar-uno";
-    }
 
     @RequestMapping("/agregar")
     public String agregar(Model model){

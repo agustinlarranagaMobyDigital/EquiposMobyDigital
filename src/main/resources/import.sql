@@ -10,8 +10,6 @@ insert into lenguajes (nombre) values ( 'html' );
 insert into lenguajes (nombre) values ( 'php' );
 insert into lenguajes (nombre) values ( 'css' );
 
-insert into equipos (nombre) values ('icbc' );
-insert into equipos (nombre) values ('rocket');
 
 INSERT INTO reuniones (fecha , hora_inicial , hora_final) VALUES ( '2008-12-25 05:30:00' , '2008-12-25 05:30:00' , '2008-12-25 05:30:00');
 

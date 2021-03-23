@@ -36,10 +36,10 @@ public class CuentaController {
         model.addAttribute("titulo" , "Agregar Cuenta");
         model.addAttribute("cuenta" , cuenta);
         cuentaService.agregar(cuenta);
-        return "listar-cuentas";
+        return "redirect:/listarCuentas";
     }
 
-    @RequestMapping("/cuenta")
+    @RequestMapping("/listarCuentas")
     public String listar(Model model, HttpSession session){
         model.addAttribute("titulo","listado de cuentas");
         model.addAttribute("cuentas",cuentaService.traerTodas());

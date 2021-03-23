@@ -164,6 +164,6 @@ public class IntegranteController {
         model.addAttribute("h1","Lista de los empleados de Moby Digital!");
         model.addAttribute("lista",lista);
 
-        return sessionService.sesionIniciada(session , "listaIntegrantes") ;
+        return sessionService.sesionIniciada(session , "lista-integrantes") ;
     }
 }

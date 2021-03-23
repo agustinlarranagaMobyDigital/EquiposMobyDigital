@@ -13,15 +13,15 @@
     <header>
         <nav>
             <div class="logo">
-                <img src="img/uc.png" alt="">
+                <img th:src="@{/img/uc.png}" alt="">
             </div>
 
             <div class="menu">
                 <ul>
-                    <li>Home</li>
-                    <li>Agenda</li>
-                    <li>Equipo</li>
-                    <li>Yo</li>
+                    <li><a th:href="@{/app}">Home</a></li>
+                    <li><a>Mi Agenda</a></li>
+                    <li><a>Mi Equipo</a></li>
+                    <li><a>Personal</a></li>
                     <li><a th:href="@{/logout}">Logout</a></li>
                 </ul>
             </div>

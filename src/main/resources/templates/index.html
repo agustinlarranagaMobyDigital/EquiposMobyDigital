@@ -5,6 +5,7 @@
     <title>nuevo titulo</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/3fe8c9b28b.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/index.css}" type="text/css">
 </head>
 <body>
@@ -17,10 +18,10 @@
 
         <div class="menu">
             <ul>
-                <li>Home</li>
-                <li>Agenda</li>
-                <li>Equipo</li>
-                <li>Yo</li>
+                <li><a th:href="@{/app}">Home</a></li>
+                <li><a>Mi Agenda</a></li>
+                <li><a>Mi Equipo</a></li>
+                <li><a>Personal</a></li>
                 <li><a th:href="@{/logout}">Logout</a></li>
             </ul>
         </div>
@@ -32,195 +33,63 @@
 <section class="content-info">
 
     <h2>Bienvenido <span th:text="${usuario.email}"></span></h2>
-    <div class="list-reuniones">
-        <div class="reuniones-proximas">
-            <div class="title-reuniones">
-                <h2>Proximas reuniones </h2>
-                <div class="circle">
-                </div>
-            </div>
-
-
-            <div class="reunion">
-                <div class="tipo-reunion">
-                    <h3>Tipo reunion:</h3>
-                    <h4>Capacitacion</h4>
-                </div>
-                <div class="hora-reunion">
-                    <h3>Horario:</h3>
-                    <h4>14:30 - 16:30</h4>
-                </div>
-                <div class="invitados">
-                    <h4>invitados:</h4>
-                    <div class="lista-invitados">
-                        <ul>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="sala">
-                    <h3>Sala</h3>
-                    <a href="https://meet.google.com/ppw-kehz-tuj">Sala</a>
-                </div>
-
-                <form action="">
-                    <input class="btn-green" type="submit" value="Asistir">
-                </form>
-                <form action="">
-                    <input class="btn-rojo" type="submit" value="Denegar">
-                </form>
-            </div>
+    <div class="title-entrada">
+        <h3>Empleado</h3>
+        <div class="content-entrada">
+            <a th:href="@{/formIntegrante}" class="entrada">
+                Agregar Empleados <i class="fas fa-user-tie"></i>
+            </a>
+            <a th:href="@{/listaIntegrantes}" class="entrada">
+                Listar Empleados <i class="fas fa-user-tie"></i>
+            </a>
+            <a href="" class="entrada">
+               Mi informacion <i class="fas fa-user-tie"></i>
+            </a>
         </div>
-        <div class="reuniones-disponibles">
-            <div class="title-reuniones">
-                <h2>Reuniones disponibles</h2>
-                <div class="circle">
-                </div>
-            </div>
+    </div>
 
+    <div class="title-entrada">
+        <h3>Equipos</h3>
+        <div class="content-entrada">
+            <a th:href="@{/agregarEquipo}" class="entrada">
+                Crear un equipo <i class="fas fa-user-tie"></i>
+            </a>
+            <a href="" class="entrada">
+                Listar equipos <i class="fas fa-user-tie"></i>
+            </a>
+            <a href="" class="entrada">
+               Mi Equipo <i class="fas fa-user-tie"></i>
+            </a>
+        </div>
+    </div>
 
-            <div class="reunion">
-                <div class="tipo-reunion">
-                    <h3>Tipo reunion:</h3>
-                    <h4>Capacitacion</h4>
-                </div>
-                <div class="hora-reunion">
-                    <h3>Horario:</h3>
-                    <h4>14:30 - 16:30</h4>
-                </div>
-                <div class="invitados">
-                    <h4>invitados:</h4>
-                    <div class="lista-invitados">
-                        <ul>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                            <li>
-                                <p>invitado</p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+    <div class="title-entrada">
+        <h3>Cuentas</h3>
+        <div class="content-entrada">
+            <a th:href="@{/agregarCuenta}" class="entrada">
+                Crear Cuenta <i class="fas fa-user-tie"></i>
+            </a>
+            <a th:href="@{/listarCuentas}" class="entrada">
+                Listar Cuentas <i class="fas fa-user-tie"></i>
+            </a>
+            <a href="" class="entrada">
+                Mi Cuenta <i class="fas fa-user-tie"></i>
+            </a>
+        </div>
+    </div>
 
-                <div class="sala">
-                    <h3>Sala</h3>
-                    <a href="https://meet.google.com/ppw-kehz-tuj">Sala</a>
-                </div>
-            </div>
+    <div class="title-entrada">
+        <h3>Agenda</h3>
+        <div class="content-entrada">
+            <a href="" class="entrada">
+                Crear Reunion <i class="fas fa-user-tie"></i>
+            </a>
+            <a href="" class="entrada">
+                Listar reuniones<i class="fas fa-user-tie"></i>
+            </a>
+            <a href="" class="entrada">
+                Mis reuniones<i class="fas fa-user-tie"></i>
+            </a>
         </div>
     </div>
 
