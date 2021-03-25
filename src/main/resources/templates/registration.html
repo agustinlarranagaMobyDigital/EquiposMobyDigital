@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${titulo}"></title>
+    <link rel="stylesheet" th:href="@{/css/login.css}" type="text/css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="content">
+    <div class="content-form">
+        <h3 th:text="${mensaje}"></h3>
+        <form th:action="@{/registration}" th:object="${usuario}" method="post">
+
+            <div class="content-input">
+
+                <label for="email">Email: </label>
+                <div class="input">
+                    <input type="email" th:field="*{email}" id="email" placeholder="Email" >
+                </div>
+
+                <!--div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{'email'}"-->
+                <div class="error" th:if="${error != null && error.containsKey('email')}" th:text="${error.get('email')}"></div>
+
+                </div>
+
+
+            <div class="content-input">
+
+                <label for="password">Contraseña: </label>
+                <div class="input">
+                    <input type="password" th:field="*{password}" id="password" placeholder="Contraseña">
+                </div>
+
+                <!--div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"-->
+                <div class="error" th:if="${error != null && error.containsKey('password')}" th:text="${error.get('password')}"></div>
+
+                </div>
+
+            <input class="submit" type="submit" value="Registrarse">
+            <div class="error" th:if="${error != null && error.containsKey('creado')}" th:text="${error.get('creado')}"></div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

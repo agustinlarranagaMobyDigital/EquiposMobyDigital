@@ -1,0 +1,25 @@
+table {
+    width: 100%;
+}
+
+thead,
+tbody {
+    width: 100%;
+}
+
+tr {
+    width: 100%;
+}
+
+th {
+    padding: 10px;
+    text-align: center;
+    background: #666;
+}
+
+td {
+    text-align: center;
+    background: rgb(139, 179, 189);
+    font-size: 15px;
+    border: 2px solid #ccc;
+}
