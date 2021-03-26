@@ -35,11 +35,6 @@ public class UserController {
         return "listar-usuarios";
     }
 
-    @PostMapping("/eliminar")
-    public String eliminar(Model model , @RequestParam String email){
-        userService.eliminar(email);
-        return "redirect:/app";
-    }
 
 
 }

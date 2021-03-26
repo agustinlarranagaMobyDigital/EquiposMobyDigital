@@ -36,8 +36,7 @@ public class UserDao implements IDao<User , Integer>{
     @Transactional(readOnly = true)
     @Override
     public User buscar(String email){
-
-        return em.find(User.class , email);
+        return  em.find(User.class , "email");
     }
 
     @Override

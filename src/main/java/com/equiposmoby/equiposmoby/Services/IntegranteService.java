@@ -16,7 +16,7 @@ import java.util.*;
 
 
 @Service
-public class IntegranteService {
+public class IntegranteService extends ValidacionesService{
 
     // ------------------------------------------------------------------------ INYECCIONES
 
@@ -46,35 +46,49 @@ public class IntegranteService {
 
     // ------------------------------------------------------------------------ METODOS INTERNOS
 
-    public void add(Integrante integrante){
-        integranteDAO.agregar(integrante);
-        agregarAgenda(integrante);
+    public boolean add(Integrante integrante){
+
+        if(validarIntegrante(integrante)){
+            integranteDAO.agregar(integrante);
+            return true;
+        }
+        return false;
+
     }
 
-    public boolean agregarAgenda(Integrante integrante){
+    public Integrante agregarAgenda(Integrante integrante){
 
         Agenda agenda = Agenda.builder()
                 .reuniones(new ArrayList<Reunion>())
                 .build();
+
         integrante.setAgenda(agenda);
 
         agendaDao.agregar(agenda);
-        return true;
+        return integrante;
     }
 
     public List<Integrante> listar(){
         return integranteDAO.traerTodas();
     }
 
-    public void eliminar(Integer id){
-        Integrante integrante = getById(id);
-
-        integranteDAO.eliminar(integrante);
-        userDao.eliminar(userDao.buscar(integrante.getUsuario().getEmail()));
+    public boolean eliminar(Integer id){
+        if(id > 0){
+            Integrante integrante = getById(id);
+            if(integrante != null){
+                integranteDAO.eliminar(integrante);
+                userDao.eliminar(integrante.getUsuario());
+                return true;
+            }
+        }
+        return false;
     }
 
     public Integrante getById (Integer id){
-        return (Integrante) integranteDAO.getById(id);
+        if(id > 0){
+            return (Integrante) integranteDAO.getById(id);
+        }
+        return null;
     }
 
     // ------------------------------------------------------------------------ METODOS EXTERNOS
@@ -115,7 +129,7 @@ public class IntegranteService {
         Equipo resultado = null;
         List<Equipo> lista = equipoDAO.traerTodas();
         for (Equipo equipo: lista){
-            if(id == equipo.getId()){
+            if(id.equals(equipo.getId())){
                 resultado = equipo;
                 break;
             }
@@ -127,35 +141,6 @@ public class IntegranteService {
         return equipoDAO.traerTodas();
     }
 
-
-    public Map<String , String> crearUsuario(BindingResult result ,String email, String pass){
-
-        User userNew = new User();
-        userNew.setEmail(email);
-        userNew.setPassword(pass);
-
-        Map <String , String> error = new HashMap<>();
-        result.getFieldErrors().forEach(err -> {
-            error.put(
-                    err.getField(),"el campo "
-                            .concat(err.getField())
-                            .concat(" ")
-                            .concat(Objects.requireNonNull(err.getDefaultMessage())));});
-
-        User buscado = (User) userDao.buscar(userNew.getEmail());
-        if(error.isEmpty()){
-            if(buscado == null){
-                userDao.agregar(userNew);
-            }else {
-                error.put("creado" , "este usuario ya existe");
-            }
-        }
-        return error;
-    }
-
-    public User getUltimoUserByEmail(String email){
-        return  (User) userDao.buscar(email);
-    }
 
     public ArrayList<Integrante> getOrderIntegrante(){
 

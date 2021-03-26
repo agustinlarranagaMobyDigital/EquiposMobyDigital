@@ -12,6 +12,7 @@ import com.equiposmoby.equiposmoby.Models.Entity.User;
 
 import com.equiposmoby.equiposmoby.Services.IntegranteService;
 import com.equiposmoby.equiposmoby.Services.SessionService;
+import com.equiposmoby.equiposmoby.Services.UsuarioServiceIMP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,6 +52,9 @@ public class IntegranteController {
     @Autowired
     private SessionService sessionService;
 
+    @Autowired
+    private UsuarioServiceIMP usuarioServiceIMP;
+
     @InitBinder
     public void initBinder(WebDataBinder binder){
         binder.registerCustomEditor(Puesto.class,"puesto",puestoPropertieEditor);
@@ -85,12 +89,12 @@ public class IntegranteController {
     public String addIntegrante(@Valid Integrante integrante,BindingResult result, Model model, 
                                 @RequestParam String email,@RequestParam String password , HttpSession session){
 
-        Map<String,String> errores = integranteService.crearUsuario(result,email,password);
+        Map<String,String> errores = usuarioServiceIMP.crearUsuario(result,email,password);
 
         if(errores.isEmpty()){
 
             // agarro el ultimo usuario creado [el de arriba] y lo guardo en Integrante
-            User user = integranteService.getUltimoUserByEmail(email);
+            User user = usuarioServiceIMP.getUsuarioByEmail(email);
             integrante.setUsuario(user);
 
             // si eligio lider, le asigno true al campo booleano
@@ -99,6 +103,7 @@ public class IntegranteController {
             }
 
             // guardo en la base de datos
+            integrante = integranteService.agregarAgenda(integrante);
             integranteService.add(integrante);
 
             // muestro la lista

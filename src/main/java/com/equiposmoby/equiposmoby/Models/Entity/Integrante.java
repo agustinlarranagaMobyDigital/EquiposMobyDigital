@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,11 +12,11 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "integrantes")
-public  class    Integrante implements Serializable {
+public  class  Integrante implements Serializable {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_integrante")
     private int id;
 
@@ -24,7 +25,7 @@ public  class    Integrante implements Serializable {
     private String apellido;
 
     @Column(name = "fecha_nacimiento")
-    private Date fechaNacimiento;
+    private LocalDate fechaNacimiento;
 
     private int experiencia;
 
