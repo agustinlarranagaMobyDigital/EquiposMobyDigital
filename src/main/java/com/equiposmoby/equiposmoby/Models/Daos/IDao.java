@@ -1,5 +1,7 @@
 package com.equiposmoby.equiposmoby.Models.Daos;
 
+import com.equiposmoby.equiposmoby.Models.Entity.Integrante;
+
 import java.util.List;
 
 public interface IDao<T,t>{

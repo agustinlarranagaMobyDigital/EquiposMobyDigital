@@ -38,4 +38,10 @@ public class Equipo implements Serializable {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_agenda")
     private Agenda agenda;
+
+
+    public Equipo (int id, String nombre){
+        this.id = id;
+        this.nombre = nombre;
+    }
 }

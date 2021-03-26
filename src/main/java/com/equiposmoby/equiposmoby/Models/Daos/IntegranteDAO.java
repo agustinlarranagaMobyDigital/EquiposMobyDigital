@@ -31,7 +31,12 @@ public class IntegranteDAO implements IDao<Integrante, Integer> {
     @Transactional
     @Override
     public void agregar(Integrante integrante) {
-        em.persist(integrante);
+
+        if (integrante.getId() > 0){
+            em.merge(integrante);
+        }else {
+            em.persist(integrante);
+        }
     }
 
     @Transactional
@@ -52,5 +57,7 @@ public class IntegranteDAO implements IDao<Integrante, Integer> {
         return em.find(Integrante.class, id);
     }
 
+    @Transactional(readOnly = true)
+    public List<Integrante> getByIdEquipo (Integer id){ return em.createQuery("from Integrante i where i.equipo.id = " +  id).getResultList(); }
 
 }

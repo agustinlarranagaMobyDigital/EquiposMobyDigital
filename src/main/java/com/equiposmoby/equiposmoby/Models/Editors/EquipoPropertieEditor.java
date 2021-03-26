@@ -11,7 +11,7 @@ public class EquipoPropertieEditor extends PropertyEditorSupport {
 
     @Autowired
     private IntegranteService integranteService;
-/*
+
     @Override
     public void setAsText(String idString) throws IllegalArgumentException {
 
@@ -27,5 +27,5 @@ public class EquipoPropertieEditor extends PropertyEditorSupport {
         }
 
     }
-*/
+
 }

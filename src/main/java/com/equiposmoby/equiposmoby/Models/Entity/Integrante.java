@@ -1,6 +1,8 @@
 package com.equiposmoby.equiposmoby.Models.Entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,10 +10,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 @Entity
 @Table(name = "integrantes")
-public  class    Integrante implements Serializable {
+public  class   Integrante implements Serializable {
 
 
     @Id
@@ -31,10 +35,10 @@ public  class    Integrante implements Serializable {
     private boolean jefe;
 
     // Foreing Keys
-/*
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_equipo")
-    private Equipo equipo;*/
+    private Equipo equipo;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
