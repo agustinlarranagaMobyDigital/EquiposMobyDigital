@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Optional;
 
 @Repository(value = "reunionDaoJPA") ///-> Marco la clase como componente de persistencia de datos
 public class ReunionDaoImple implements IDao <Reunion,Integer>{
@@ -36,5 +37,9 @@ public class ReunionDaoImple implements IDao <Reunion,Integer>{
         return em.find(Reunion.class , id);
     }
 
+    public Optional<Reunion> traerReunionPorId(Integer id){
+
+        return Optional.ofNullable(getById(id));
+    }
 
 }
