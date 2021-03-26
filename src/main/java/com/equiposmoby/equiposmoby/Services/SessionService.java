@@ -1,8 +1,6 @@
 package com.equiposmoby.equiposmoby.Services;
 
 import com.equiposmoby.equiposmoby.Models.Daos.IDao;
-import com.equiposmoby.equiposmoby.Models.Daos.UserDao;
-import com.equiposmoby.equiposmoby.Models.Entity.Jefe;
 import com.equiposmoby.equiposmoby.Models.Entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -24,9 +22,6 @@ public class SessionService {
     @Qualifier("usuarioDAO")
     private IDao userDao;
 
-    @Autowired
-    @Qualifier("integranteDAO")
-    private IDao integranteDAO;
 
     public String sesionIniciada(HttpSession session , String vista){
 
@@ -40,7 +35,7 @@ public class SessionService {
 
     public Map<String , String> crearSesion(String email , String password , HttpServletRequest request) throws ParseException {
 
-        this.createJefe();
+        ///this.createJefe();
         Map<String , String> errores = new HashMap<>();
         if (email.isEmpty()){
             errores.put("email", "No puede estar vacio");
@@ -48,10 +43,14 @@ public class SessionService {
         if(password.isEmpty()) {
             errores.put("password", "No puede estar vacio");
         }
-        User logUser = (User) userDao.buscar(email);
-        if(logUser == null){
-            errores.put("incorrecto" , "el usuario no existe");
+        User logUser = null;
+        if(errores.isEmpty()){
+            logUser = (User) this.userDao.buscar(email);
+            if(logUser == null){
+                errores.put("incorrecto" , "el usuario no existe");
+            }
         }
+
 
         if(errores.isEmpty() && !password.isEmpty()){
             if (logUser.getPassword().equals(password)){
@@ -83,7 +82,7 @@ public class SessionService {
         }
         return error;
     }
-
+/*
     private void createJefe() throws ParseException {
 
 
@@ -97,7 +96,7 @@ public class SessionService {
             Jefe nuevoJefe = new Jefe();
             nuevoJefe.setUsuario(logUser);
            /* integranteDAO.agregar(nuevoJefe);*/
-        }
-    }
+        //}
+    //}
 
 }

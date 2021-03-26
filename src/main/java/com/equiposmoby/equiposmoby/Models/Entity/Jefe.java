@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -16,7 +17,7 @@ public class Jefe extends Integrante{
     public Jefe () throws ParseException {
         this.setNombre("Horacio");
         this.setApellido("Castañeda");
-        this.setFechaNacimiento(new Date(1980, 02 ,29));
+        this.setFechaNacimiento(LocalDate.of(1999,8,22));
         this.setExperiencia(3);
         this.setJefe(true);
         this.setPuesto(new Puesto());

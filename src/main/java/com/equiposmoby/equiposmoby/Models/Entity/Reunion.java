@@ -2,6 +2,7 @@ package com.equiposmoby.equiposmoby.Models.Entity;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -19,6 +20,7 @@ import java.util.List;
 @Entity
 @Table(name = "reuniones")
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@Builder
 public class Reunion implements Serializable {
 
     @Id

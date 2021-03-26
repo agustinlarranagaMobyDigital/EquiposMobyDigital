@@ -4,14 +4,13 @@ import com.equiposmoby.equiposmoby.Models.Entity.User;
 import com.equiposmoby.equiposmoby.Services.IUsuarioServices;
 import com.equiposmoby.equiposmoby.Services.IntegranteService;
 import com.equiposmoby.equiposmoby.Services.SessionService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,6 +18,7 @@ import javax.validation.Valid;
 import java.text.ParseException;
 import java.util.Map;
 
+@RequiredArgsConstructor
 @Controller
 public class SessionController {
 
@@ -27,30 +27,34 @@ public class SessionController {
     private SessionService sessionService;
 
     @GetMapping("/login")
-    public String loginView(Model model , HttpSession session){
+    public ResponseEntity loginView(Model model , HttpSession session){
 
+        User usuario = new User();
         model.addAttribute("titulo" , "Iniciar Sesion");
         model.addAttribute("mensaje" , "Iniciar Sesion");
-        return sessionService.sesionIniciada(session , "login");
+        model.addAttribute("usuario" , usuario);
+        return ResponseEntity.ok(sessionService.sesionIniciada(session , "login"));
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam String email, @RequestParam String password , HttpServletRequest request , Model model) throws ParseException {
+    public ResponseEntity login(@RequestBody User usuario, HttpServletRequest request , Model model) throws ParseException {
         model.addAttribute("mensaje" , "Iniciar Sesion");
         model.addAttribute("titulo" , "Iniciar Sesion");
 
-        Map<String , String> error = sessionService.crearSesion(email , password , request);
+        Map<String , String> error = sessionService.crearSesion(usuario.getEmail() , usuario.getPassword() , request);
 
-        if(!error.isEmpty()) {
-            model.addAttribute("email", email);
-            model.addAttribute("password", password);
+
+        if(!error.isEmpty()){
+            model.addAttribute("email", usuario.getEmail());
+            model.addAttribute("password", usuario.getPassword());
             model.addAttribute("error", error);
-            return "login";
+            System.out.println("error1");
+            return ResponseEntity.badRequest().body("login");
+
         }else{
-            return "redirect:/app";
+            System.out.println("entro");
+            return ResponseEntity.ok("redirec:/app");
         }
-
-
     }
 
     @GetMapping("/registration")
