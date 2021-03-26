@@ -1,6 +1,7 @@
 package com.equiposmoby.equiposmoby.Services;
 
 import com.equiposmoby.equiposmoby.Models.Daos.IDao;
+import com.equiposmoby.equiposmoby.Models.Daos.IntegranteDAO;
 import com.equiposmoby.equiposmoby.Models.Entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -51,6 +52,10 @@ public class IntegranteService {
         agregarAgenda(integrante);
     }
 
+    public void update(Integrante integrante){
+        integranteDAO.agregar(integrante);
+    }
+
     public boolean agregarAgenda(Integrante integrante){
 
         Agenda agenda = Agenda.builder()
@@ -84,14 +89,17 @@ public class IntegranteService {
     }
 
     public Lenguaje getLenguajeByID(Integer id){
-        Lenguaje resultado = null;
+        Lenguaje resultado = new Lenguaje();
         List<Lenguaje> lista = getLenguajes();
-        for (Lenguaje lenguaje: lista){
-            if(id == lenguaje.getId()){
-                resultado = lenguaje;
-                break;
+        if(!lista.isEmpty()){
+            for (Lenguaje lenguaje: lista){
+                if(id == lenguaje.getId()){
+                    resultado = lenguaje;
+                    break;
+                }
             }
         }
+
         return resultado;
     }
 
@@ -113,11 +121,14 @@ public class IntegranteService {
 
     public Equipo getEquipoByID (Integer id){
         Equipo resultado = null;
-        List<Equipo> lista = equipoDAO.traerTodas();
-        for (Equipo equipo: lista){
-            if(id == equipo.getId()){
-                resultado = equipo;
-                break;
+
+        if(id > 0){
+            List<Equipo> lista = equipoDAO.traerTodas();
+            for (Equipo equipo: lista){
+                if(id == equipo.getId()){
+                    resultado = equipo;
+                    break;
+                }
             }
         }
         return resultado;
@@ -127,6 +138,9 @@ public class IntegranteService {
         return equipoDAO.traerTodas();
     }
 
+    @Autowired
+    private IntegranteDAO idao;
+    public List<Integrante> getIntegrantesByIdEquipo(Integer idEquipo){ return idao.getByIdEquipo(idEquipo); }
 
     public Map<String , String> crearUsuario(BindingResult result ,String email, String pass){
 
@@ -214,5 +228,11 @@ public class IntegranteService {
             }
         }
         return programadores;
+    }
+
+    public void asignarEquipo(Integrante integrante, Equipo equipo){
+        if(equipo != null){
+            integrante.setEquipo(equipo);
+        }
     }
 }

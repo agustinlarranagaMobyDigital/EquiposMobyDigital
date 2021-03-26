@@ -1,10 +1,7 @@
 package com.equiposmoby.equiposmoby.Services;
 
 import com.equiposmoby.equiposmoby.Models.Daos.IDao;
-import com.equiposmoby.equiposmoby.Models.Entity.Equipo;
-import com.equiposmoby.equiposmoby.Models.Entity.Agenda;
-import com.equiposmoby.equiposmoby.Models.Entity.Cuenta;
-import com.equiposmoby.equiposmoby.Models.Entity.Lider;
+import com.equiposmoby.equiposmoby.Models.Entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -18,9 +15,26 @@ public class EquipoServiceIMP implements IEquipoService{
     @Qualifier("equipoDAO")
     private IDao equipoDAO;
 
+    @Autowired
+    private IntegranteService integranteService;
+
     @Override
     public List<Equipo> traerTodas() {
-        return equipoDAO.traerTodas();
+
+         List<Equipo> lista = equipoDAO.traerTodas();
+         Integer idEquipo = 0 ;
+
+         for (int i = 0; i < lista.size(); i++) {
+             idEquipo = lista.get(i).getId();
+             List<Integrante> listaIntegrantes = integranteService.getIntegrantesByIdEquipo(idEquipo);
+             lista.get(i).setArrayList(listaIntegrantes);
+             System.out.println("idEquipo = " + idEquipo);
+             System.out.println("listaIntegrantes.toString() = " + listaIntegrantes.toString());
+             System.out.println("lista.get(i).getArrayList().toString() = " + lista.get(i).getArrayList().toString());
+
+         }
+         
+        return lista;
     }
 
     @Override
