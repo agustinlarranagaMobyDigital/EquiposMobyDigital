@@ -2,6 +2,7 @@ package com.equiposmoby.equiposmoby.Models.Entity;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -11,12 +12,14 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Function;
 
 
 @Data //Crea los getters and setter, equals, toString.
 @AllArgsConstructor /// Crea el constructor con todos los atributos
 @NoArgsConstructor  /// Contructor vacio
 @Entity
+@Builder
 @Table(name = "reuniones")
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class Reunion implements Serializable {
