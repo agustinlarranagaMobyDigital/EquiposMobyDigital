@@ -1,6 +1,5 @@
 package com.equiposmoby.equiposmoby.Models.Daos;
 
-import com.equiposmoby.equiposmoby.Models.Entity.Lenguaje;
 import com.equiposmoby.equiposmoby.Models.Entity.Puesto;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

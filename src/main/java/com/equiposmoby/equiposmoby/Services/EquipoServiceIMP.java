@@ -2,9 +2,6 @@ package com.equiposmoby.equiposmoby.Services;
 
 import com.equiposmoby.equiposmoby.Models.Daos.IDao;
 import com.equiposmoby.equiposmoby.Models.Entity.Equipo;
-import com.equiposmoby.equiposmoby.Models.Entity.Agenda;
-import com.equiposmoby.equiposmoby.Models.Entity.Cuenta;
-import com.equiposmoby.equiposmoby.Models.Entity.Lider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

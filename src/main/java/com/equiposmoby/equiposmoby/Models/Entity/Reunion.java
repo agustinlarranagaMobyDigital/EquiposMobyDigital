@@ -1,4 +1,5 @@
 package com.equiposmoby.equiposmoby.Models.Entity;
+
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
@@ -7,20 +8,26 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
-
+@Builder
 @Data //Crea los getters and setter, equals, toString.
 @AllArgsConstructor /// Crea el constructor con todos los atributos
 @NoArgsConstructor  /// Contructor vacio
 @Entity
 @Table(name = "reuniones")
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-@Builder
 public class Reunion implements Serializable {
 
     @Id
@@ -43,9 +50,9 @@ public class Reunion implements Serializable {
     private Date horaFinal;
 
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade= CascadeType.ALL)
     @JoinColumn(name = "id_tipo_reunion")
-    private List <TipoReunion> listaTipoReunion;
+    private TipoReunion tipoReunion;
 
 
 

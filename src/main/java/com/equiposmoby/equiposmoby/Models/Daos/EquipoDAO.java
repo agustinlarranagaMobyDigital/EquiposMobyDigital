@@ -4,8 +4,8 @@ import com.equiposmoby.equiposmoby.Models.Entity.Equipo;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.PersistenceContext;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 
