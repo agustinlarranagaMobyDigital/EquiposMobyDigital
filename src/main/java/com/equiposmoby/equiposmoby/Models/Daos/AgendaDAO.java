@@ -42,23 +42,28 @@ public class AgendaDAO implements IDao<Agenda, Integer> {
     @Transactional
     @Override
     public Agenda getById(Integer id) {
-        if (em.find(Agenda.class, id) != null) {
-            return em.find(Agenda.class, id);
-        } else {
-            throw new AgendaNoEncontradaException();
-        }
+
+        return buscarPorId(id)
+                .orElseThrow(AgendaNoEncontradaException::new);
     }
 
     public Agenda modificar(Integer id, List<Reunion> reunions) {
 
-        Agenda agenda = em.find(Agenda.class, id);
-        agenda.setReuniones(reunions);
-        agregar(agenda);
-        return agenda;
+        Agenda agenda = buscarPorId(id)
+                .orElseThrow(AgendaNoEncontradaException::new);;
+        return ModificarAgenda(agenda, reunions);
     }
 
     public Optional<Agenda> buscarPorId(Integer id) {
 
         return Optional.ofNullable(em.find(Agenda.class, id));
+    }
+
+    @Transactional
+    public Agenda ModificarAgenda(Agenda agenda,List<Reunion> reunions){
+
+        agenda.setReuniones(reunions);
+        em.refresh(agenda);
+        return agenda;
     }
 }

@@ -1,12 +1,11 @@
 package com.equiposmoby.equiposmoby.Services;
 
 import com.equiposmoby.equiposmoby.Models.Daos.AgendaDAO;
-import com.equiposmoby.equiposmoby.Models.Daos.IntegranteDAO;
+import com.equiposmoby.equiposmoby.Models.Daos.ReunionDaoImple;
 import com.equiposmoby.equiposmoby.Models.Entity.Agenda;
-import com.equiposmoby.equiposmoby.Models.Entity.Integrante;
 import com.equiposmoby.equiposmoby.Models.Entity.Reunion;
-import com.equiposmoby.equiposmoby.excepciones.AgendaNoCreadaException;
 import com.equiposmoby.equiposmoby.excepciones.AgendaNoEncontradaException;
+import com.equiposmoby.equiposmoby.excepciones.ReunionNoEncontradaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,45 +19,29 @@ public class AgendaService {
     private AgendaDAO agendaDAO;
 
     @Autowired
-    private IntegranteDAO integranteDAO;
+    private ReunionDaoImple reunionDaoImple;
 
-    public Boolean agregar(Integer idAgenda, Reunion reunion) {
+    public Reunion agregar(Integer idAgenda, Reunion reunion) {
 
         Agenda agenda = agendaDAO.buscarPorId(idAgenda)
                 .orElseThrow(AgendaNoEncontradaException::new);
         List<Reunion> reunionList = new ArrayList<>();
-        try {
-            reunionList.add(reunion);
-            agenda.setReuniones(reunionList);
-            return true;
-        } catch (AgendaNoCreadaException ex) {
-            throw new AgendaNoCreadaException();
-        }
-    }
-
-    public Boolean agregarAgendaIntegrante(Integrante integrante) {
-
-       /* Integrante integrante = integranteDAO.getById(idIntegrante);*/
-        Agenda agenda = Agenda.builder()
-                .reuniones(new ArrayList<Reunion>())
-                .build();
-        integrante.setAgenda(agenda);
-        return true;
+        reunionList.add(reunion);
+        agenda.setReuniones(reunionList);
+        return reunion;
     }
 
     public Reunion eliminarEvento(Integer idAgenda, Integer idReunion) {
 
         Agenda agenda = agendaDAO.buscarPorId(idAgenda)
                 .orElseThrow(AgendaNoEncontradaException::new);
-        List<Reunion> reuniones = agenda.getReuniones();
-        for (Reunion reunion : reuniones) {
-            if (reunion.getIdReunion().equals(idReunion)) {
-                reuniones.remove(reunion);
-                agendaDAO.modificar(agenda.getIdAgenda(), reuniones);
-                return reunion;
-            }
+        Reunion reunion1 = reunionDaoImple.traerReunionPorId(idReunion)
+                .orElseThrow(ReunionNoEncontradaException::new);
+        if (agenda.getReuniones().contains(reunion1)) {
+            agenda.getReuniones().remove(reunion1);
+            agendaDAO.modificar(agenda.getIdAgenda(), agenda.getReuniones());
         }
-        return null;
+        return reunion1;
     }
 
     public Agenda eliminar(Integer idAgenda) {
@@ -78,5 +61,4 @@ public class AgendaService {
 
         return agendaDAO.getById(idAgenda);
     }
-
 }
