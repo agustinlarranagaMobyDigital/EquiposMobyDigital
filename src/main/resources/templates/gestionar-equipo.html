@@ -31,37 +31,40 @@
 
     </nav>
 </header>
+
+<h1 th:text="${equipo.nombre}"></h1>
+
+<h4> Integrantes: </h4>
+
 <section class="content-info">
     <table >
         <thead>
-        <tr>
+        <tr class="tr">
             <th>Nombre</th>
-            <th>Lider</th>
-            <th>Integrantes</th>
-            <th>Cuenta</th>
-            <th>Agenda</th>
-            <th>Gestion de integrantes</th>
+            <th>Apellido</th>
+            <th>Puesto</th>
+            <th>Eliminar</th>
 
         </tr>
         </thead>
         <tbody>
-        <tr th:each="equipo : ${listaEquipos}">
-            <td th:text="${equipo.nombre}"></td>
-            <div th:if="${equipo.arrayList != null}">
-                <div th:if="${equipo.getLider() != null}">
-                    <td th:text="${equipo.getLider().nombre} + ${equipo.getLider().apellido}"></td>
-                </div>
-                <div th:if="${equipo.getProgramadores() != null}">
-                    <td><p th:each="integrante : ${equipo.getProgramadores()}"  th:text="${integrante.nombre} + ${integrante.apellido}"></p> </td>
-                </div>
-            </div>
-            <td th:text="${equipo.cuenta.nombre}"></td>
-            <td>    <a th:href="@{/agendaEquipo/} + ${equipo.id}" th:text="agenda"></a></td>
-            <td>    <a th:href="@{/gestionarEquipo/} + ${equipo.id}" th:text=" aqui "></a></td>
-
+        <tr class="tr">
+            <td th:text="${lider.nombre}"></td>
+            <td th:text="${lider.apellido}"></td>
+            <td th:text="${lider.usuario.email}"></td>
+            <td th:text="${lider.puesto.nombre}"></td>
+            <td><a th:href="@{/eliminarIntegrante/} + ${lider.id}" th:text="eliminar"></a></td>
+        </tr>
+        <tr th:each="integrante : ${programadores}">
+            <td th:text="${integrante.nombre}"></td>
+            <td th:text="${integrante.apellido}"></td>
+            <td th:text="${integrante.usuario.email}"></td>
+            <td th:text="${integrante.puesto.nombre}"></td>
+            <td><a th:href="@{/eliminarIntegrante/} + ${integrante.id}" th:text="eliminar"></a></td>
         </tr>
         </tbody>
     </table>
+
 </section>
 </body>
 </html>

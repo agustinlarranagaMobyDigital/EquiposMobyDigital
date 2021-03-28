@@ -32,4 +32,8 @@ public class CuentaService implements ICuentaService{
     public Cuenta buscar(String txt) {
         return cuentaDAO.buscar(txt);
     }
+
+    public void CuentagetByIdEquipo(Integer idEquipo){
+       // cuentaDAO.getByIdEquipo(idEquipo);
+    }
 }

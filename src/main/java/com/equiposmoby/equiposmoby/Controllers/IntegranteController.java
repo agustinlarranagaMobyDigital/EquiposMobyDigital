@@ -85,21 +85,32 @@ public class IntegranteController {
     public String addIntegrante(@Valid Integrante integrante,BindingResult result, Model model, 
                                 @RequestParam String email,@RequestParam String password , HttpSession session){
 
+        System.out.println("integrante.getNombre() = " + integrante.getNombre());
         Map<String,String> errores = integranteService.crearUsuario(result,email,password);
 
         if(errores.isEmpty()){
+            // Si estoy editando
+            if (integrante.getId() > 0){
+                System.out.println("estoy editando");
+                integranteService.editar(integrante);
 
-            // agarro el ultimo usuario creado [el de arriba] y lo guardo en Integrante
-            User user = integranteService.getUltimoUserByEmail(email);
-            integrante.setUsuario(user);
+            }else{ // Si estoy agregando
+                // agarro el ultimo usuario creado [el de arriba] y lo guardo en Integrante
 
-            // si eligio lider, le asigno true al campo booleano
-            if(integrante.getPuesto().getNombre().equals("lider")){
-                integrante.setJefe(true);
+                System.out.println("estoy agregando");
+
+                User user = integranteService.getUltimoUserByEmail(email);
+                integrante.setUsuario(user);
+
+                // si eligio lider, le asigno true al campo booleano
+                if(integrante.getPuesto().getNombre().equals("lider")){
+                    integrante.setJefe(true);
+                }
+
+                // guardo en la base de datos
+                integranteService.agregarAgenda(integrante);
+                integranteService.add(integrante);
             }
-
-            // guardo en la base de datos
-            integranteService.add(integrante);
 
             // muestro la lista
             return sessionService.sesionIniciada(session , "redirect:/listaIntegrantes") ;
@@ -120,19 +131,19 @@ public class IntegranteController {
             // Cargando las listas
             List<Puesto> listaPuestos= integranteService.getPuestos();
             List<Lenguaje> listaLenguajes = integranteService.getLenguajes();
+            List<Equipo> listaEquipos = integranteService.getEquipos();
 
-            for (int i = 0; i < integrante.getLenguajes().size(); i++) {
-                for (int j = 0; j < listaLenguajes.size(); j++) {
-                    if (listaLenguajes.get(j).getNombre().equals(integrante.getLenguajes().get(i).getNombre())){
-                        listaLenguajes.remove(j);
-                    }
+
+
+            for (int i = 0; i < listaPuestos.size(); i++) {
+                if(listaPuestos.get(i).getId() == integrante.getPuesto().getId()){
+                    listaPuestos.remove(i);
+                    break;
                 }
             }
 
-            for (int i = 0; i < listaLenguajes.size(); i++) {
-                System.out.println("listaLenguajes.get(i).getNombre() = " + listaLenguajes.get(i).getNombre());
-            }
-            //  List<Equipo> listaEquipos = integranteService.getEquipos();
+
+
 
             // Cargando el model
             model.addAttribute("titulo",titulo);
@@ -140,16 +151,21 @@ public class IntegranteController {
             model.addAttribute("integrante",integrante);
             model.addAttribute("listaPuestos",listaPuestos);
             model.addAttribute("listaLenguajes",listaLenguajes);
-            //    model.addAttribute("listaEquipos",listaEquipos);
-        }
+            model.addAttribute("listaEquipos",listaEquipos);
+
             return sessionService.sesionIniciada(session , "formIntegrante") ;
+        }
+        return sessionService.sesionIniciada(session , "redirect:/listaIntegrantes") ;
+
     }
 
     @RequestMapping(value ="/eliminar/{id}")
     public String eliminar(Model model, @PathVariable(value = "id") Integer id , HttpSession session){
 
         if(session.getAttribute("usuario") != null){
-            integranteService.eliminar(id);
+            if (id > 0){
+                integranteService.eliminar(id);
+            }
         }
         return sessionService.sesionIniciada(session , "redirect:/listaIntegrantes") ;
     }
@@ -165,5 +181,19 @@ public class IntegranteController {
         model.addAttribute("lista",lista);
 
         return sessionService.sesionIniciada(session , "lista-integrantes") ;
+    }
+
+    @RequestMapping(value = "/agenda/{id}")
+    public String verAgendaPersonal(Model model,HttpSession session,@PathVariable(value = "id") Integer id){
+
+
+        Integrante integrante = integranteService.getById(id);
+
+        model.addAttribute("titulo",titulo);
+        model.addAttribute("h1","Lista de los empleados de Moby Digital!");
+        model.addAttribute("agenda", integrante.getAgenda());
+        model.addAttribute("integrante", integrante);
+
+        return "verAgenda";
     }
 }

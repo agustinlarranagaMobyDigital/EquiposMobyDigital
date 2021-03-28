@@ -17,4 +17,7 @@ INSERT INTO cuentas (nombre,valor) VALUES ('Pepe', 20.3);
 INSERT INTO cuentas (nombre,valor) VALUES ('Jonas', 540.3);
 INSERT INTO cuentas (nombre,valor) VALUES ('Lolo', 698.8);
 INSERT INTO cuentas (nombre,valor) VALUES ('Andres', 333.5);
+INSERT INTO cuentas (nombre,valor) VALUES ('Sin cuenta', 0);
+
+INSERT INTO equipos(nombre,cuenta) VALUES ( 'Sin equipo', 5);
 

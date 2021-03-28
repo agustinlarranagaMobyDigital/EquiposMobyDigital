@@ -1,13 +1,8 @@
 package com.equiposmoby.equiposmoby;
 
 import com.equiposmoby.equiposmoby.Controllers.IntegranteController;
-import com.equiposmoby.equiposmoby.Models.Daos.EquipoDAO;
-import com.equiposmoby.equiposmoby.Models.Daos.IntegranteDAO;
-import com.equiposmoby.equiposmoby.Models.Daos.LenguajeDAO;
-import com.equiposmoby.equiposmoby.Models.Daos.PuestoDAO;
-import com.equiposmoby.equiposmoby.Models.Entity.Equipo;
-import com.equiposmoby.equiposmoby.Models.Entity.Integrante;
-import com.equiposmoby.equiposmoby.Models.Entity.Lenguaje;
+import com.equiposmoby.equiposmoby.Models.Daos.*;
+import com.equiposmoby.equiposmoby.Models.Entity.*;
 import com.equiposmoby.equiposmoby.Services.EquipoServiceIMP;
 import com.equiposmoby.equiposmoby.Services.IntegranteService;
 import org.junit.jupiter.api.Test;
@@ -32,6 +27,9 @@ public class IntegranteTest {
     PuestoDAO puestoDAO;
 
     @Mock
+    AgendaDAO agendaDAO;
+
+    @Mock
     LenguajeDAO lenguajeDAO;
 
     @Mock
@@ -43,12 +41,14 @@ public class IntegranteTest {
     @Mock
     IntegranteDAO integranteDAO;
 
+    @Mock
+    IDao iDao;
+
     @InjectMocks
     IntegranteController controller;
 
     @InjectMocks
     IntegranteService service;
-
 
 
 
@@ -87,4 +87,64 @@ public class IntegranteTest {
         assertNull(buscado);
         assertNotEquals(equipo,buscado);
     }
+
+
+    @Test
+    void getPuestoByID_Test_EXITOSO(){
+        //given
+        Puesto puesto = new Puesto(3,"back");
+        when(puestoDAO.traerTodas()).thenReturn(DatosIntegrante.PUESTOS);
+        //when
+        Puesto buscado =service.getPuestoByID(3);
+        //then
+        assertNotNull(buscado);
+        assertEquals(puesto,buscado);
+    }
+
+    @Test
+    void getPuestoByID_Test_PUESTONULL(){
+        //given
+        Puesto puesto = mock(Puesto.class);
+        when(puestoDAO.traerTodas()).thenReturn(DatosIntegrante.PUESTOS);
+        //when
+        Puesto buscado =service.getPuestoByID(3000);
+        //then
+        assertNull(buscado);
+        assertNotEquals(puesto,buscado);
+    }
+
+    @Test
+    void getPuestoByID_Test_IDMAL(){
+        //given
+        Puesto puesto = mock(Puesto.class);
+        //when
+        Puesto buscado =service.getPuestoByID(-1);
+        //then
+        assertNull(buscado);
+        assertNotEquals(puesto,buscado);
+    }
+
+
+   /*  @Test
+    void agregarAgenda_Test_Exitoso(){
+        //given
+        Integrante integrante = mock(Integrante.class);
+        Agenda agenda = mock(Agenda.class);
+        doNothing().when(agendaDAO).agregar(isA(Agenda.class));
+        //when
+        service.agregarAgenda(integrante);
+        //then
+        assertNotNull(integrante.getAgenda());
+    }
+
+
+   @Test
+    void eliminarController_Test_Exitoso(){
+        Model model = mock(Model.class);
+        HttpSession session = mock(HttpSession.class);
+        In
+
+        controller.eliminar(model,1,session);
+    }*/
+
 }

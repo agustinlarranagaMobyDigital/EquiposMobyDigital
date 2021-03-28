@@ -41,4 +41,8 @@ public class CuentaDAO implements IDao <Cuenta,Integer> {
     public Cuenta getById(Integer id) {
         return null;
     }
+
+   /* public Cuenta getByIdEquipo(Integer idEquipo){
+        return em.createQuery("from Cuenta c where c.equipo.id = " +  idEquipo).getResultList();
+    }*/
 }

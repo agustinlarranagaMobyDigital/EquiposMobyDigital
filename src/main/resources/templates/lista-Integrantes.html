@@ -35,7 +35,6 @@
     <table>
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Fecha de nacimiento</th>
@@ -49,7 +48,6 @@
         </thead>
         <tbody>
             <tr th:each="integrante : ${lista}" class="tr">
-                <td th:text="${integrante.id}"></td>
                 <td th:text="${integrante.nombre}"></td>
                 <td th:text="${integrante.apellido}"></td>
                 <td th:text="${integrante.fechaNacimiento}"></td>
@@ -60,15 +58,11 @@
                     <p th:each=" lenguaje : ${integrante.getLenguajes()}" th:text="${lenguaje.nombre}"></p>
                 </td>
                 <td th:text="${integrante.puesto.nombre}"></td>
-                <!--td th:text="${integrante.equipo.nombre}"></td-->
-            <!--link a la agenda de ese integrante
-           <a></a>-->
-                <td>
-                    <a th:href="@{/formIntegrante/} + ${integrante.id}" th:text="editar"></a>
-                </td>
-                <td>
-                    <a th:href="@{/eliminar/} + ${integrante.id}" th:text="eliminar"></a>
-                </td>
+                <td th:text="${integrante.equipo.nombre}"></td>
+                <td>    <a th:href="@{/agenda/} + ${integrante.id}" th:text="agenda"></a></td>
+                <td>    <a th:href="@{/formIntegrante/} + ${integrante.id}" th:text="editar"></a></td>
+                <td>    <a th:href="@{/eliminar/} + ${integrante.id}" th:text="eliminar"></a></td>
+
             </tr>
         </tbody>
     </table>

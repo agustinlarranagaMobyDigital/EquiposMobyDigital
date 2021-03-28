@@ -1,5 +1,6 @@
 package com.equiposmoby.equiposmoby.Services;
 
+import com.equiposmoby.equiposmoby.Models.Daos.AgendaDAO;
 import com.equiposmoby.equiposmoby.Models.Daos.IDao;
 import com.equiposmoby.equiposmoby.Models.Daos.IntegranteDAO;
 import com.equiposmoby.equiposmoby.Models.Entity.*;
@@ -22,8 +23,11 @@ public class IntegranteService {
     // ------------------------------------------------------------------------ INYECCIONES
 
     @Autowired
+    private EquipoServiceIMP equipoService;
+
+    @Autowired
     @Qualifier("agendaDao")
-    private  IDao agendaDao;
+    private IDao agendaDao;
 
     @Autowired
     @Qualifier("integranteDAO")
@@ -49,22 +53,25 @@ public class IntegranteService {
 
     public void add(Integrante integrante){
         integranteDAO.agregar(integrante);
-        agregarAgenda(integrante);
     }
 
-    public void update(Integrante integrante){
+    public void editar(Integrante integrante){
         integranteDAO.agregar(integrante);
     }
 
     public boolean agregarAgenda(Integrante integrante){
 
-        Agenda agenda = Agenda.builder()
-                .reuniones(new ArrayList<Reunion>())
-                .build();
-        integrante.setAgenda(agenda);
+        if (integrante != null){
+            Agenda agenda = Agenda.builder()
+                    .reuniones(new ArrayList<Reunion>())
+                    .build();
 
-        agendaDao.agregar(agenda);
-        return true;
+            integrante.setAgenda(agenda);
+
+            agendaDao.agregar(agenda);
+            return true;
+        }
+        return false;
     }
 
     public List<Integrante> listar(){
@@ -109,11 +116,13 @@ public class IntegranteService {
 
     public Puesto getPuestoByID(Integer id){
         Puesto resultado = null;
-        List<Puesto> lista = puestoDAO.traerTodas();
-        for (Puesto puesto: lista){
-            if(id == puesto.getId()){
-                resultado = puesto;
-                break;
+        if(id > 0) {
+            List<Puesto> lista = puestoDAO.traerTodas();
+            for (Puesto puesto : lista) {
+                if (id == puesto.getId()) {
+                    resultado = puesto;
+                    break;
+                }
             }
         }
         return resultado;
@@ -123,13 +132,7 @@ public class IntegranteService {
         Equipo resultado = null;
 
         if(id > 0){
-            List<Equipo> lista = equipoDAO.traerTodas();
-            for (Equipo equipo: lista){
-                if(id == equipo.getId()){
-                    resultado = equipo;
-                    break;
-                }
-            }
+            resultado = equipoService.getById(id);
         }
         return resultado;
     }

@@ -33,16 +33,16 @@
 <div class="content">
     <h1 th:text="${h1}"></h1>
 
-    <form th:action="@{/agregarEquipo}"  method="post">
+    <form th:action="@{/guardarEquipo}" th:object="${equipo}" method="post">
 
         <!-- DATOS NATIVOS DE LA ENTIDAD EQUIPO -->
         <label for="nombre">Nombre: </label>
         <input type="text" name="nombre" id="nombre">
 
-        <label for="lider">Lider: </label>
-        <select id="lider" name="lider">
+        <label for="cuenta">Cuenta: </label>
+        <select id="cuenta" name="cuenta">
             <option value=""> Seleccione uno </option>
-            <option th:each=" lider:${listaLideres}" th:text="${lider.nombre}" th:value="${lider.id}"></option>
+            <option th:each=" cuenta :${listaCuentas}" th:text="${cuenta.nombre}" th:value="${cuenta.id_cuenta}" th:field="*{cuenta}"></option>
         </select>
 
         <input class="submit" type="submit">

@@ -44,4 +44,25 @@ public class Equipo implements Serializable {
         this.id = id;
         this.nombre = nombre;
     }
+
+    public List<Integrante> getProgramadores(){
+        for (int i = 0; i < arrayList.size(); i++) {
+            if(arrayList.get(i).getPuesto().getNombre().equals("lider")){
+                arrayList.remove(i);
+                break;
+            }
+        }
+        return arrayList;
+    }
+
+    public Integrante getLider(){
+        Integrante lider = null;
+        for (int i = 0; i < arrayList.size(); i++) {
+            if(arrayList.get(i).getPuesto().getNombre().equals("lider")){
+                lider = arrayList.get(i);
+                break;
+            }
+        }
+        return lider;
+    }
 }

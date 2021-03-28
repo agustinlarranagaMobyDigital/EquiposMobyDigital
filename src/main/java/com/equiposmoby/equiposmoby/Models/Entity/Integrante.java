@@ -50,7 +50,7 @@ public  class   Integrante implements Serializable {
             name = "integrante_x_lenguaje",
             joinColumns = @JoinColumn(name = "id_integrante"),
             inverseJoinColumns = @JoinColumn(name = "id_lenguaje"))
-    private List <Lenguaje> lenguajes ;
+    private List <Lenguaje> lenguajes;
 
 
     @ManyToOne(fetch = FetchType.LAZY)

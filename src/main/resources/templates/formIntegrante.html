@@ -43,7 +43,7 @@
             <input type="text" th:field="*{apellido}" id="apellido">
 
             <label for="exp">Anos de experiencia: </label>
-            <input type="number" th:field="*{experiencia}" id="exp">
+            <input type="number" th:field="*{experiencia}" id="exp" min="0" max="70">
 
             <label for="nacimiento">Nacimiento: </label>
             <input type="text" th:field="*{fechaNacimiento}" id="nacimiento">
@@ -53,50 +53,62 @@
             <!-- PUESTO-->
             <label for="puesto">Puesto: </label>
 
-            <select id="puesto" th:field="*{puesto}">
-        <option value=""> Seleccione uno </option>
-        <option th:if=" ${integrante.id}"></option>
-        <option th:each="p:${listaPuestos}" th:text="${p.nombre}" th:value="${p.id}"></option>
-    </select>
+            <select th:if="${integrante.puesto == null}" id="puesto" th:field="*{puesto}" >
+                <option value=""> Seleccione uno </option>
+                <option th:each="p:${listaPuestos}" th:text="${p.nombre}" th:value="${p.id}"></option>
+            </select>
+            <select th:if="${integrante.puesto != null}" id="puesto" th:field="*{puesto}" >
+                <option th:text="${integrante.puesto.nombre}" th:value="${integrante.puesto.id}" selected> Seleccione uno </option>
+                <option th:each="p:${listaPuestos}" th:text="${p.nombre}" th:value="${p.id}"></option>
+            </select>
 
-            <!-- EQUIPOS>
-    <label for="equipo">Equipo: </label>
-    <select id="equipo" th:field="*{equipo}">
-        <option value=""> Seleccione uno </option>
-        <option th:each="e:${listaEquipos}" th:text="${e.nombre}" th:value="${e.id}"></option>
-    </select>
-    -->
-            <!-- LENGUAJES-->
+            <!--EQUIPOS-->
+      <label for="equipo">Equipo: </label>
 
-            <label>Lenguajes: </label>
-            <div>
+          <select  th:if="${integrante.equipo == null}" id="equipo" th:field="*{equipo}">
+              <option value=""> Seleccione uno </option>
+              <option th:each="e:${listaEquipos}" th:text="${e.nombre}" th:value="${e.id}"></option>
+          </select>
+            <select th:if="${integrante.equipo != null}" id="equipo" th:field="*{equipo}" >
+                <option th:text="${integrante.equipo.nombre}" th:value="${integrante.equipo.id}" selected> Seleccione uno </option>
+                <option th:each="e:${listaEquipos}" th:text="${e.nombre}" th:value="${e.id}"></option>
+            </select>
 
-                <div class="content-lenguajes" th:if="${integrante.id} > 0" th:each=" lenguaje : ${integrante.getLenguajes()}">
-                    <input type="checkbox" th:value="${lenguaje.id}" th:field="*{lenguajes}">
-                    <label th:text="${lenguaje.nombre}"></label>
-                </div>
 
+              <!-- LENGUAJES-->
+            <div th:if="${integrante.lenguajes == null}">
+
+                <label>Lenguajes: </label>
                 <div class="content-lenguajes" th:each=" lenguaje : ${listaLenguajes}">
                     <div class="lenguaje">
                         <input type="checkbox" th:value="${lenguaje.id}" th:field="*{lenguajes}">
                         <label th:text="${lenguaje.nombre}"></label>
                     </div>
                 </div>
-
             </div>
 
 
             <!-- USUARIO -->
 
-            <label for="email">Email: </label>
-            <input type="text" name="email" id="email">
-            <label for="password">Contrasena: </label>
-            <input type="text" name="password" id="password">
+
+            <div th:if="${integrante.usuario  != null}" >
+                <input type="hidden" name="email" id="email"  th:value="${integrante.usuario.email}">
+                <input type="hidden" name="password" id="password"  th:value="${integrante.usuario.password}">
+            </div>
+
+            <div th:if="${integrante.usuario  == null}">
+                <label for="email">Email: </label>
+                <input type="text" name="email" id="email">
+                <label for="password">Contrasena: </label>
+                <input type="text" name="password" id="password">
+            </div>
+
 
 
 
             <!-- EQUIPO -->
-            <input type="hidden" name="id" id="id" th:field="*{id}" th:value="${integrante.id}"> <br><br>
+            <input type="hidden" name="id" id="id" th:if="${integrante.usuario  != null}" th:field="*{id}" th:value="${integrante.id}"> <br><br>
+
             <input class="submit" type="submit">
         </form>
 
