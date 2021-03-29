@@ -64,4 +64,13 @@ public class AgendaController {
         model.addAttribute("agenda",agenda);
         return "agendaPersonal";
     }
+
+    @GetMapping("/consultaEquipo/{id-equipo}")
+    public String consultarAgendaEquipo(
+            @PathVariable(value = "id-equipo") Integer idEquipo, Model model){
+
+        Agenda agenda = agendaService.consultaAgendaEquipo(idEquipo);
+        model.addAttribute("agenda",agenda);
+        return "agendaEquipo";
+    }
 }

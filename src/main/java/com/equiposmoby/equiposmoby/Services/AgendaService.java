@@ -1,9 +1,11 @@
 package com.equiposmoby.equiposmoby.Services;
 
 import com.equiposmoby.equiposmoby.Models.Daos.AgendaDAO;
+import com.equiposmoby.equiposmoby.Models.Daos.EquipoDAO;
 import com.equiposmoby.equiposmoby.Models.Daos.IntegranteDAO;
 import com.equiposmoby.equiposmoby.Models.Daos.ReunionDaoImple;
 import com.equiposmoby.equiposmoby.Models.Entity.Agenda;
+import com.equiposmoby.equiposmoby.Models.Entity.Equipo;
 import com.equiposmoby.equiposmoby.Models.Entity.Integrante;
 import com.equiposmoby.equiposmoby.Models.Entity.Reunion;
 import com.equiposmoby.equiposmoby.excepciones.AgendaNoEncontradaException;
@@ -25,6 +27,9 @@ public class AgendaService {
 
     @Autowired
     private IntegranteDAO integranteDAO;
+
+    @Autowired
+    private EquipoDAO equipoDAO;
 
     public Reunion agregar(Integer idAgenda, Reunion reunion) {
 
@@ -71,6 +76,13 @@ public class AgendaService {
 
         Integrante aux = integranteDAO.getById(id);
         return agendaDAO.buscarPorId(aux.getAgenda().getIdAgenda())
+                .orElseThrow(AgendaNoEncontradaException::new);
+    }
+
+    public Agenda consultaAgendaEquipo (Integer id) {
+
+        Equipo equipo = equipoDAO.getById(id);
+        return agendaDAO.buscarPorId(equipo.getAgenda().getIdAgenda())
                 .orElseThrow(AgendaNoEncontradaException::new);
     }
 }
