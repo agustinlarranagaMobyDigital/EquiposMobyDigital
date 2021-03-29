@@ -59,6 +59,15 @@ public class EquipoController {
 
             return "redirect:/listarEquipos";
     }
+    @RequestMapping("/eliminarEquipo/{id}")
+    public String eliminarEquipo (Model model, @PathVariable(value = "id") Integer id){
+
+        Equipo equipo = equipoServiceIMP.getById(id);
+        equipoServiceIMP.eliminar(equipo);
+
+        return "redirect:/listarEquipos";
+    }
+
 
 
     @RequestMapping("/listarEquipos")

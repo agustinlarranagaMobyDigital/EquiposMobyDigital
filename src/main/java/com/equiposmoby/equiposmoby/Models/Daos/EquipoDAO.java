@@ -26,6 +26,7 @@ public class EquipoDAO implements IDao<Equipo, Integer>{
         em.persist(equipo);
     }
 
+    @Transactional
     @Override
     public void eliminar(Equipo equipo){
         em.remove(equipo);

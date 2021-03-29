@@ -54,6 +54,8 @@ public class EquipoServiceIMP implements IEquipoService{
 
     @Override
     public void eliminar(Equipo equipo) {
+
+        integranteService.borrarEquipoDeTodosLosIntegrantes(equipo);
         equipoDAO.eliminar(equipo);
     }
 

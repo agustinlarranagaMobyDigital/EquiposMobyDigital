@@ -88,22 +88,19 @@ public class IntegranteController {
     public String addIntegrante(@Valid Integrante integrante,BindingResult result, Model model,
                                 @RequestParam String email,@RequestParam String password , HttpSession session){
 
-        System.out.println("integrante.getNombre() = " + integrante.getNombre());
 
         Map<String,String> errores = usuarioServiceIMP.crearUsuario(result,email,password);
 
         if(errores.isEmpty()){
-            // Si estoy editando
             if (integrante.getId() > 0){
-                System.out.println("estoy editando");
+
                 integranteService.editar(integrante);
 
-            }else{ // Si estoy agregando
-                // agarro el ultimo usuario creado [el de arriba] y lo guardo en Integrante
+            }else{
 
                 System.out.println("estoy agregando");
 
-                User user = integranteService.getUltimoUserByEmail(email);
+                User user = integranteService.getUserByEmail(email);
                 integrante.setUsuario(user);
 
                 // si eligio lider, le asigno true al campo booleano

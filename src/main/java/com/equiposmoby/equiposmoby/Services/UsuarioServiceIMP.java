@@ -54,13 +54,7 @@ public class UsuarioServiceIMP implements IUsuarioServices{
     public Map<String , String> crearUsuario(BindingResult result , String email, String pass) {
 
         Map<String, String> error = new HashMap<>();
-        result.getFieldErrors().forEach(err -> {
-            error.put(
-                    err.getField(), "el campo "
-                            .concat(err.getField())
-                            .concat(" ")
-                            .concat(Objects.requireNonNull(err.getDefaultMessage())));
-        });
+
 
         if (error.isEmpty()) {
 

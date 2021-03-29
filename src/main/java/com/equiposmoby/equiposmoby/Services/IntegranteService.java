@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.PushBuilder;
 import java.util.*;
 
@@ -101,6 +102,10 @@ public class IntegranteService extends ValidacionesService{
             return (Integrante) integranteDAO.getById(id);
         }
         return null;
+    }
+
+    public User getUserByEmail(String email){
+        return  (User) userDao.buscar(email);
     }
 
     // ------------------------------------------------------------------------ METODOS EXTERNOS
@@ -231,5 +236,15 @@ public class IntegranteService extends ValidacionesService{
         integrante.setEquipo(null);
         integrante.setTieneEquipo(false);
         this.editar(integrante);
+    }
+
+
+    public void borrarEquipoDeTodosLosIntegrantes(Equipo equipo){
+
+        List<Integrante> integrantes = getIntegrantesByIdEquipo(equipo.getId());
+        for (int i = 0; i < integrantes.size(); i++) {
+            integrantes.get(i).setEquipo(null);
+            integrantes.get(i).setTieneEquipo(false);
+        }
     }
 }
