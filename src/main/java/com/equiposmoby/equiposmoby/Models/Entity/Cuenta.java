@@ -24,6 +24,7 @@ public class Cuenta implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_cuenta;
 
+
     private String nombre;
 
     private Double valor;

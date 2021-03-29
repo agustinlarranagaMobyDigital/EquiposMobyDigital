@@ -38,10 +38,9 @@ public class SessionController {
     }
 
     @PostMapping("/login")
-    public String login(String email ,  String password, HttpServletRequest request , Model model){
+    public String login(User usuario,  HttpServletRequest request , Model model){
         model.addAttribute("mensaje" , "Iniciar Sesion");
         model.addAttribute("titulo" , "Iniciar Sesion");
-        User usuario = new User(email , password);
         System.out.println("controller email: " + usuario.getEmail());
         System.out.println("controller password: " +usuario.getPassword());
         Map<String , String> error = sessionService.crearSesion(usuario, request);
