@@ -39,7 +39,6 @@ public class AgendaDAO implements IDao<Agenda, Integer> {
         return null;
     }
 
-    @Transactional
     @Override
     public Agenda getById(Integer id) {
 
@@ -54,6 +53,7 @@ public class AgendaDAO implements IDao<Agenda, Integer> {
         return ModificarAgenda(agenda, reunions);
     }
 
+    @Transactional
     public Optional<Agenda> buscarPorId(Integer id) {
 
         return Optional.ofNullable(em.find(Agenda.class, id));
