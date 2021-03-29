@@ -30,7 +30,6 @@ public class EquipoServiceIMP implements IEquipoService{
         equipoDAO.eliminar(equipo);
     }
 
-
     @Override
     public Equipo buscar(String nombre) {
             Equipo equipoBuscado = (Equipo) equipoDAO.buscar(nombre);
@@ -41,6 +40,5 @@ public class EquipoServiceIMP implements IEquipoService{
             }
             return new Equipo();
     }
-
 
 }

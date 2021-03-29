@@ -1,12 +1,15 @@
 package com.equiposmoby.equiposmoby.Models.Entity;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-/*
-@AllArgsConstructor
-@NoArgsConstructor*/
+
+//@AllArgsConstructor
+//@NoArgsConstructor
 public class Jefe extends Integrante{
 
     public Jefe () throws ParseException {

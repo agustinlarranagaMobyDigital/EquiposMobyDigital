@@ -1,5 +1,6 @@
 package com.equiposmoby.equiposmoby.Models.Entity;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -15,6 +16,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
 
+@Builder
 @Data
 @Entity
 @Table(name = "lenguajes")

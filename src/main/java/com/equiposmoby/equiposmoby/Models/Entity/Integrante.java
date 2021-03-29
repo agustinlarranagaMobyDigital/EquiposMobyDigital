@@ -1,6 +1,9 @@
 package com.equiposmoby.equiposmoby.Models.Entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +21,9 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Entity
 @Table(name = "integrantes")
