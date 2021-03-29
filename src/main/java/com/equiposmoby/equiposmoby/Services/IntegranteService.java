@@ -31,7 +31,7 @@ public class IntegranteService {
 
     @Autowired
     @Qualifier("integranteDAO")
-    private IDao integranteDAO;
+    private IntegranteDAO integranteDAO;
 
     @Autowired
     @Qualifier("lenguajeDAO")
@@ -141,9 +141,8 @@ public class IntegranteService {
         return equipoDAO.traerTodas();
     }
 
-    @Autowired
-    private IntegranteDAO idao;
-    public List<Integrante> getIntegrantesByIdEquipo(Integer idEquipo){ return idao.getByIdEquipo(idEquipo); }
+
+    public List<Integrante> getIntegrantesByIdEquipo(Integer idEquipo){ return integranteDAO.getByIdEquipo(idEquipo); }
 
     public Map<String , String> crearUsuario(BindingResult result ,String email, String pass){
 
@@ -233,9 +232,20 @@ public class IntegranteService {
         return programadores;
     }
 
-    public void asignarEquipo(Integrante integrante, Equipo equipo){
+    public void asignarEquipo(Integer idIntegrante, Integer idEquipo){
+        Integrante integrante = getById(idIntegrante);
+        Equipo equipo = equipoService.getById(idEquipo);
         if(equipo != null){
             integrante.setEquipo(equipo);
+            integrante.setTieneEquipo(true);
+            this.editar(integrante);
         }
+    }
+
+    public void quitarEquipo(Integer idIntegrante){
+        Integrante integrante = getById(idIntegrante);
+        integrante.setEquipo(null);
+        integrante.setTieneEquipo(false);
+        this.editar(integrante);
     }
 }

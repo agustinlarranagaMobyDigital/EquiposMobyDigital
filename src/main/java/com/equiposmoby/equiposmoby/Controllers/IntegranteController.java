@@ -106,7 +106,7 @@ public class IntegranteController {
                 if(integrante.getPuesto().getNombre().equals("lider")){
                     integrante.setJefe(true);
                 }
-
+                integrante.setTieneEquipo(true);
                 // guardo en la base de datos
                 integranteService.agregarAgenda(integrante);
                 integranteService.add(integrante);
@@ -141,9 +141,6 @@ public class IntegranteController {
                     break;
                 }
             }
-
-
-
 
             // Cargando el model
             model.addAttribute("titulo",titulo);

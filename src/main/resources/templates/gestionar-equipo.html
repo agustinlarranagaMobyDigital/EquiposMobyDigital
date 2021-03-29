@@ -32,7 +32,7 @@
     </nav>
 </header>
 
-<h1 th:text="${equipo.nombre}"></h1>
+<h1 th:text="${titulo}"></h1>
 
 <h4> Integrantes: </h4>
 
@@ -53,18 +53,52 @@
             <td th:text="${lider.apellido}"></td>
             <td th:text="${lider.usuario.email}"></td>
             <td th:text="${lider.puesto.nombre}"></td>
-            <td><a th:href="@{/eliminarIntegrante/} + ${lider.id}" th:text="eliminar"></a></td>
+            <td><a th:href="@{/eliminarIntegrante/} + ${equipo.id} + @{/} + ${lider.id}" th:text="eliminar"></a></td>
         </tr>
         <tr th:each="integrante : ${programadores}">
             <td th:text="${integrante.nombre}"></td>
             <td th:text="${integrante.apellido}"></td>
             <td th:text="${integrante.usuario.email}"></td>
             <td th:text="${integrante.puesto.nombre}"></td>
-            <td><a th:href="@{/eliminarIntegrante/} + ${integrante.id}" th:text="eliminar"></a></td>
+            <td><a th:href="@{/eliminarIntegrante/} + ${equipo.id} + @{/} + ${integrante.id}" th:text="Eliminar"></a></td>
         </tr>
         </tbody>
     </table>
+</section>
 
+
+
+<section class="content-info">
+    <table>
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Años de experiencia</th>
+            <th>Lenguajes</th>
+            <th>Puesto</th>
+            <th>Equipo</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${listaIntegrantes != null}" th:each="integrante : ${listaIntegrantes}" class="tr">
+            <td th:text="${integrante.nombre}"></td>
+            <td th:text="${integrante.apellido}"></td>
+            <td th:text="${integrante.usuario.email}"></td>
+            <td th:text="${integrante.experiencia}"></td>
+            <!-- lista de lenguajes -->
+            <td class="td-lista">
+                <p th:each=" lenguaje : ${integrante.getLenguajes()}" th:text="${lenguaje.nombre}"></p>
+            </td>
+            <td th:text="${integrante.puesto.nombre}"></td>
+            <td th:if="${integrante.equipo != null}" th:text="${integrante.equipo.nombre}"></td>
+            <td th:if="${integrante.equipo == null}" > Sin equipo </td>
+            <td><a th:href="@{/agregarIntegrante/} + ${equipo.id} + @{/} + ${integrante.id}" th:text="Agregar"></a></td>
+
+        </tr>
+        </tbody>
+    </table>
 </section>
 </body>
 </html>

@@ -40,6 +40,7 @@ public  class   Integrante implements Serializable {
     @JoinColumn(name = "id_equipo")
     private Equipo equipo;
 
+    private boolean tieneEquipo;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_puesto")

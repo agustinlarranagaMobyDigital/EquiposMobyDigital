@@ -29,6 +29,9 @@ public class EquipoController {
     @Autowired
     private CuentaPropiertieEditor cuentaPropiertieEditor;
 
+    @Autowired
+    private IntegranteService integranteService;
+
     @InitBinder
     public void initBinder(WebDataBinder binder){
         binder.registerCustomEditor(Cuenta.class,"cuenta",cuentaPropiertieEditor);
@@ -83,22 +86,40 @@ public class EquipoController {
         Integrante lider = equipo.getLider();
         List<Integrante> programadores = equipo.getProgramadores();
 
+        //agarro los integrantes del sistema y le saco los de este equipo
+        List<Integrante> listaIntegrantes = integranteService.getOrderIntegrante();
+        for (int i = 0; i < listaIntegrantes.size(); i++) {
+            if(listaIntegrantes.get(i).getEquipo() != null) {
+                if(listaIntegrantes.get(i).getEquipo().getId() == equipo.getId()){
+                    listaIntegrantes.remove(i);
+                }
+            }
+        }
 
         model.addAttribute("titulo" , "Gestionar integrantes del equipo: " + equipo.getNombre());
         model.addAttribute("equipo", equipo);
         model.addAttribute("programadores",programadores);
         model.addAttribute("lider", lider);
+        model.addAttribute("listaIntegrantes", listaIntegrantes);
 
         return "gestionar-equipo";
     }
 
 
-    @RequestMapping(value = "/eliminarIntegrante/{id}")
-    public String eliminarIntegrante(Model model, HttpSession session, @PathVariable(value = "id") Integer id){
+    @RequestMapping(value = "/eliminarIntegrante/{Eid}/{Iid}")
+    public String eliminarIntegrante(Model model, HttpSession session, @PathVariable(value = "Eid") Integer idEquipo,
+                                     @PathVariable(value = "Iid") Integer idIntegrante){
 
-        System.out.println("eliminandoooo id= "+id);
-
-        return "redirect:/gestionar-equipo";
+        integranteService.quitarEquipo(idIntegrante);
+        return "redirect:/listarEquipos";
     }
 
+    @RequestMapping(value = "/agregarIntegrante/{Eid}/{Iid}")
+    public String agregarIntegrante(Model model, HttpSession session, @PathVariable(value = "Eid") Integer idEquipo,
+                                    @PathVariable(value = "Iid") Integer idIntegrante){
+
+        integranteService.asignarEquipo(idIntegrante,idEquipo);
+
+        return "redirect:/listarEquipos";
+    }
 }
