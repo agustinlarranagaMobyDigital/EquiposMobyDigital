@@ -15,8 +15,5 @@ INSERT INTO cuentas (nombre,valor) VALUES ('Pepe', 20.3);
 INSERT INTO cuentas (nombre,valor) VALUES ('Jonas', 540.3);
 INSERT INTO cuentas (nombre,valor) VALUES ('Lolo', 698.8);
 INSERT INTO cuentas (nombre,valor) VALUES ('Andres', 333.5);
-<<<<<<< HEAD
-=======
 
->>>>>>> 4a9b9aaaedc98b2b5117666e8abc3381648a8f9c
 

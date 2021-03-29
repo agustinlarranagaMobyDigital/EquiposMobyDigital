@@ -149,7 +149,7 @@ class UsuarioServiceIMPTest{
         BindingResult result = mock(BindingResult.class);
         when(userDao.buscar("correo@Correo")).thenReturn(null);
         doNothing().when(userDao).agregar(isA(User.class));
-        Map<String , String> errores = usuarioServiceIMP.crearUsuario( result, "correo@Correo" , "usuario");
+        Map<String , String> errores = usuarioServiceIMP.crearUsuario( result, "" , "usuario");
         assertFalse(errores.isEmpty());
     }
 

@@ -88,8 +88,6 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.5.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -114,8 +112,6 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
             <version>2.11.0</version>
-        </dependency>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.platform</groupId>

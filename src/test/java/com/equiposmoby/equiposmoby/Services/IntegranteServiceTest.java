@@ -1,5 +1,6 @@
 package com.equiposmoby.equiposmoby.Services;
 
+import com.equiposmoby.equiposmoby.DatosIntegrante;
 import com.equiposmoby.equiposmoby.Models.Daos.*;
 import com.equiposmoby.equiposmoby.Models.Entity.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -7,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -34,6 +36,9 @@ class IntegranteServiceTest {
 
     @Mock
     private UserDao userDao;
+
+    @Mock
+    private EquipoDAO equipoDAO;
 
     @BeforeEach
     public void setUp(){
@@ -297,6 +302,82 @@ class IntegranteServiceTest {
         Integrante buscado = integranteService.getById(0);
         assertNull(buscado);
         assertNotEquals(buscado , integrante);
+    }
+
+
+    @Test
+    void getEquipoByID_TestEXITOSO(){
+        //given
+        Equipo equipo = new Equipo(1,"trainies");
+        when(equipoDAO.getById(1)).thenReturn(equipo);
+        //when
+        Equipo buscado =integranteService.getEquipoByID(1);
+        //then
+        assertNotNull(buscado);
+        assertEquals(equipo,buscado);
+    }
+
+    @Test
+    void getEquipoByID_Test_EQUIPONULL(){
+        //given
+        Equipo equipo = mock(Equipo.class);
+        equipo.setNombre("pitbull");
+        equipo.setArrayList(new ArrayList<Integrante>());
+        equipo.setAgenda(new Agenda());
+        equipo.setCuenta(new Cuenta());
+        when(equipoDAO.getById(1)).thenReturn(equipo);
+        //when
+        Equipo buscado =integranteService.getEquipoByID(10);
+        //then
+        assertNull(buscado);
+        assertNotEquals(equipo,buscado);
+    }
+
+    @Test
+    void getEquipoByID_Test_IDMAL(){
+        //given
+        Equipo equipo = mock(Equipo.class);
+        //when
+        Equipo buscado =integranteService.getEquipoByID(-1);
+        //then
+        assertNull(buscado);
+        assertNotEquals(equipo,buscado);
+    }
+
+
+    @Test
+    void getPuestoByID_Test_EXITOSO(){
+        //given
+        Puesto puesto = new Puesto(3,"back");
+        when(puestoDAO.traerTodas()).thenReturn(DatosIntegrante.PUESTOS);
+        //when
+        Puesto buscado =integranteService.getPuestoByID(3);
+        //then
+        assertNotNull(buscado);
+        assertEquals(puesto,buscado);
+    }
+
+    @Test
+    void getPuestoByID_Test_PUESTONULL(){
+        //given
+        Puesto puesto = mock(Puesto.class);
+        when(puestoDAO.traerTodas()).thenReturn(DatosIntegrante.PUESTOS);
+        //when
+        Puesto buscado =integranteService.getPuestoByID(3000);
+        //then
+        assertNull(buscado);
+        assertNotEquals(puesto,buscado);
+    }
+
+    @Test
+    void getPuestoByID_Test_IDMAL(){
+        //given
+        Puesto puesto = mock(Puesto.class);
+        //when
+        Puesto buscado =integranteService.getPuestoByID(-1);
+        //then
+        assertNull(buscado);
+        assertNotEquals(puesto,buscado);
     }
 
 }

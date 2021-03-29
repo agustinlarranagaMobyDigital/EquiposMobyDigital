@@ -143,11 +143,12 @@ public class IntegranteService extends ValidacionesService{
     }
 
     public List<Integrante> getIntegrantesByIdEquipo(Integer idEquipo){ return integranteDAO.getByIdEquipo(idEquipo); }
+
     public Equipo getEquipoByID (Integer id){
         Equipo resultado = null;
 
         if(id > 0){
-            resultado = equipoService.getById(id);
+            resultado = (Equipo) equipoDAO.getById(id);
         }
         return resultado;
     }
