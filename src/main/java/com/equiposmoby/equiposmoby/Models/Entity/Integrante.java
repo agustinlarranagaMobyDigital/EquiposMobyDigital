@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import lombok.Builder;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,8 +13,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@AllArgsConstructor
+
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Entity
 @Table(name = "integrantes")
