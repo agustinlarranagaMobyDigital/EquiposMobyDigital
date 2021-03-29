@@ -70,7 +70,6 @@ public class EquipoServiceIMP implements IEquipoService{
             return new Equipo();
     }
 
-
     public Equipo getById (Integer id){
 
         Equipo equipo = (Equipo) equipoDAO.getById(id);
