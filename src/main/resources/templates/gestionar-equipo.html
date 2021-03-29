@@ -48,14 +48,14 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="tr">
+        <tr class="tr"  th:if="${lider != null}">
             <td th:text="${lider.nombre}"></td>
             <td th:text="${lider.apellido}"></td>
             <td th:text="${lider.usuario.email}"></td>
             <td th:text="${lider.puesto.nombre}"></td>
             <td><a th:href="@{/eliminarIntegrante/} + ${equipo.id} + @{/} + ${lider.id}" th:text="eliminar"></a></td>
         </tr>
-        <tr th:each="integrante : ${programadores}">
+        <tr th:if="${programadores != null}" th:each="integrante : ${programadores}">
             <td th:text="${integrante.nombre}"></td>
             <td th:text="${integrante.apellido}"></td>
             <td th:text="${integrante.usuario.email}"></td>
