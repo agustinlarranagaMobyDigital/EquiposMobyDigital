@@ -85,21 +85,26 @@ public class IntegranteController {
         return sessionService.sesionIniciada(session , "formIntegrante") ;
     }
     @PostMapping(value = "/formIntegrante")
-    public String addIntegrante(@Valid Integrante integrante,BindingResult result, Model model, 
+    public String addIntegrante(@Valid Integrante integrante,BindingResult result, Model model,
                                 @RequestParam String email,@RequestParam String password , HttpSession session){
+
+        System.out.println("integrante.getNombre() = " + integrante.getNombre());
 
         Map<String,String> errores = usuarioServiceIMP.crearUsuario(result,email,password);
 
         if(errores.isEmpty()){
+            // Si estoy editando
             if (integrante.getId() > 0){
                 System.out.println("estoy editando");
                 integranteService.editar(integrante);
 
-            }else{
-            // agarro el ultimo usuario creado [el de arriba] y lo guardo en Integrante
-            User user = usuarioServiceIMP.getUsuarioByEmail(email);
-            integrante.setUsuario(user);
+            }else{ // Si estoy agregando
+                // agarro el ultimo usuario creado [el de arriba] y lo guardo en Integrante
 
+                System.out.println("estoy agregando");
+
+                User user = integranteService.getUltimoUserByEmail(email);
+                integrante.setUsuario(user);
 
                 // si eligio lider, le asigno true al campo booleano
                 if(integrante.getPuesto().getNombre().equals("lider")){
@@ -110,10 +115,6 @@ public class IntegranteController {
                 integranteService.agregarAgenda(integrante);
                 integranteService.add(integrante);
             }
-
-            // guardo en la base de datos
-            integrante = integranteService.agregarAgenda(integrante);
-            integranteService.add(integrante);
 
             // muestro la lista
             return sessionService.sesionIniciada(session , "redirect:/listaIntegrantes") ;
