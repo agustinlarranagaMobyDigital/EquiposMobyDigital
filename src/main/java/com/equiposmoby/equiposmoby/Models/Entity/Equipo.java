@@ -39,6 +39,7 @@ public class Equipo implements Serializable {
     @JoinColumn(name = "id_agenda")
     private Agenda agenda;
 
+    private boolean completo;
 
     public Equipo (int id, String nombre){
         this.id = id;

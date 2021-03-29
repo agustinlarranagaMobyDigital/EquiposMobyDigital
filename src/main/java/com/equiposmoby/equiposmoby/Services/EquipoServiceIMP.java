@@ -49,6 +49,11 @@ public class EquipoServiceIMP implements IEquipoService{
 
     @Override
     public void agregar(Equipo equipo) {
+        equipo.setCompleto(false);
+        equipoDAO.agregar(equipo);
+    }
+
+    public void editar(Equipo equipo) {
         equipoDAO.agregar(equipo);
     }
 
@@ -138,5 +143,36 @@ public class EquipoServiceIMP implements IEquipoService{
         return false;
     }
 
+    public boolean equipoCompleto(Equipo equipo){
 
+        int lider = 0;
+        int back = 0;
+        int front = 0;
+        int tester = 0;
+
+        for (int i = 0; i < equipo.getArrayList().size(); i++) {
+            if(equipo.getArrayList().get(i).getPuesto().equals("lider")){
+                lider++;
+            }
+            if(equipo.getArrayList().get(i).getPuesto().equals("frontend")){
+                back++;
+            }
+            if(equipo.getArrayList().get(i).getPuesto().equals("backend")){
+                front++;
+            }
+            if(equipo.getArrayList().get(i).getPuesto().equals("tester")){
+                tester++;
+            }
+        }
+
+        if(lider==1 && back==3 && front==4 && tester==2){
+            if(equipo.isCompleto() == false){
+                equipo.setCompleto(true);
+                editar(equipo);
+            }
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
