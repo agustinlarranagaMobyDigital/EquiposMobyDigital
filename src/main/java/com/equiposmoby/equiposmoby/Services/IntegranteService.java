@@ -156,7 +156,6 @@ public class IntegranteService extends ValidacionesService{
         return equipoDAO.traerTodas();
     }
 
-
     public ArrayList<Integrante> getOrderIntegrante(){
 
         ArrayList<Integrante> integrantes = obtenerLideres();
@@ -216,9 +215,20 @@ public class IntegranteService extends ValidacionesService{
         return programadores;
     }
 
-    public void asignarEquipo(Integrante integrante, Equipo equipo){
+    public void asignarEquipo(Integer idIntegrante, Integer idEquipo){
+        Integrante integrante = getById(idIntegrante);
+        Equipo equipo = equipoService.getById(idEquipo);
         if(equipo != null){
             integrante.setEquipo(equipo);
+            integrante.setTieneEquipo(true);
+            this.editar(integrante);
         }
+    }
+
+    public void quitarEquipo(Integer idIntegrante){
+        Integrante integrante = getById(idIntegrante);
+        integrante.setEquipo(null);
+        integrante.setTieneEquipo(false);
+        this.editar(integrante);
     }
 }

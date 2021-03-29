@@ -41,6 +41,7 @@ public  class   Integrante implements Serializable {
     @JoinColumn(name = "id_equipo")
     private Equipo equipo;
 
+    private boolean tieneEquipo;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_puesto")
@@ -63,9 +64,9 @@ public  class   Integrante implements Serializable {
     @JoinColumn(name = "id_usuario")
     private User usuario;
 
-    /*public void setLenguajes(List <Lenguaje> lista){
+    public void setLenguajes(List <Lenguaje> lista){
         lenguajes = lista;
-    }*/
+    }
 
 
 }

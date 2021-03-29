@@ -100,15 +100,20 @@ public class IntegranteController {
             User user = usuarioServiceIMP.getUsuarioByEmail(email);
             integrante.setUsuario(user);
 
-            // si eligio lider, le asigno true al campo booleano
-            if(integrante.getPuesto().getNombre().equals("lider")){
-                integrante.setJefe(true);
+
+                // si eligio lider, le asigno true al campo booleano
+                if(integrante.getPuesto().getNombre().equals("lider")){
+                    integrante.setJefe(true);
+                }
+                integrante.setTieneEquipo(true);
+                // guardo en la base de datos
+                integranteService.agregarAgenda(integrante);
+                integranteService.add(integrante);
             }
 
             // guardo en la base de datos
             integrante = integranteService.agregarAgenda(integrante);
             integranteService.add(integrante);
-        }
 
             // muestro la lista
             return sessionService.sesionIniciada(session , "redirect:/listaIntegrantes") ;
@@ -139,9 +144,6 @@ public class IntegranteController {
                     break;
                 }
             }
-
-
-
 
             // Cargando el model
             model.addAttribute("titulo",titulo);
