@@ -3,7 +3,6 @@ package com.equiposmoby.equiposmoby.Services;
 import com.equiposmoby.equiposmoby.Models.Daos.IDao;
 import com.equiposmoby.equiposmoby.Models.Entity.Integrante;
 import com.equiposmoby.equiposmoby.Models.Entity.Lenguaje;
-import com.equiposmoby.equiposmoby.Models.Entity.Programador;
 import com.equiposmoby.equiposmoby.Models.Entity.Puesto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
