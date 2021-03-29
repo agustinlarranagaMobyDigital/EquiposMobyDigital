@@ -13,22 +13,31 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller()
 public class ReunionController {
 
+    private String titulo = "Reuniones MobyDigital";
+
     @Autowired
     private ReunionService reunionService;
 
-    @RequestMapping( "/reuniones") // Si esta vacio, implicitamente es GET
-    public String listar(Model model){
-        model.addAttribute("titulo","Listado de las reuniones");
-        model.addAttribute("reuniones", reunionService.traerTodas());
-        return "listar-reuniones";
+
+    @RequestMapping(value = "/agregarReunion")
+    public String addReunion(Model model){
+        model.addAttribute("titulo","Agregar Reunion");
+        model.addAttribute("agregar",reunionService.agregar(new Reunion()));
+        return "agregar-reunion";
+    }
+
+    @RequestMapping( "/listarReuniones") // Si esta vacio, implicitamente es GET
+    public String listarReuniones(Model model, Integer id){
+        model.addAttribute("listar", reunionService.traerTodas());
+        return "listar-reunion";
     }
 
     @RequestMapping(value = "/reunion/" ,method = RequestMethod.POST)
     public ResponseEntity agregarReunion (@RequestBody Reunion reunion){
-
         return ResponseEntity.ok(reunionService.agregarReunion(reunion));
     }
 }
+
 
 
 

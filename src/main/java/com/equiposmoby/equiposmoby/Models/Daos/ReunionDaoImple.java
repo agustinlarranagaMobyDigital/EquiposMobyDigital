@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,7 +47,6 @@ public class ReunionDaoImple implements IDao <Reunion,Integer>{
     }
 
     public Optional<Reunion> traerReunionPorId(Integer id){
-
         return Optional.ofNullable(getById(id));
     }
 

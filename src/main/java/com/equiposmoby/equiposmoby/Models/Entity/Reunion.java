@@ -37,17 +37,17 @@ public class Reunion implements Serializable {
     @Column(name = "id_reunion")
     private Integer idReunion;
 
-    @DateTimeFormat (iso = DateTimeFormat.ISO.DATE_TIME)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @Column(name = "fecha")
     private LocalDate fecha;
 
 
-    @DateTimeFormat (iso = DateTimeFormat.ISO.DATE_TIME)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @Column(name = "hora_inicial")
     private LocalTime horaInicial;
 
 
-    @DateTimeFormat (iso = DateTimeFormat.ISO.DATE_TIME)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @Column(name = "hora_final")
     private LocalTime horaFinal;
 

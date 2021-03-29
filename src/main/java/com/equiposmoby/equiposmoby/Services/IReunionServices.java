@@ -7,8 +7,8 @@ import java.util.List;
 public interface IReunionServices {
 
      List<Reunion> traerTodas();
-     void agregar(Reunion reunion);
-     void eliminar(Reunion reunion);
+     boolean agregar(Reunion reunion);
+     boolean eliminar(Reunion reunion);
      Reunion buscar(String txt);
 
 }
