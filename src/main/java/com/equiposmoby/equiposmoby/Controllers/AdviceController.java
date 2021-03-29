@@ -3,6 +3,7 @@ package com.equiposmoby.equiposmoby.Controllers;
 import com.equiposmoby.equiposmoby.Models.respuestas.ErrorResponse;
 import com.equiposmoby.equiposmoby.excepciones.AgendaNoCreadaException;
 import com.equiposmoby.equiposmoby.excepciones.AgendaNoEncontradaException;
+import com.equiposmoby.equiposmoby.excepciones.ReunionNoEncontrada;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -21,6 +22,13 @@ public class AdviceController {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(AgendaNoCreadaException.class)
     public ErrorResponse handleAgendaNoCreadaException(AgendaNoCreadaException ex) {
+
+        return ErrorResponse.fromRunTimeException(ex);
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(ReunionNoEncontrada.class)
+    public ErrorResponse handleReunionNoEncontradaException(ReunionNoEncontrada ex) {
 
         return ErrorResponse.fromRunTimeException(ex);
     }
