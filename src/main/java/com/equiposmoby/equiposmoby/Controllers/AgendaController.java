@@ -27,6 +27,7 @@ public class AgendaController {
     @PostMapping("/{id-agenda}")
     public ResponseEntity agregarEvento(@PathVariable(value = "id-agenda") Integer idAgenda, @RequestBody Reunion reunion) {
 
+
         return ResponseEntity.ok(agendaService.agregar(idAgenda, reunion));
     }
 

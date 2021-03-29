@@ -17,30 +17,32 @@ public class EquipoServiceIMP implements IEquipoService{
 
     @Override
     public List<Equipo> traerTodas() {
+
         return equipoDAO.traerTodas();
     }
 
     @Override
     public void agregar(Equipo equipo) {
+
         equipoDAO.agregar(equipo);
     }
 
     @Override
     public void eliminar(Equipo equipo) {
+
         equipoDAO.eliminar(equipo);
     }
 
 
     @Override
     public Equipo buscar(String nombre) {
-            Equipo equipoBuscado = (Equipo) equipoDAO.buscar(nombre);
-            if(!equipoBuscado.getNombre().isEmpty()){
-                if(equipoBuscado != null){
-                    return equipoBuscado;
-                }
-            }
-            return new Equipo();
+        return (Equipo) equipoDAO.buscar(nombre);
     }
+
+             ////////////////////////////////////////////////////
+    //Métodos de restricciones para testing
+
+
 
 
 }
