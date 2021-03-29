@@ -1,6 +1,7 @@
 package com.equiposmoby.equiposmoby.utils;
 
 import com.equiposmoby.equiposmoby.Models.Entity.Agenda;
+import com.equiposmoby.equiposmoby.Models.Entity.Cuenta;
 import com.equiposmoby.equiposmoby.Models.Entity.Reunion;
 import com.equiposmoby.equiposmoby.Models.Entity.TipoReunion;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -77,6 +78,30 @@ public interface FactoryObject {
         agendaList.add(createAgenda());
         //agendaList.add(createAgenda2());
         return agendaList;
+    }
+
+    default Cuenta createCuenta(){
+
+        return Cuenta.builder()
+                .id_cuenta(1)
+                .nombre("Prima")
+                .valor(100.0)
+                .build();
+    }
+    default Cuenta createCuenta2(){
+
+        return Cuenta.builder()
+                .id_cuenta(2)
+                .nombre("ICBC")
+                .valor(170.0)
+                .build();
+    }
+
+    default List<Cuenta> cargarListCuenta(){
+
+        List<Cuenta> cuentas = new ArrayList<>();
+        cuentas.add(createCuenta());
+        return cuentas;
     }
 
 }
