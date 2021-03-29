@@ -38,7 +38,7 @@ public class SessionController {
     }
 
     @PostMapping("/login")
-    public String login(User usuario,  HttpServletRequest request , Model model){
+    public String login(User usuario,  HttpServletRequest request , Model model) throws ParseException {
         model.addAttribute("mensaje" , "Iniciar Sesion");
         model.addAttribute("titulo" , "Iniciar Sesion");
         System.out.println("controller email: " + usuario.getEmail());
@@ -52,7 +52,6 @@ public class SessionController {
             System.out.println("error1");
             return "login";
         }else{
-            System.out.println("entro");
             return "redirect:/app";
         }
     }

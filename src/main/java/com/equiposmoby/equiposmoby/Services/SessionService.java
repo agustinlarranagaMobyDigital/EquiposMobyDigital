@@ -1,6 +1,8 @@
 package com.equiposmoby.equiposmoby.Services;
 
 import com.equiposmoby.equiposmoby.Models.Daos.IDao;
+import com.equiposmoby.equiposmoby.Models.Daos.IntegranteDAO;
+import com.equiposmoby.equiposmoby.Models.Entity.Jefe;
 import com.equiposmoby.equiposmoby.Models.Entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,6 +24,7 @@ public class SessionService {
     @Qualifier("usuarioDAO")
     private IDao userDao;
 
+    private IntegranteDAO integranteDAO;
 
     public String sesionIniciada(HttpSession session , String vista){
 
@@ -33,11 +36,10 @@ public class SessionService {
         }
     }
 
-    public Map<String , String> crearSesion(User usuario, HttpServletRequest request){
+    public Map<String , String> crearSesion(User usuario, HttpServletRequest request) throws ParseException {
 
-        ///this.createJefe();
-        System.out.println("email:" + usuario.getEmail());
-        System.out.println("password:" + usuario.getPassword());
+        this.createJefe();
+
         Map<String , String> errores = new HashMap<>();
         if (usuario.getEmail().isEmpty()){
             errores.put("email", "No puede estar vacio");
@@ -84,10 +86,8 @@ public class SessionService {
         }
         return error;
     }
-/*
+
     private void createJefe() throws ParseException {
-
-
         User nuevo = new User("Jefe@mobydigital.com" , "12345");
         User logUser = (User) userDao.buscar(nuevo.getEmail());
 
@@ -97,8 +97,8 @@ public class SessionService {
             logUser = (User) userDao.buscar(nuevo.getEmail());
             Jefe nuevoJefe = new Jefe();
             nuevoJefe.setUsuario(logUser);
-           /* integranteDAO.agregar(nuevoJefe);*/
-        //}
-    //}
+            //integranteDAO.agregar(nuevoJefe);
+        }
+    }
 
 }
