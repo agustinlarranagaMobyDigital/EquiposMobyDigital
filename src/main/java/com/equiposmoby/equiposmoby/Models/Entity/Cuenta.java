@@ -15,7 +15,6 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Data
 @Entity
 @Table(name = "cuentas")

@@ -68,7 +68,6 @@ public class EquipoServiceIMP implements IEquipoService{
             return new Equipo();
     }
 
-<<<<<<< HEAD
     public Equipo getById (Integer id){
 
         Equipo equipo = (Equipo) equipoDAO.getById(id);
@@ -137,7 +136,4 @@ public class EquipoServiceIMP implements IEquipoService{
         return false;
     }
 
-
-=======
->>>>>>> 635192aaf20d2cb68e9ae5a142323d8d45a07155
 }
