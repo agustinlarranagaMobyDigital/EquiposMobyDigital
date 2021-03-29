@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title th:text="${titulo}"></title>
@@ -12,52 +13,63 @@
 </head>
 
 <body>
-<header>
-    <nav>
-        <div class="logo">
-            <img th:src="@{/img/uc.png}" alt="">
-        </div>
+    <header>
+        <nav>
+            <div class="logo">
+                <img th:src="@{/img/uc.png}" alt="">
+            </div>
 
-        <div class="menu">
-            <ul>
-                <li><a th:href="@{/app}">Home</a></li>
-                <li><a>Mi Agenda</a></li>
-                <li><a>Mi Equipo</a></li>
-                <li><a>Personal</a></li>
-                <li><a th:href="@{/logout}">Logout</a></li>
-            </ul>
-        </div>
+            <div class="menu">
+                <ul>
+                    <li><a th:href="@{/app}">Home</a></li>
+                    <li><a>Mi Agenda</a></li>
+                    <li><a>Mi Equipo</a></li>
+                    <li><a>Personal</a></li>
+                    <li><a th:href="@{/logout}">Logout</a></li>
+                </ul>
+            </div>
 
 
-    </nav>
-</header>
-<section class="content-info">
-    <table >
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Nombre</th>
-            <th>Lider</th>
-            <th>Integrantes</th>
-            <th>Cuenta</th>
-            <th>Agenda</th>
+        </nav>
+    </header>
+    <section class="content-info">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Lider</th>
+                    <th>Integrantes</th>
+                    <th>Cuenta</th>
+                    <th>Agenda</th>
+                    <th>Gestion de integrantes</th>
 
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="equipo : ${equipos}">
-            <td th:text="${equipo.id}"></td>
-            <td th:text="${equipo.nombre}"></td>
-            <td th:each="integrante : ${equipo.arrayList}">
-                <p th:each="integrante : ${equipo.arrayList}"  th:text="${integrante.nombre}"></p>
-            </td>
-            <!--td th:each="integrante : ${equipo.arrayList}">
-                <p th:if="${!integrante.puesto.equals('lider') }" th:text="${integrante.nombre}"></p>
-            </td-->
-            <!--td th:text="${equipo.cuenta.nombre}"></td-->
-        </tr>
-        </tbody>
-    </table>
-</section>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="equipo : ${listaEquipos}">
+                    <td th:text="${equipo.nombre}"></td>
+                    <div th:if="${equipo.arrayList != null}">
+                        <div th:if="${equipo.getLider() != null}">
+                            <td th:text="${equipo.getLider().nombre} + ${equipo.getLider().apellido}"></td>
+                        </div>
+                        <div th:if="${equipo.getProgramadores() != null}">
+                            <td>
+                                <p th:each="integrante : ${equipo.getProgramadores()}" th:text="${integrante.nombre} + ${integrante.apellido}"></p>
+                            </td>
+                        </div>
+                    </div>
+                    <td th:text="${equipo.cuenta.nombre}"></td>
+                    <td>
+                        <a th:href="@{/agendaEquipo/} + ${equipo.id}" th:text="agenda"></a>
+                    </td>
+                    <td>
+                        <a th:href="@{/gestionarEquipo/} + ${equipo.id}" th:text=" aqui "></a>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </section>
 </body>
+
 </html>

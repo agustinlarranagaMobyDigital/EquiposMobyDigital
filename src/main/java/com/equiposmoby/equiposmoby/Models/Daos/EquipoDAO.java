@@ -1,11 +1,12 @@
 package com.equiposmoby.equiposmoby.Models.Daos;
 
 import com.equiposmoby.equiposmoby.Models.Entity.Equipo;
+import com.equiposmoby.equiposmoby.Models.Entity.Integrante;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.EntityManager;
 import java.util.List;
 
 
@@ -37,7 +38,7 @@ public class EquipoDAO implements IDao<Equipo, Integer>{
 
     @Override
     public Equipo getById(Integer id) {
-        return null;
+        return em.find(Equipo.class, id);
     }
 
 }

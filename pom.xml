@@ -62,7 +62,7 @@
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-<<<<<<< HEAD
+
             <artifactId>junit-jupiter</artifactId>
         </dependency>
         <dependency>
@@ -88,7 +88,6 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-=======
             <artifactId>junit-jupiter-engine</artifactId>
             <version>5.5.2</version>
             <scope>test</scope>
@@ -103,12 +102,10 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
             <version>5.5.2</version>
->>>>>>> d159960620013934d215aabe9ed4a8d9a3729f41
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
-<<<<<<< HEAD
             <artifactId>mockito-all</artifactId>
             <version>1.10.19</version>
             <scope>test</scope>
@@ -118,12 +115,27 @@
             <artifactId>jackson-core</artifactId>
             <version>2.11.0</version>
         </dependency>
-=======
-            <artifactId>mockito-core</artifactId>
-            <version>3.1.0</version>
             <scope>test</scope>
         </dependency>
->>>>>>> d159960620013934d215aabe9ed4a8d9a3729f41
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+            <version>1.3.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>3.6.28</version>
+            <scope>test</scope>
+
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>3.6.28</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>

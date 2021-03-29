@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Controller
 @RequestMapping("/agenda")
 public class AgendaController {
@@ -26,7 +28,6 @@ public class AgendaController {
 
     @PostMapping("/{id-agenda}")
     public ResponseEntity agregarEvento(@PathVariable(value = "id-agenda") Integer idAgenda, @RequestBody Reunion reunion) {
-
 
         return ResponseEntity.ok(agendaService.agregar(idAgenda, reunion));
     }

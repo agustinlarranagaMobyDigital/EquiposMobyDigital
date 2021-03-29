@@ -1,21 +1,21 @@
 package com.equiposmoby.equiposmoby.Models.Entity;
 
+import com.equiposmoby.equiposmoby.Models.Entity.Integrante;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.springframework.boot.context.properties.ConstructorBinding;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "lenguajes")
 public class Lenguaje implements Serializable {
@@ -35,4 +35,9 @@ public class Lenguaje implements Serializable {
     private List<Integrante> integrantes;
 
 
+
+    public Lenguaje(int id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
 }

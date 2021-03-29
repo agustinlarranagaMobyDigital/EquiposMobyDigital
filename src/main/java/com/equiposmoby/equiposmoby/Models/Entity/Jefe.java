@@ -1,8 +1,13 @@
 package com.equiposmoby.equiposmoby.Models.Entity;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 /*
 @AllArgsConstructor

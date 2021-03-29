@@ -1,11 +1,18 @@
 package com.equiposmoby.equiposmoby.Models.Daos;
 
 import com.equiposmoby.equiposmoby.Models.Entity.Integrante;
+import com.equiposmoby.equiposmoby.Models.Entity.Lenguaje;
+import com.equiposmoby.equiposmoby.Models.Entity.Programador;
+import org.apache.tomcat.jni.Directory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.PersistenceContext;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository(value = "integranteDAO")
@@ -24,7 +31,12 @@ public class IntegranteDAO implements IDao<Integrante, Integer> {
     @Transactional
     @Override
     public void agregar(Integrante integrante) {
-        em.persist(integrante);
+
+        if (integrante.getId() > 0){
+            em.merge(integrante);
+        }else {
+            em.persist(integrante);
+        }
     }
 
     @Transactional
@@ -45,5 +57,7 @@ public class IntegranteDAO implements IDao<Integrante, Integer> {
         return em.find(Integrante.class, id);
     }
 
+    @Transactional(readOnly = true)
+    public List<Integrante> getByIdEquipo (Integer id){ return em.createQuery("from Integrante i where i.equipo.id = " +  id).getResultList(); }
 
 }

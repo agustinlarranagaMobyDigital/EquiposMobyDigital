@@ -1,5 +1,9 @@
 package com.equiposmoby.equiposmoby.Models.Entity;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
@@ -7,17 +11,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import java.io.Serializable;
-import java.util.List;
+import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
@@ -44,4 +38,31 @@ public class Equipo implements Serializable {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_agenda")
     private Agenda agenda;
+
+
+    public Equipo (int id, String nombre){
+        this.id = id;
+        this.nombre = nombre;
+    }
+
+    public List<Integrante> getProgramadores(){
+        for (int i = 0; i < arrayList.size(); i++) {
+            if(arrayList.get(i).getPuesto().getNombre().equals("lider")){
+                arrayList.remove(i);
+                break;
+            }
+        }
+        return arrayList;
+    }
+
+    public Integrante getLider(){
+        Integrante lider = null;
+        for (int i = 0; i < arrayList.size(); i++) {
+            if(arrayList.get(i).getPuesto().getNombre().equals("lider")){
+                lider = arrayList.get(i);
+                break;
+            }
+        }
+        return lider;
+    }
 }

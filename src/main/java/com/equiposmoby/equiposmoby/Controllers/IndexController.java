@@ -1,5 +1,6 @@
 package com.equiposmoby.equiposmoby.Controllers;
 
+import com.equiposmoby.equiposmoby.Models.Entity.Integrante;
 import com.equiposmoby.equiposmoby.Models.Entity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

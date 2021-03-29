@@ -82,7 +82,6 @@ class SessionControllerTest {
         errores.put("otro" , "email vacio");
         when(sessionService.crearSesion(buscado,httpServletRequest)).thenReturn(errores);
         System.out.println("errores: " + sessionService.crearSesion(buscado,httpServletRequest));
-        final ResponseEntity resultado = sessionController.login(buscado,httpServletRequest,model);
         System.out.println("usuario json: " + jsonUser);
         mockMvc.perform(post("/login").contentType(MediaType.APPLICATION_JSON).accept(jsonUser)).andExpect(status().isBadRequest());
     }

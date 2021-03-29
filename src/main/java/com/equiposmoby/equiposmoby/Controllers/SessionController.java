@@ -28,19 +28,20 @@ public class SessionController {
     private SessionService sessionService;
 
     @GetMapping("/login")
-    public ResponseEntity loginView(Model model , HttpSession session){
+    public String loginView(Model model , HttpSession session){
 
         User usuario = new User();
         model.addAttribute("titulo" , "Iniciar Sesion");
         model.addAttribute("mensaje" , "Iniciar Sesion");
         model.addAttribute("usuario" , usuario);
-        return ResponseEntity.ok(sessionService.sesionIniciada(session , "login"));
+        return sessionService.sesionIniciada(session , "login");
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody User usuario, HttpServletRequest request , Model model){
+    public String login(String email ,  String password, HttpServletRequest request , Model model){
         model.addAttribute("mensaje" , "Iniciar Sesion");
         model.addAttribute("titulo" , "Iniciar Sesion");
+        User usuario = new User(email , password);
         System.out.println("controller email: " + usuario.getEmail());
         System.out.println("controller password: " +usuario.getPassword());
         Map<String , String> error = sessionService.crearSesion(usuario, request);
@@ -50,10 +51,10 @@ public class SessionController {
             model.addAttribute("password", usuario.getPassword());
             model.addAttribute("error", error);
             System.out.println("error1");
-            return ResponseEntity.badRequest().body("login");
+            return "login";
         }else{
             System.out.println("entro");
-            return ResponseEntity.ok("redirec:/app");
+            return "redirect:/app";
         }
     }
 

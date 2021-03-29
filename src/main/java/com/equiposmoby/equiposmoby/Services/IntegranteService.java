@@ -1,23 +1,22 @@
 package com.equiposmoby.equiposmoby.Services;
 
+import com.equiposmoby.equiposmoby.Models.Daos.AgendaDAO;
 import com.equiposmoby.equiposmoby.Models.Daos.IDao;
-import com.equiposmoby.equiposmoby.Models.Entity.Agenda;
-import com.equiposmoby.equiposmoby.Models.Entity.Equipo;
-import com.equiposmoby.equiposmoby.Models.Entity.Integrante;
-import com.equiposmoby.equiposmoby.Models.Entity.Lenguaje;
-import com.equiposmoby.equiposmoby.Models.Entity.Puesto;
-import com.equiposmoby.equiposmoby.Models.Entity.Reunion;
-import com.equiposmoby.equiposmoby.Models.Entity.User;
+import com.equiposmoby.equiposmoby.Models.Daos.IntegranteDAO;
+import com.equiposmoby.equiposmoby.Models.Entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import java.util.ArrayList;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import javax.servlet.http.PushBuilder;
+import java.util.*;
 
 
 @Service
@@ -26,12 +25,15 @@ public class IntegranteService extends ValidacionesService{
     // ------------------------------------------------------------------------ INYECCIONES
 
     @Autowired
+    private EquipoServiceIMP equipoService;
+
+    @Autowired
     @Qualifier("agendaDao")
-    private  IDao agendaDao;
+    private IDao agendaDao;
 
     @Autowired
     @Qualifier("integranteDAO")
-    private IDao integranteDAO;
+    private IntegranteDAO integranteDAO;
 
     @Autowired
     @Qualifier("lenguajeDAO")
@@ -71,6 +73,11 @@ public class IntegranteService extends ValidacionesService{
 
         agendaDao.agregar(agenda);
         return integrante;
+
+    }
+    
+    public void editar(Integrante integrante){
+        integranteDAO.agregar(integrante);
     }
 
     public List<Integrante> listar(){
@@ -103,14 +110,17 @@ public class IntegranteService extends ValidacionesService{
     }
 
     public Lenguaje getLenguajeByID(Integer id){
-        Lenguaje resultado = null;
+        Lenguaje resultado = new Lenguaje();
         List<Lenguaje> lista = getLenguajes();
-        for (Lenguaje lenguaje: lista){
-            if(id == lenguaje.getId()){
-                resultado = lenguaje;
-                break;
+        if(!lista.isEmpty()){
+            for (Lenguaje lenguaje: lista){
+                if(id == lenguaje.getId()){
+                    resultado = lenguaje;
+                    break;
+                }
             }
         }
+
         return resultado;
     }
 
@@ -120,24 +130,24 @@ public class IntegranteService extends ValidacionesService{
 
     public Puesto getPuestoByID(Integer id){
         Puesto resultado = null;
-        List<Puesto> lista = puestoDAO.traerTodas();
-        for (Puesto puesto: lista){
-            if(id == puesto.getId()){
-                resultado = puesto;
-                break;
+        if(id > 0) {
+            List<Puesto> lista = puestoDAO.traerTodas();
+            for (Puesto puesto : lista) {
+                if (id == puesto.getId()) {
+                    resultado = puesto;
+                    break;
+                }
             }
         }
         return resultado;
     }
 
+    public List<Integrante> getIntegrantesByIdEquipo(Integer idEquipo){ return integranteDAO.getByIdEquipo(idEquipo); }
     public Equipo getEquipoByID (Integer id){
         Equipo resultado = null;
-        List<Equipo> lista = equipoDAO.traerTodas();
-        for (Equipo equipo: lista){
-            if(id.equals(equipo.getId())){
-                resultado = equipo;
-                break;
-            }
+
+        if(id > 0){
+            resultado = equipoService.getById(id);
         }
         return resultado;
     }
@@ -204,5 +214,11 @@ public class IntegranteService extends ValidacionesService{
             }
         }
         return programadores;
+    }
+
+    public void asignarEquipo(Integrante integrante, Equipo equipo){
+        if(equipo != null){
+            integrante.setEquipo(equipo);
+        }
     }
 }
