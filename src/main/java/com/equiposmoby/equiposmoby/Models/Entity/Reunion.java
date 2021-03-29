@@ -7,8 +7,11 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
@@ -26,26 +29,22 @@ public class Reunion implements Serializable {
     @Column(name = "id_reunion")
     private Integer idReunion;
 
-    @DateTimeFormat (iso = DateTimeFormat.ISO.DATE_TIME)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @Column(name = "fecha")
-    private Date fecha;
+    private LocalDate fecha;
 
 
-    @DateTimeFormat (iso = DateTimeFormat.ISO.DATE_TIME)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @Column(name = "hora_inicial")
-    private Date horaInicial;
+    private LocalTime horaInicial;
 
 
-    @DateTimeFormat (iso = DateTimeFormat.ISO.DATE_TIME)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @Column(name = "hora_final")
-    private Date horaFinal;
+    private LocalTime horaFinal;
 
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_tipo_reunion")
-    private List <TipoReunion> listaTipoReunion;
-
-
-
+    private List<TipoReunion> listaTipoReunion;
 }
-
