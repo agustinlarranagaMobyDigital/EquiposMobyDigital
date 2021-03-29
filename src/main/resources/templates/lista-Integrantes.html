@@ -62,7 +62,7 @@
                 <td th:if="${integrante.tieneEquipo} == false" > Sin equipo </td>
 
                 <td>    <a th:href="@{/consulta/} + ${integrante.id}" th:text="agenda"></a></td>
-                <td>    <a th:href="@{/formIntegrante/} + ${integrante.id}" th:text="editar"></a></td>
+                <!--   <td>    <a th:href="@{/formIntegrante/} + ${integrante.id}" th:text="editar"></a></td>-->
                 <td>    <a th:href="@{/eliminar/} + ${integrante.id}" th:text="eliminar"></a></td>
 
                 </tr>
