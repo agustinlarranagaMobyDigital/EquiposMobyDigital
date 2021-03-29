@@ -24,17 +24,4 @@ public class UserController {
     }
 
 
-    @RequestMapping("/agregar")
-    public String agregar(Model model){
-        User isaias = new User();
-        isaias.setEmail("isaias@isaias.com");
-        isaias.setPassword("isaias22");
-        userService.agregar(isaias);
-        model.addAttribute("titulo" , "Agregar");
-        model.addAttribute("usuarios" , userService.traerTodas());
-        return "listar-usuarios";
-    }
-
-
-
 }

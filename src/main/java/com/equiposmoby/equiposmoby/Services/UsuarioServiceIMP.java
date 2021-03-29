@@ -55,7 +55,6 @@ public class UsuarioServiceIMP implements IUsuarioServices{
 
         Map<String, String> error = new HashMap<>();
 
-
         if (error.isEmpty()) {
 
             if (!email.isEmpty() && !pass.isEmpty()) {

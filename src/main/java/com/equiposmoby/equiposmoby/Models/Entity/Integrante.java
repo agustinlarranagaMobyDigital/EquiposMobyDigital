@@ -3,6 +3,8 @@ package com.equiposmoby.equiposmoby.Models.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+import lombok.Builder;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,8 +13,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@AllArgsConstructor
+
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Entity
 @Table(name = "integrantes")
@@ -28,6 +32,7 @@ public  class   Integrante implements Serializable {
 
     private String apellido;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "fecha_nacimiento")
     private LocalDate fechaNacimiento;
 

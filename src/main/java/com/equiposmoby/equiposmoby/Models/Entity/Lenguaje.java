@@ -2,6 +2,7 @@ package com.equiposmoby.equiposmoby.Models.Entity;
 
 import com.equiposmoby.equiposmoby.Models.Entity.Integrante;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -12,6 +13,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+@Builder
 @Data
 @ToString
 @AllArgsConstructor

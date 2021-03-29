@@ -35,8 +35,6 @@ public class EquipoController {
     @InitBinder
     public void initBinder(WebDataBinder binder){
         binder.registerCustomEditor(Cuenta.class,"cuenta",cuentaPropiertieEditor);
-
-
     }
 
     @RequestMapping(value = "/agregarEquipo")
