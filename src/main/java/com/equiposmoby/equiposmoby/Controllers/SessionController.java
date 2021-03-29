@@ -38,20 +38,19 @@ public class SessionController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody User usuario, HttpServletRequest request , Model model) throws ParseException {
+    public ResponseEntity login(@RequestBody User usuario, HttpServletRequest request , Model model){
         model.addAttribute("mensaje" , "Iniciar Sesion");
         model.addAttribute("titulo" , "Iniciar Sesion");
-
-        Map<String , String> error = sessionService.crearSesion(usuario.getEmail() , usuario.getPassword() , request);
-
-
-        if(!error.isEmpty()){
+        System.out.println("controller email: " + usuario.getEmail());
+        System.out.println("controller password: " +usuario.getPassword());
+        Map<String , String> error = sessionService.crearSesion(usuario, request);
+        System.out.println(error);
+        if(!(error.isEmpty())){
             model.addAttribute("email", usuario.getEmail());
             model.addAttribute("password", usuario.getPassword());
             model.addAttribute("error", error);
             System.out.println("error1");
             return ResponseEntity.badRequest().body("login");
-
         }else{
             System.out.println("entro");
             return ResponseEntity.ok("redirec:/app");

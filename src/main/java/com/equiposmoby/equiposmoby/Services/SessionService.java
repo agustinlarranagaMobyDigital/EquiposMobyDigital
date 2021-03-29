@@ -33,27 +33,29 @@ public class SessionService {
         }
     }
 
-    public Map<String , String> crearSesion(String email , String password , HttpServletRequest request) throws ParseException {
+    public Map<String , String> crearSesion(User usuario, HttpServletRequest request){
 
         ///this.createJefe();
+        System.out.println("email:" + usuario.getEmail());
+        System.out.println("password:" + usuario.getPassword());
         Map<String , String> errores = new HashMap<>();
-        if (email.isEmpty()){
+        if (usuario.getEmail().isEmpty()){
             errores.put("email", "No puede estar vacio");
         }
-        if(password.isEmpty()) {
+        if(usuario.getPassword().isEmpty()) {
             errores.put("password", "No puede estar vacio");
         }
         User logUser = null;
         if(errores.isEmpty()){
-            logUser = (User) this.userDao.buscar(email);
+            logUser = (User) this.userDao.buscar(usuario.getEmail());
             if(logUser == null){
                 errores.put("incorrecto" , "el usuario no existe");
             }
         }
 
 
-        if(errores.isEmpty() && !password.isEmpty()){
-            if (logUser.getPassword().equals(password)){
+        if(errores.isEmpty() && !usuario.getPassword().isEmpty()){
+            if (logUser.getPassword().equals(usuario.getPassword())){
                request.getSession().setAttribute("usuario", logUser);
             }else{
                 errores.put("incorrecto" , "contraseña incorrecta");

@@ -8,6 +8,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -44,9 +46,9 @@ public interface FactoryObject {
 
         return Reunion.builder()
                 .idReunion(1)
-                .fecha(new Date(121, 8,22))
-                .horaInicial(new Date(121, 8,22, 10, 5, 6))
-                .horaFinal(new Date(121, 8,22, 11, 0, 6))
+                .fecha(LocalDate.of(121, 8,22))
+                .horaInicial(LocalTime.of(10, 5, 6))
+                .horaFinal(LocalTime.of(11, 0, 6))
                 .tipoReunion(new TipoReunion())
                 .build();
     }
@@ -55,9 +57,9 @@ public interface FactoryObject {
 
         return Reunion.builder()
                 .idReunion(2)
-                .fecha(new Date(121, 8,22))
-                .horaInicial(new Date(121, 8,22, 10, 5, 6))
-                .horaFinal(new Date(121, 8,22, 11, 0, 6))
+                .fecha(LocalDate.of(121, 8,22))
+                .horaInicial(LocalTime.of(10, 5, 6))
+                .horaFinal(LocalTime.of(11, 0, 6))
                 .tipoReunion(new TipoReunion())
                 .build();
     }

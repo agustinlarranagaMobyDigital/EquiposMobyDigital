@@ -19,6 +19,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Builder
@@ -37,17 +39,17 @@ public class Reunion implements Serializable {
 
     @DateTimeFormat (iso = DateTimeFormat.ISO.DATE_TIME)
     @Column(name = "fecha")
-    private Date fecha;
+    private LocalDate fecha;
 
 
     @DateTimeFormat (iso = DateTimeFormat.ISO.DATE_TIME)
     @Column(name = "hora_inicial")
-    private Date horaInicial;
+    private LocalTime horaInicial;
 
 
     @DateTimeFormat (iso = DateTimeFormat.ISO.DATE_TIME)
     @Column(name = "hora_final")
-    private Date horaFinal;
+    private LocalTime horaFinal;
 
 
     @OneToOne(fetch = FetchType.LAZY, cascade= CascadeType.ALL)
