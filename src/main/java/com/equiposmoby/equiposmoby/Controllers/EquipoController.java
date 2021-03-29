@@ -95,6 +95,7 @@ public class EquipoController {
                 }
             }
         }
+        
 
         model.addAttribute("titulo" , "Gestionar integrantes del equipo: " + equipo.getNombre());
         model.addAttribute("equipo", equipo);
