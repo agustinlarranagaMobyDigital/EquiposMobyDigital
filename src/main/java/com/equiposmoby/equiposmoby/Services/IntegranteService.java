@@ -242,7 +242,6 @@ public class IntegranteService {
         this.editar(integrante);
     }
 
-
     public void borrarEquipoDeTodosLosIntegrantes(Equipo equipo){
 
         List<Integrante> integrantes = getIntegrantesByIdEquipo(equipo.getId());
