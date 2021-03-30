@@ -1,13 +1,14 @@
 package com.equiposmoby.equiposmoby.Controllers;
 
-import com.equiposmoby.equiposmoby.Models.Entity.Integrante;
-import com.equiposmoby.equiposmoby.Models.Entity.Reunion;
-import com.equiposmoby.equiposmoby.Models.Entity.TipoReunion;
+import com.equiposmoby.equiposmoby.Models.Editors.EquipoPropertieEditor;
+import com.equiposmoby.equiposmoby.Models.Editors.TipoReunionropertieEditor;
+import com.equiposmoby.equiposmoby.Models.Entity.*;
 import com.equiposmoby.equiposmoby.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -35,6 +36,15 @@ public class ReunionController {
     @Autowired
     private ValidacionesService validacionesService;
 
+    @Autowired
+    private TipoReunionropertieEditor tipoReunionropertieEditor;
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder){
+        binder.registerCustomEditor(TipoReunion.class,"tipoReunion",tipoReunionropertieEditor);
+
+    }
+
     @RequestMapping(value = "/formReunion")
     public String addReunionView(Model model){
         Reunion reunion = new Reunion();
@@ -46,13 +56,13 @@ public class ReunionController {
     }
 
     @PostMapping(value = "/agregarReunion")
-    public String addReunion(Model model , Reunion reunion  , @RequestParam int id){
+    public String addReunion(Model model , Reunion reunion){
 
         Map<String,String> errores = new HashMap<>();
         boolean validacion = validacionesService.revisarReunion(reunion,errores);
 
         if(validacion == true){
-            reunion.setTipoReunion(tiposReunionService.getById(id));
+            //reunion.setTipoReunion(tiposReunionService.getById(id));
             reunionService.agregar(reunion);
             return "redirect:/listarReuniones";
         }

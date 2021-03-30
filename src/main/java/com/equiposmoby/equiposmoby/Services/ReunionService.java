@@ -1,7 +1,10 @@
 package com.equiposmoby.equiposmoby.Services;
 
 import com.equiposmoby.equiposmoby.Models.Daos.ReunionDaoImple;
+import com.equiposmoby.equiposmoby.Models.Daos.TipoReunionDAO;
+import com.equiposmoby.equiposmoby.Models.Entity.Puesto;
 import com.equiposmoby.equiposmoby.Models.Entity.Reunion;
+import com.equiposmoby.equiposmoby.Models.Entity.TipoReunion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.*;
@@ -17,6 +20,9 @@ public class ReunionService extends ValidacionesService implements IReunionServi
 
     @Autowired
     private ReunionDaoImple reunionDAO;
+
+    @Autowired
+    private TipoReunionDAO tipoReunionDAO;
 
     @Override
     public List<Reunion> traerTodas() {
@@ -66,7 +72,19 @@ public class ReunionService extends ValidacionesService implements IReunionServi
     }
 
 
-
+    public TipoReunion getTipoReunionByID(Integer id) {
+        TipoReunion resultado = null;
+        if (id > 0) {
+            List<TipoReunion> lista = tipoReunionDAO.traerTodas();
+            for (TipoReunion tipoReunion : lista) {
+                if (id == tipoReunion.getIdTipoReunion()) {
+                    resultado = tipoReunion;
+                    break;
+                }
+            }
+        }
+        return resultado;
+    }
     ///---------------------------------------------------------------------
 
     public boolean revisarDiaAnteriorOActual(LocalDate fecha){

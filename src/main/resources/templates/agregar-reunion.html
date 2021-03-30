@@ -54,7 +54,7 @@
 
 
         <label for="horaFinal">Tipo de reunion </label>
-        <select id="tipoReunion" name="id">
+        <select id="tipoReunion" th:field="*{tipoReunion}">
             <option value="0"> Seleccione uno </option>
             <option th:each="p:${tipoReunion}" th:text="${p.nombre}" th:value="${p.idTipoReunion}"></option>
         </select>
