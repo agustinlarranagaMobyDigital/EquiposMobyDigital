@@ -51,11 +51,19 @@ public class UsuarioServiceIMP implements IUsuarioServices{
         return null;
     }
 
-    public Map<String , String> crearUsuario(BindingResult result , String email, String pass) {
 
-        Map<String, String> error = new HashMap<>();
+    @Override
+    public void crearUsuario(String email, String pass, HashMap<String, String> errores) {
 
-        if (error.isEmpty()) {
+
+        if(email.isEmpty()){
+            errores.put("email", "Campo email vacio");
+        }
+        if(pass.isEmpty()){
+            errores.put("password", "Campo password vacio");
+        }
+
+        if (errores.isEmpty()) {
 
             if (!email.isEmpty() && !pass.isEmpty()) {
                 User userNew = new User();
@@ -64,17 +72,15 @@ public class UsuarioServiceIMP implements IUsuarioServices{
                 User buscado = (User) userDAO.buscar(email);
                 if (buscado == null) {
                     userDAO.agregar(userNew);
-                    return error;
                 } else {
-                    error.put("creado", "este usuario ya existe");
+                    errores.put("creado", "este usuario ya existe");
                 }
 
             }else{
-                error.put("test", "nombre y apellido vacio");
+                errores.put("test", "nombre y apellido vacio");
             }
 
         }
-        return error;
 
     }
 

@@ -34,10 +34,10 @@ public  class   Integrante implements Serializable {
     @Column(name = "fecha_nacimiento")
     private LocalDate fechaNacimiento;
 
-    private int experiencia;
+    private Integer experiencia;
 
-    private boolean jefe;
-    private boolean programador;
+    private boolean lider;
+
 
     // Foreing Keys
 
@@ -75,13 +75,6 @@ public  class   Integrante implements Serializable {
         lenguajes = lista;
     }
 
-    public boolean isJefe(){
-        return jefe;
-    }
-
-    public boolean isProgramador(){
-        return programador;
-    }
 
 
 

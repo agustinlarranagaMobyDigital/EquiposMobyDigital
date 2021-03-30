@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.validation.BindingResult;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -137,38 +138,42 @@ class UsuarioServiceIMPTest{
 
     @Test
     public void crearUsuarioTest(){
+        Map<String , String> errores = new HashMap<>();
         BindingResult result = mock(BindingResult.class);
         when(userDao.buscar("correo@Correo")).thenReturn(null);
         doNothing().when(userDao).agregar(isA(User.class));
-        Map<String , String> errores = usuarioServiceIMP.crearUsuario( result, "correo@Correo" , "usuario");
+        //usuarioServiceIMP.crearUsuario( result, "correo@Correo" , "usuario",errores);
         assertTrue(errores.isEmpty());
     }
 
     @Test
     public void crear_Usuario_Email_Vacio_Test(){
+        Map<String , String> errores = new HashMap<>();
         BindingResult result = mock(BindingResult.class);
         when(userDao.buscar("correo@Correo")).thenReturn(null);
         doNothing().when(userDao).agregar(isA(User.class));
-        Map<String , String> errores = usuarioServiceIMP.crearUsuario( result, "" , "usuario");
+        //Map<String , String> errores = usuarioServiceIMP.crearUsuario("", "usuario",errores);
         assertFalse(errores.isEmpty());
     }
 
     @Test
     public void crear_Usuario_Password_Vacio_Test(){
+        HashMap<String , String> errores = new HashMap<>();
         BindingResult result = mock(BindingResult.class);
         when(userDao.buscar("correo@Correo")).thenReturn(null);
         doNothing().when(userDao).agregar(isA(User.class));
-        Map<String , String> errores = usuarioServiceIMP.crearUsuario( result, "correo@Correo" , "");
+        usuarioServiceIMP.crearUsuario( "correo@Correo" , "",errores);
         assertFalse(errores.isEmpty());
     }
 
     @Test
     public void crear_Usuario_Existe_Usuario_Test(){
+        HashMap<String , String> errores = new HashMap<>();
         BindingResult result = mock(BindingResult.class);
         User creado = mock(User.class);
         when(userDao.buscar("correo@Correo")).thenReturn(creado);
         doNothing().when(userDao).agregar(isA(User.class));
-        Map<String , String> errores = usuarioServiceIMP.crearUsuario( result, "correo@Correo" , "");
+        usuarioServiceIMP.crearUsuario("correo@Correo" , "",errores);
         assertFalse(errores.isEmpty());
     }
 

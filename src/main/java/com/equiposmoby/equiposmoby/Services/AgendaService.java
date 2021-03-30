@@ -35,9 +35,9 @@ public class AgendaService {
 
         Agenda agenda = agendaDAO.buscarPorId(idAgenda)
                 .orElseThrow(AgendaNoEncontradaException::new);
-        List<Reunion> reunionList = new ArrayList<>();
+        List<Reunion> reunionList = agenda.getReuniones();
         reunionList.add(reunion);
-        agenda.setReuniones(reunionList);
+        agendaDAO.modificarAgenda(agenda, reunionList);
         return reunion;
     }
 

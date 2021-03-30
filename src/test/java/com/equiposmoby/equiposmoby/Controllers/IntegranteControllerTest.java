@@ -55,6 +55,7 @@ class IntegranteControllerTest {
 
     @Test
     public void guardarIntegranteTest(){
+        Map<String,String> errores = new HashMap<>();
         Integrante integrante = new Integrante();
         integrante.setNombre("isaias");
         integrante.setApellido("calfin");
@@ -64,7 +65,7 @@ class IntegranteControllerTest {
         integrante.setPuesto(Puesto.builder().nombre("front-end").build());
         integrante.setLenguajes(new ArrayList<Lenguaje>());
         integrante.setUsuario(new User("isaias@emal","password"));
-        when(usuarioServiceIMP.crearUsuario(result , "correo@Correo" , "password")).thenReturn(Collections.emptyMap());
+       // when(usuarioServiceIMP.crearUsuario("correo@Correo" , "password", errores)).thenReturn();
         when(usuarioServiceIMP.getUsuarioByEmail("correo@Correo")).thenReturn(mock(User.class));
         when(integranteService.add(integrante)).thenReturn(true);
         when(sessionService.sesionIniciada(session , "redirect:/listaIntegrantes")).thenReturn("redirect:/listaIntegrantes");
@@ -73,6 +74,7 @@ class IntegranteControllerTest {
     }
     @Test
     public void guardar_integrante_Nombre_vacio_Test(){
+        Map<String,String> errores = new HashMap<>();
         Integrante integrante = new Integrante();
         integrante.setNombre("");
         integrante.setApellido("calfin");
@@ -82,9 +84,8 @@ class IntegranteControllerTest {
         integrante.setPuesto(Puesto.builder().nombre("front-end").build());
         integrante.setLenguajes(new ArrayList<Lenguaje>());
         integrante.setUsuario(new User("isaias@emal","password"));
-        Map<String , String> errores = new HashMap<>();
         errores.put("nombre" ,  "nombre , vacio");
-        when(usuarioServiceIMP.crearUsuario(result , "correo@Correo" , "password")).thenReturn(errores);
+        //when(usuarioServiceIMP.crearUsuario("correo@Correo" , "password",errores)).thenReturn();
         when(usuarioServiceIMP.getUsuarioByEmail("correo@Correo")).thenReturn(null);
         when(sessionService.sesionIniciada(session , "redirect:/listaIntegrantes")).thenReturn("redirect:/listaIntegrantes");
         when(integranteService.add(integrante)).thenReturn(false);
