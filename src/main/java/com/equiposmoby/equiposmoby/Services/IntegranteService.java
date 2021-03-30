@@ -157,7 +157,7 @@ public class IntegranteService extends ValidacionesService{
         return equipoDAO.traerTodas();
     }
 
-    public ArrayList<Integrante> getOrderIntegrante(){
+    public List<Integrante> getOrderIntegrante(){
 
         ArrayList<Integrante> integrantes = obtenerLideres();
 
