@@ -21,7 +21,6 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 
 @Builder
 @Data //Crea los getters and setter, equals, toString.
