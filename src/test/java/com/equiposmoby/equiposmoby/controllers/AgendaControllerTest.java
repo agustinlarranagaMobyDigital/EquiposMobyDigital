@@ -1,8 +1,6 @@
-package com.equiposmoby.equiposmoby.controllers;
+package com.equiposmoby.equiposmoby.Controllers;
 
-import com.equiposmoby.equiposmoby.Controllers.AgendaController;
 import com.equiposmoby.equiposmoby.Models.Entity.Agenda;
-import com.equiposmoby.equiposmoby.Models.Entity.Reunion;
 import com.equiposmoby.equiposmoby.Services.AgendaService;
 import com.equiposmoby.equiposmoby.utils.FactoryObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -45,7 +43,12 @@ public class AgendaControllerTest implements FactoryObject {
     @Test
     public void agregarEventoTest() throws Exception {
 
-        String jsonRequest = createJsonRequest(createReunion());
+        String jsonRequest ="{\"id_reunion\":1," +
+                "\"fecha\":[2007,12,3]," +
+                "\"hora_inicial\":[10,10,10]," +
+                "\"hora_final\":[10,10,10]," +
+                "\"tipo_reunion\":{\"idTipoReunion\":null," +
+                "\"nombre\":null}}";
         when(agendaService.agregar(1, createReunion())).thenReturn(createReunion());
         mockMvc.perform(post("/agenda/1")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -79,13 +82,19 @@ public class AgendaControllerTest implements FactoryObject {
     @Test
     public void eliminarReunionTest() throws Exception {
 
+        String jsonRequest = "{\"id_reunion\":1," +
+                "\"fecha\":[2007,12,3]," +
+                "\"hora_inicial\":[10,10,10]," +
+                "\"hora_final\":[10,10,10]," +
+                "\"tipo_reunion\":{\"idTipoReunion\":null," +
+                "\"nombre\":null}}";
         when(agendaService.eliminarEvento(1, 1)).thenReturn(createReunion());
         MvcResult result = mockMvc.perform(delete("/agenda/{id-agenda}/{id-reunion}", 1, 1)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
-        Reunion response = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Reunion.class);
-        assertEquals(createReunion(), response);
+        String response = result.getResponse().getContentAsString();
+        assertEquals(jsonRequest, response);
     }
 
     @Test
