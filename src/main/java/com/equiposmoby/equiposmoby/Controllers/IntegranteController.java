@@ -86,40 +86,52 @@ public class IntegranteController {
     }
     @PostMapping(value = "/formIntegrante")
     public String addIntegrante(@Valid Integrante integrante,BindingResult result, Model model, 
-                                @RequestParam String email,@RequestParam String password , HttpSession session){
+                                @RequestParam String email,@RequestParam String password , HttpSession session) {
 
-        Map<String,String> errores = usuarioServiceIMP.crearUsuario(result,email,password);
+        Map<String, String> errores = usuarioServiceIMP.crearUsuario(result, email, password);
 
-        if(errores.isEmpty()){
-            if (integrante.getId() > 0){
+        if (errores.isEmpty()) {
+            System.out.println("entro 1");
+            if (integrante.getId() > 0) {
+                System.out.println("entro 2");
                 System.out.println("estoy editando");
                 integranteService.editar(integrante);
 
-            }else{
-            // agarro el ultimo usuario creado [el de arriba] y lo guardo en Integrante
-            User user = usuarioServiceIMP.getUsuarioByEmail(email);
-            integrante.setUsuario(user);
+            } else {
+                // agarro el ultimo usuario creado [el de arriba] y lo guardo en Integrante
+                User user = usuarioServiceIMP.getUsuarioByEmail(email);
+                integrante.setUsuario(user);
 
 
                 // si eligio lider, le asigno true al campo booleano
-                if(integrante.getPuesto().getNombre().equals("lider")){
+                if (integrante.getPuesto().getNombre().equals("lider")) {
                     integrante.setJefe(true);
                 }
                 integrante.setTieneEquipo(true);
                 // guardo en la base de datos
                 integranteService.agregarAgenda(integrante);
-                integranteService.add(integrante);
+
             }
 
-            // guardo en la base de datos
-            integrante = integranteService.agregarAgenda(integrante);
-            integranteService.add(integrante);
 
-            // muestro la lista
-            return sessionService.sesionIniciada(session , "redirect:/listaIntegrantes") ;
-        }else{
+        }
+        if (integranteService.add(integrante)) {
+
+            return sessionService.sesionIniciada(session, "redirect:/listaIntegrantes");
+        }
+        else {
+            List<Puesto> listaPuestos= integranteService.getPuestos();
+
+            List<Lenguaje> listaLenguajes = integranteService.getLenguajes();
+
+            List<Equipo> listaEquipos = integranteService.getEquipos();
+
+            model.addAttribute("integrante",integrante);
+            model.addAttribute("listaPuestos",listaPuestos);
+            model.addAttribute("listaLenguajes",listaLenguajes);
+            model.addAttribute("listaEquipos",listaEquipos);
             model.addAttribute("errores", errores);
-            return sessionService.sesionIniciada(session , "formIntegrante") ;
+            return sessionService.sesionIniciada(session, "formIntegrante");
         }
     }
 
@@ -130,30 +142,33 @@ public class IntegranteController {
         Integrante integrante = null;
         if(id > 0 ){
             integrante = integranteService.getById(id);
+             if(integrante != null){
+                 // Cargando las listas
+                 List<Puesto> listaPuestos= integranteService.getPuestos();
+                 List<Lenguaje> listaLenguajes = integranteService.getLenguajes();
+                 List<Equipo> listaEquipos = integranteService.getEquipos();
 
-            // Cargando las listas
-            List<Puesto> listaPuestos= integranteService.getPuestos();
-            List<Lenguaje> listaLenguajes = integranteService.getLenguajes();
-            List<Equipo> listaEquipos = integranteService.getEquipos();
 
 
+                 for (int i = 0; i < listaPuestos.size(); i++) {
+                     if(listaPuestos.get(i).getId() == integrante.getPuesto().getId()){
+                         listaPuestos.remove(i);
+                         break;
+                     }
+                 }
 
-            for (int i = 0; i < listaPuestos.size(); i++) {
-                if(listaPuestos.get(i).getId() == integrante.getPuesto().getId()){
-                    listaPuestos.remove(i);
-                    break;
-                }
-            }
+                 // Cargando el model
+                 model.addAttribute("titulo",titulo);
+                 model.addAttribute("h1","Formulario para editar un empleado de Moby Digital!");
+                 model.addAttribute("integrante",integrante);
+                 model.addAttribute("listaPuestos",listaPuestos);
+                 model.addAttribute("listaLenguajes",listaLenguajes);
+                 model.addAttribute("listaEquipos",listaEquipos);
 
-            // Cargando el model
-            model.addAttribute("titulo",titulo);
-            model.addAttribute("h1","Formulario para editar un empleado de Moby Digital!");
-            model.addAttribute("integrante",integrante);
-            model.addAttribute("listaPuestos",listaPuestos);
-            model.addAttribute("listaLenguajes",listaLenguajes);
-            model.addAttribute("listaEquipos",listaEquipos);
+                 return sessionService.sesionIniciada(session , "formIntegrante") ;
+             }
 
-            return sessionService.sesionIniciada(session , "formIntegrante") ;
+
         }
         return sessionService.sesionIniciada(session , "redirect:/listaIntegrantes") ;
 
@@ -186,14 +201,18 @@ public class IntegranteController {
     @RequestMapping(value = "/agenda/{id}")
     public String verAgendaPersonal(Model model,HttpSession session,@PathVariable(value = "id") Integer id){
 
+        if(id > 0){
+            Integrante integrante = integranteService.getById(id);
+            if(integrante != null){
+                model.addAttribute("titulo",titulo);
+                model.addAttribute("h1","Lista de los empleados de Moby Digital!");
+                model.addAttribute("agenda", integrante.getAgenda());
+                model.addAttribute("integrante", integrante);
 
-        Integrante integrante = integranteService.getById(id);
+                return sessionService.sesionIniciada(session , "verAgenda") ;
+            }
 
-        model.addAttribute("titulo",titulo);
-        model.addAttribute("h1","Lista de los empleados de Moby Digital!");
-        model.addAttribute("agenda", integrante.getAgenda());
-        model.addAttribute("integrante", integrante);
-
-        return "verAgenda";
+        }
+        return sessionService.sesionIniciada(session , "redirect:/app") ;
     }
 }
