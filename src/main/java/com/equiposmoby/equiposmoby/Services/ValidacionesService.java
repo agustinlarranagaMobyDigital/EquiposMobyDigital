@@ -11,8 +11,6 @@ import java.util.Date;
 public class ValidacionesService {
 
 
-
-
     private static Logger LOG = LoggerFactory.getLogger(EquiposmobyApplication.class);
 
     public boolean validarFecha(LocalDate date){
