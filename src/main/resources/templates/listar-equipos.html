@@ -64,7 +64,7 @@
                     </div>
                     <td th:text="${equipo.cuenta.nombre}"></td>
                     <td>
-                        <a th:href="@{/consultaEquipo/} + ${equipo.id}" th:text="agenda"></a>
+                        <a th:href="@{/agenda/consultaEquipo/} + ${equipo.id}" th:text="agenda"></a>
                     </td>
                     <td th:if="${equipo.completo == true}"> Si </td>
                     <td th:if="${equipo.completo == false}"> No </td>
