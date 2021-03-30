@@ -167,7 +167,7 @@ public class IntegranteService {
         return equipoDAO.traerTodas();
     }
 
-    public ArrayList<Integrante> getOrderIntegrante(){
+    public List<Integrante> getOrderIntegrante(){
 
         ArrayList<Integrante> integrantes = obtenerLideres();
 

@@ -1,21 +1,31 @@
 package com.equiposmoby.equiposmoby.Controllers;
 
 import com.equiposmoby.equiposmoby.Models.Editors.CuentaPropiertieEditor;
-import com.equiposmoby.equiposmoby.Models.Editors.EquipoPropertieEditor;
-import com.equiposmoby.equiposmoby.Models.Entity.*;
+import com.equiposmoby.equiposmoby.Models.Entity.Cuenta;
+import com.equiposmoby.equiposmoby.Models.Entity.Equipo;
+import com.equiposmoby.equiposmoby.Models.Entity.Integrante;
 import com.equiposmoby.equiposmoby.Services.CuentaService;
 import com.equiposmoby.equiposmoby.Services.EquipoServiceIMP;
 import com.equiposmoby.equiposmoby.Services.IntegranteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.*;
+
+import java.util.List;
 
 
 @Controller
@@ -34,16 +44,20 @@ public class EquipoController {
     private IntegranteService integranteService;
 
     @InitBinder
-    public void initBinder(WebDataBinder binder){
-        binder.registerCustomEditor(Cuenta.class,"cuenta",cuentaPropiertieEditor);
+
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(Cuenta.class, "cuenta", cuentaPropiertieEditor);
+
+
+
     }
 
     @RequestMapping(value = "/agregarEquipo")
-    public String agregarEquipo (Model model){
+    public String agregarEquipo(Model model) {
 
         model.addAttribute("titulo", "Agregando un equipo");
         model.addAttribute("equipo", new Equipo());
-        model.addAttribute("listaCuentas" , cuentaService.traerTodas());
+        model.addAttribute("listaCuentas", cuentaService.traerTodas());
 
         return "agregar-equipo";
     }
@@ -83,25 +97,25 @@ public class EquipoController {
 
 
     @RequestMapping("/listarEquipos")
-    public String listarEquipo(Model model){
+    public String listarEquipo(Model model) {
 
-        List<Equipo> listaEquipos = equipoServiceIMP.traerTodas() ;
-        model.addAttribute("titulo" , "Listar Equipo");
-        model.addAttribute("listaEquipos" , listaEquipos);
+        List<Equipo> listaEquipos = equipoServiceIMP.traerTodas();
+        model.addAttribute("titulo", "Listar Equipo");
+        model.addAttribute("listaEquipos", listaEquipos);
 
         return "listar-equipos";
     }
 
 
     @RequestMapping(value = "/agendaEquipo/{id}")
-    public String verAgendaEquipo(Model model, HttpSession session, @PathVariable(value = "id") Integer id){
+    public String verAgendaEquipo(Model model, HttpSession session, @PathVariable(value = "id") Integer id) {
 
         return "verAgenda";
     }
 
 
     @RequestMapping(value = "/gestionarEquipo/{id}")
-    public String gestionarEquipo(Model model, HttpSession session, @PathVariable(value = "id") Integer id){
+    public String gestionarEquipo(Model model, HttpSession session, @PathVariable(value = "id") Integer id) {
 
         Equipo equipo = equipoServiceIMP.getById(id);
         Integrante lider = equipo.getLider();
@@ -127,17 +141,17 @@ public class EquipoController {
     }
 
 
-    @RequestMapping(value = "/eliminarIntegrante/{Eid}/{Iid}")
+    @DeleteMapping(value = "/eliminarIntegrante/{Eid}/{Iid}")
     public String eliminarIntegrante(Model model, HttpSession session, @PathVariable(value = "Eid") Integer idEquipo,
-                                     @PathVariable(value = "Iid") Integer idIntegrante){
+                                                     @PathVariable(value = "Iid") Integer idIntegrante) {
 
         integranteService.quitarEquipo(idIntegrante);
         return "redirect:/listarEquipos";
     }
 
-    @RequestMapping(value = "/agregarIntegrante/{Eid}/{Iid}")
+    @PostMapping(value = "/agregarIntegrante/{Eid}/{Iid}")
     public String agregarIntegrante(Model model, HttpSession session, @PathVariable(value = "Eid") Integer idEquipo,
-                                    @PathVariable(value = "Iid") Integer idIntegrante){
+                                                    @PathVariable(value = "Iid") Integer idIntegrante) {
 
         Map<String, String> errores = new HashMap<>();
 
