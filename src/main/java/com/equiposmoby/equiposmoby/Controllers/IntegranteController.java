@@ -91,7 +91,7 @@ public class IntegranteController {
         Map<String, String> errores = usuarioServiceIMP.crearUsuario(result, email, password);
 
         if (errores.isEmpty()) {
-            
+
             if (integrante.getId() > 0) {
                 integranteService.editar(integrante);
 
