@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.temporal.TemporalField;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -101,6 +102,38 @@ public class ReunionService implements IReunionServices {
         return false;
     }
 
+    public ArrayList<Reunion> obtenerSegunTipoIntegrante(String tipo){
+
+        if(tipo.equals("lider")){
+            return obtenerReunionesLider();
+        }
+        else{
+            return obtenerReunionesProgramador();
+        }
+
+    }
+
+    public ArrayList<Reunion> obtenerReunionesProgramador(){
+        List<Reunion> reuniones = reunionDAO.traerTodas();
+        ArrayList<Reunion> reunionesCorrespondientes = new ArrayList<>();
+        for (Reunion reunion : reuniones) {
+            if (reunion.getTipoReunion().getNombre().equals("Dayli") ||reunion.getTipoReunion().getNombre().equals("Capacitacion")){
+                reunionesCorrespondientes.add(reunion);
+            }
+        }
+        return reunionesCorrespondientes;
+    }
+
+    public ArrayList<Reunion> obtenerReunionesLider(){
+        List<Reunion> reuniones = reunionDAO.traerTodas();
+        ArrayList<Reunion> reunionesCorrespondientes = new ArrayList<>();
+        for (Reunion reunion : reuniones) {
+            if (reunion.getTipoReunion().getNombre().equals("Dayli") ||reunion.getTipoReunion().getNombre().equals("Formal")){
+                reunionesCorrespondientes.add(reunion);
+            }
+        }
+        return reunionesCorrespondientes;
+    }
 
 
 

@@ -100,15 +100,13 @@ public class IntegranteController {
                 User user = usuarioServiceIMP.getUsuarioByEmail(email);
                 integrante.setUsuario(user);
 
-                System.out.println("estoy agregando");
-
                 // si eligio lider, le asigno true al campo booleano
                 if (integrante.getPuesto().getNombre().equals("lider")) {
                     integrante.setJefe(true);
                 }
                 integrante.setTieneEquipo(true);
                 // guardo en la base de datos
-                integranteService.agregarAgenda(integrante);
+                integrante = integranteService.agregarAgenda(integrante);
 
             }
 
@@ -196,7 +194,7 @@ public class IntegranteController {
         return sessionService.sesionIniciada(session , "lista-integrantes") ;
     }
 
-    @RequestMapping(value = "/agenda/{id}")
+    @RequestMapping(value = "/personal/{id}")
     public String verAgendaPersonal(Model model,HttpSession session,@PathVariable(value = "id") Integer id){
 
         if(id > 0){
@@ -204,7 +202,7 @@ public class IntegranteController {
             if(integrante != null){
                 model.addAttribute("titulo",titulo);
                 model.addAttribute("h1","Lista de los empleados de Moby Digital!");
-                model.addAttribute("agenda", integrante.getAgenda());
+               // model.addAttribute("reuniones", integrante.getAgenda().getReuniones());
                 model.addAttribute("integrante", integrante);
 
                 return sessionService.sesionIniciada(session , "verAgenda") ;

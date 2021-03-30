@@ -32,7 +32,7 @@
 </header>
 <section class="content-info">
 
-    <h2>Bienvenido <span th:text="${usuario.email}"></span></h2>
+    <h2>Bienvenido <span th:text="${integrante.nombre}"></span></h2>
     <div class="title-entrada">
         <h3>Empleado</h3>
         <div class="content-entrada">
@@ -79,16 +79,16 @@
     </div>
 
     <div class="title-entrada">
-        <h3>Agenda</h3>
+        <h3>Reunion</h3>
         <div class="content-entrada">
-            <a href="" class="entrada">
+            <a th:href="@{/agregarReunion}" class="entrada">
                 Crear Reunion <i class="fas fa-user-tie"></i>
             </a>
-            <a href="" class="entrada">
-                Listar reuniones<i class="fas fa-user-tie"></i>
+            <a  th:href="@{/listarReuniones}" class="entrada">
+                Todas las reuniones<i class="fas fa-user-tie"></i>
             </a>
-            <a href="" class="entrada">
-                Mis reuniones<i class="fas fa-user-tie"></i>
+            <a th:if="${integrante.id != null}" th:href="@{/listarReuniones/} + ${integrante.id}" class="entrada">
+                Reuniones disponibles<i class="fas fa-user-tie"></i>
             </a>
         </div>
     </div>
