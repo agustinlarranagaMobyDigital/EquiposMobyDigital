@@ -45,6 +45,7 @@ public class EquipoServiceIMP {
 
         for (int i = 0; i < listaEquipos.size(); i++) {
             this.agregarListaIntegrantesAEquipo(listaEquipos.get(i));
+            checkEquipoCompleto(listaEquipos.get(i));
         }
 
 
@@ -95,6 +96,7 @@ public class EquipoServiceIMP {
         if (isCompleto){
             errores.put("puestoCompleto","No hay mas vacantes en este equipo para el puesto "+integrante.getPuesto().getNombre()+" esta completo");
         }
+
     }
 
     private boolean isPuestoCompleto(String puesto,Equipo equipo){
@@ -198,10 +200,10 @@ public class EquipoServiceIMP {
                 lider++;
             }
             if(equipo.getArrayList().get(i).getPuesto().equals("frontend")){
-                back++;
+                front++;
             }
             if(equipo.getArrayList().get(i).getPuesto().equals("backend")){
-                front++;
+                back++;
             }
             if(equipo.getArrayList().get(i).getPuesto().equals("tester")){
                 tester++;

@@ -111,7 +111,7 @@ public class EquipoController {
         List<Integrante> listaIntegrantes = integranteService.getOrderIntegrante();
         for (int i = 0; i < listaIntegrantes.size(); i++) {
             if(listaIntegrantes.get(i).getEquipo() != null) {
-                if(listaIntegrantes.get(i).getEquipo().getId() == equipo.getId()){
+                if(listaIntegrantes.get(i).getEquipo().equals(equipo) ){
                     listaIntegrantes.remove(i);
                 }
             }
