@@ -47,7 +47,7 @@ public class ValidacionesService {
     public boolean validarFechaProgramador(Integrante integrante, LocalDate date) {
         LocalDate minima = LocalDate.now().minusYears(18);
         boolean validacion=true;
-        if (integrante.isJefe() == true) {
+        if (integrante.isProgramador() == true) {
             if (date.isBefore(minima)) {
                 validacion = true;
             }
@@ -57,8 +57,6 @@ public class ValidacionesService {
         }
         return validacion;
     }
-
-
 
     public boolean validarIntegrante(Integrante integrante){
         boolean validacion = true;

@@ -21,8 +21,6 @@ import java.util.List;
 @Entity
 @Table(name = "integrantes")
 public  class   Integrante implements Serializable {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_integrante")
@@ -39,6 +37,7 @@ public  class   Integrante implements Serializable {
     private int experiencia;
 
     private boolean jefe;
+    private boolean programador;
 
     // Foreing Keys
 
@@ -76,6 +75,11 @@ public  class   Integrante implements Serializable {
     public boolean isJefe(){
         return jefe;
     }
+
+    public boolean isProgramador(){
+        return programador;
+    }
+
 
 
 }
