@@ -65,8 +65,6 @@ public class ReunionService extends ValidacionesService implements IReunionServi
 
     }
 
-
-
     ///---------------------------------------------------------------------
 
     public boolean revisarDiaAnteriorOActual(LocalDate fecha){
