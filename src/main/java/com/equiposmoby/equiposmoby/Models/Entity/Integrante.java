@@ -68,6 +68,9 @@ public  class   Integrante implements Serializable {
     @JoinColumn(name = "id_usuario")
     private User usuario;
 
+    public <T> Integrante(int i, String agustin, String larra, LocalDate now, int i1, boolean b, Equipo equipo, boolean b1, Puesto puesto, List<T> asList, Agenda agenda, User user) {
+    }
+
     public void setLenguajes(List <Lenguaje> lista){
         lenguajes = lista;
     }

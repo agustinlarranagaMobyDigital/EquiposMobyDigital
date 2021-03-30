@@ -1,123 +1,100 @@
 package com.equiposmoby.equiposmoby.Services;
 
 import com.equiposmoby.equiposmoby.EquiposmobyApplication;
-import com.equiposmoby.equiposmoby.Models.Entity.Integrante;
-import com.equiposmoby.equiposmoby.Models.Entity.Jefe;
-import com.equiposmoby.equiposmoby.Models.Entity.Lider;
-import com.equiposmoby.equiposmoby.Models.Entity.Programador;
+import com.equiposmoby.equiposmoby.Models.Entity.*;
 import org.apache.tomcat.jni.Local;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.chrono.ChronoLocalDate;
 import java.util.Date;
+import java.util.Map;
 
 public class ValidacionesService {
 
     private static Logger LOG = LoggerFactory.getLogger(EquiposmobyApplication.class);
 
-    public boolean validarFecha(LocalDate date){
-        boolean validacion = false;
-        if(date != null){
-            if(LocalDate.now().isAfter(date)){
-                validacion = true;
-            }else{
-                LOG.error("Fecha superior o igual a hoy");
-            }
-        }else{
-            LOG.error("Fecha de integrante vacio");
-        }
-        return validacion;
-    }
 
-    public boolean validarFechaJefe(Integrante integrante,LocalDate date) {
-        LocalDate minima = LocalDate.now().minusYears(30);
-        boolean validacion=true;
-        if (integrante.isJefe() == true) {
-            if (date.isBefore(minima)) {
-                validacion = true;
-            }
-            else{
-                validacion = false;
+    ///----------------------Validaciones Reuniones --------------------------
+
+    public boolean revisarFechaPasada(LocalDate fecha){
+        if(fecha != null){
+            if(LocalDate.now().isAfter (fecha)){
+                return false;
             }
         }
-        return validacion;
+        return true;
     }
 
-    public boolean validarFechaProgramador(Integrante integrante, LocalDate date) {
-        LocalDate minima = LocalDate.now().minusYears(18);
-        boolean validacion=true;
-        if (integrante.isProgramador() == true) {
-            if (date.isBefore(minima)) {
-                validacion = true;
-            }
-            else{
-                validacion = false;
+    public boolean revisarDiaActual(LocalDate fecha){
+        if(fecha != null){
+            if(LocalDate.now().isBefore (fecha)){
+                return false;
             }
         }
-        return validacion;
+        return true;
     }
 
-    public boolean validarIntegrante(Integrante integrante){
+    /** Generica */
+    ///Si devuelve true esta bien
+    public boolean revisarReunion(Reunion reunion, Map<String,String> errores){
         boolean validacion = true;
-        int i = 0;
-       do{
-               switch (i){
-                   case 0->{ if (integrante.getNombre() == null ){
-                       validacion = false;
-                       LOG.error("Nombre de integrante vacio");
-                   }}
-                   case 1->{ if(integrante.getApellido() == null){
-                       validacion = false;
-                       LOG.error("Apellido de integrante vacio");
-                   }}
-                   case 2->{ validacion = validarFecha(integrante.getFechaNacimiento()); }
+        int i=0;
+        LocalTime horaInicio= LocalTime.of(8,00);
+        LocalTime horaFinal= LocalTime.of(18,00);
 
-                   case 3->{ if( integrante.getExperiencia() <= 0){
-                       validacion = false;
-                       LOG.error("Edad de integrante nula o menor a 0");
-                   }
-                   }
-                   case 4->{ if(integrante.getAgenda() == null){
-                            validacion = false;
-                           LOG.error("Agenda de integrante vacio");
-
-                   }
-                   }
-                   case 5->{ if(integrante.getPuesto() == null){
-                            validacion = false;
-                            LOG.error("Puesto del integrante vacio");
-                   }
-                   }
-                   case 6->{ if(integrante.getLenguajes() == null){
-                            validacion = false;
-                           LOG.error("Lenguajes de integrante vacio");
-
-                   }
-                   }
-                   case 7-> {
-                       if (integrante.getUsuario() == null) {
-                           validacion = false;
-                           LOG.error("Usuario del integrante vacio");
-                       }
-                   }
-                   case 8-> {
-                       validacion = validarFechaJefe(integrante,integrante.getFechaNacimiento());
-                       if (validacion == false){
-                           LOG.error("El jefe debe tener al menos 30 años");
-                       }
-                   }
-                   case 9-> {
-                       validacion = validarFechaProgramador(integrante,integrante.getFechaNacimiento());
-                       if (validacion == false){
-                           LOG.error("El programador debe tener al menos 18 años");
-                       }
-                   }
-
-               }
-           i++;
-        }while (validacion &&  i < 9);
-       return validacion;
+        do {
+            switch (i) {
+                case 0 -> {
+                    if (reunion.getHoraInicial() == reunion.getHoraFinal()) { //No se pueden crear reuniones que comiencen y terminen a la misma hora
+                        validacion = false;
+                        errores.put("coincidencia","No se puede crear una reunion que inicie y finalice a la misma hora");
+                    }
+                }
+                case 1 -> {
+                    if (reunion.getHoraInicial() == null) { //No se ingresa hora inicial
+                        validacion = false;
+                        errores.put("horaInicial","Debe ingresar una hora inicial");
+                    }
+                }
+                case 2 -> {
+                    if (reunion.getHoraFinal() == null) { //No se ingresa hora final
+                        validacion = false;
+                        errores.put("horaFinal","Debe ingresar una hora final");
+                    }
+                }
+                case 3 -> {
+                    if (revisarFechaPasada(reunion.getFecha()) == false) { //No se puede ingresar una fecha que sea anterior a la actualidad
+                        validacion = false;
+                        errores.put("fechaAnterior","No se puede ingresar una fecha anterior a la actual");
+                    }
+                }
+                case 4 -> {
+                    if (reunion.getFecha() == null) { //No se ingresa fecha
+                        validacion = false;
+                        errores.put("fechaNull","Debe ingresar una fecha");
+                    }
+                }
+                case 5 -> {
+                    if (reunion.getHoraInicial().isBefore((horaInicio))) { //No se puede crear antes de las 8:00
+                        validacion = false;
+                        errores.put("horarioAnterior","No puede crear una reunion antes de las 8:00");
+                    }
+                }
+                case 6 -> {
+                    if (reunion.getHoraFinal().isAfter(horaFinal)) { //No se puede crear despues de las 17:00
+                        validacion = false;
+                        errores.put("horarioPosterior","No puede crear una reunion despues de las 18:00");
+                    }
+                }
+            }
+            i++;
+        }while(validacion && i<6);
+        return validacion;
     }
+
+
 
 }

@@ -17,7 +17,7 @@ public class DatosIntegrante {
                                                                 new Lenguaje(4,"phyton"));
 
 
-    public final static Integrante INTEGRANTE = new Integrante(1,"agustin","larra", LocalDate.now(),1,false,
+    public final static Integrante INTEGRANTE = new Integrante(1,"agustin","larra", LocalDate.now(),1,false,true,
                                                                     new Equipo(),true,new Puesto(),
                                                                     Arrays.asList( new Lenguaje(1,"java"), new Lenguaje(2,"php")),
                                                                     new Agenda(),new User());

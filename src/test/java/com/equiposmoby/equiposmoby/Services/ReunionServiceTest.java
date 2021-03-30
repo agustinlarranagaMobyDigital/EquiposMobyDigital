@@ -78,6 +78,20 @@ public class ReunionServiceTest {
         assertTrue(resultado);
     }
 
+    @Test
+    public void agregarFechasIgualesTest(){
+        Reunion reunion = new Reunion();
+
+        reunion.setFecha(LocalDate.now());
+        reunion.setHoraInicial(LocalTime.of(8,45));
+        reunion.setHoraFinal(LocalTime.of(8,45));
+
+        doNothing().when(reunionDaoImple).agregar(isA(Reunion.class));
+        boolean resultado = reunionService.agregar(reunion);
+        assertFalse(resultado);
+    }
+
+
     /** ELIMINAR */
 
     @Test

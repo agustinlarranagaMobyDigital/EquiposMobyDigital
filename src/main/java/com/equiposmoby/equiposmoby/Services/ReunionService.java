@@ -2,17 +2,12 @@ package com.equiposmoby.equiposmoby.Services;
 
 import com.equiposmoby.equiposmoby.Models.Daos.ReunionDaoImple;
 import com.equiposmoby.equiposmoby.Models.Entity.Reunion;
-import com.equiposmoby.equiposmoby.excepciones.FechaErroneaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.time.temporal.TemporalField;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
-public class ReunionService implements IReunionServices {
+public class ReunionService extends ValidacionesService implements IReunionServices {
 
     @Autowired
     private ReunionDaoImple reunionDAO;
@@ -24,7 +19,8 @@ public class ReunionService implements IReunionServices {
 
     @Override
     public boolean agregar(Reunion reunion) {
-        boolean verificarFecha = revisarDiaAnteriorOActual(reunion.getFecha());
+        Map<String , String> errores = new HashMap<>();
+        boolean verificarFecha = revisarReunion(reunion,errores);
         reunionDAO.agregar(reunion);
         return verificarFecha;
     }
@@ -42,7 +38,6 @@ public class ReunionService implements IReunionServices {
     }
 
     public Reunion agregarReunion(Reunion reunion){
-
 
         Reunion reunionNew = Reunion.builder()
                 .idReunion(reunion.getIdReunion())
@@ -62,41 +57,6 @@ public class ReunionService implements IReunionServices {
         }
         return null;
 
-    }
-
-    ///----------------------Validaciones------------------------------
-
-    public boolean revisarDiaAnteriorOActual(LocalDate fecha){
-        if(fecha != null){
-            if(LocalDate.now().isBefore (fecha) || LocalDate.now().isEqual(fecha)){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean revisarDiaActual(LocalDate fecha){
-        if(fecha != null){
-            if(LocalDate.now().isBefore (fecha)){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean revisarGetID(Integer id){
-        int i=0;
-        if(traerTodas().size() != 0){
-            while(i < traerTodas().size()){
-                if(traerTodas().get(i).getIdReunion().equals(id)){
-                    return true;
-                }
-                else{
-                    i++;
-                }
-            }
-        }
-        return false;
     }
 
 
