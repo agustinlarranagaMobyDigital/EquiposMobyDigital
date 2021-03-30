@@ -8,6 +8,7 @@ import com.equiposmoby.equiposmoby.Services.CuentaService;
 import com.equiposmoby.equiposmoby.Services.EquipoServiceIMP;
 import com.equiposmoby.equiposmoby.Services.IntegranteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -55,37 +57,37 @@ public class EquipoController {
     }
 
     @PostMapping("/guardarEquipo")
-    public ResponseEntity<String> guardarEquipo(Model model, Equipo equipo) {
+    public String guardarEquipo(Model model, Equipo equipo) {
         // el equipo viene con un nombre y una cuenta asignada
         // le asigno una agenda
         equipoServiceIMP.agregarAgenda(equipo);
         // guardo
         equipoServiceIMP.agregar(equipo);
 
-        return ResponseEntity.ok("redirect:/listarEquipos");
+        return "redirect:/listarEquipos";
     }
 
 
     @RequestMapping("/listarEquipos")
-    public ResponseEntity<String> listarEquipo(Model model) {
+    public String listarEquipo(Model model) {
 
         List<Equipo> listaEquipos = equipoServiceIMP.traerTodas();
         model.addAttribute("titulo", "Listar Equipo");
         model.addAttribute("listaEquipos", listaEquipos);
 
-        return ResponseEntity.ok("listar-equipos");
+        return "listar-equipos";
     }
 
 
     @RequestMapping(value = "/agendaEquipo/{id}")
-    public ResponseEntity<String> verAgendaEquipo(Model model, HttpSession session, @PathVariable(value = "id") Integer id) {
+    public String verAgendaEquipo(Model model, HttpSession session, @PathVariable(value = "id") Integer id) {
 
-        return ResponseEntity.ok("verAgenda");
+        return "verAgenda";
     }
 
 
     @RequestMapping(value = "/gestionarEquipo/{id}")
-    public ResponseEntity<String> gestionarEquipo(Model model, HttpSession session, @PathVariable(value = "id") Integer id) {
+    public String gestionarEquipo(Model model, HttpSession session, @PathVariable(value = "id") Integer id) {
 
         Equipo equipo = equipoServiceIMP.getById(id);
         Integrante lider = equipo.getLider();
@@ -107,24 +109,24 @@ public class EquipoController {
         model.addAttribute("lider", lider);
         model.addAttribute("listaIntegrantes", listaIntegrantes);
 
-        return ResponseEntity.ok("gestionar-equipo");
+        return "gestionar-equipo";
     }
 
 
     @DeleteMapping(value = "/eliminarIntegrante/{Eid}/{Iid}")
-    public ResponseEntity<String> eliminarIntegrante(Model model, HttpSession session, @PathVariable(value = "Eid") Integer idEquipo,
+    public String eliminarIntegrante(Model model, HttpSession session, @PathVariable(value = "Eid") Integer idEquipo,
                                                      @PathVariable(value = "Iid") Integer idIntegrante) {
 
         integranteService.quitarEquipo(idIntegrante);
-        return ResponseEntity.ok("redirect:/listarEquipos");
+        return "redirect:/listarEquipos";
     }
 
     @PostMapping(value = "/agregarIntegrante/{Eid}/{Iid}")
-    public ResponseEntity<String> agregarIntegrante(Model model, HttpSession session, @PathVariable(value = "Eid") Integer idEquipo,
+    public String agregarIntegrante(Model model, HttpSession session, @PathVariable(value = "Eid") Integer idEquipo,
                                                     @PathVariable(value = "Iid") Integer idIntegrante) {
 
         integranteService.asignarEquipo(idIntegrante,idEquipo);
 
-        return ResponseEntity.ok("redirect:/listarEquipos");
+        return "redirect:/listarEquipos";
     }
 }
