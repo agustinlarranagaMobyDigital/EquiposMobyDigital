@@ -91,10 +91,8 @@ public class IntegranteController {
         Map<String, String> errores = usuarioServiceIMP.crearUsuario(result, email, password);
 
         if (errores.isEmpty()) {
-            System.out.println("entro 1");
+            
             if (integrante.getId() > 0) {
-                System.out.println("entro 2");
-                System.out.println("estoy editando");
                 integranteService.editar(integrante);
 
             } else {
@@ -102,6 +100,7 @@ public class IntegranteController {
                 User user = usuarioServiceIMP.getUsuarioByEmail(email);
                 integrante.setUsuario(user);
 
+                System.out.println("estoy agregando");
 
                 // si eligio lider, le asigno true al campo booleano
                 if (integrante.getPuesto().getNombre().equals("lider")) {
@@ -112,7 +111,6 @@ public class IntegranteController {
                 integranteService.agregarAgenda(integrante);
 
             }
-
 
         }
         if (integranteService.add(integrante)) {
