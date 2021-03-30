@@ -64,9 +64,7 @@ public class ReunionService implements IReunionServices {
 
     }
 
-
-
-    ///---------------------------------------------------------------------
+    ///----------------------Validaciones------------------------------
 
     public boolean revisarDiaAnteriorOActual(LocalDate fecha){
         if(fecha != null){
@@ -100,8 +98,6 @@ public class ReunionService implements IReunionServices {
         }
         return false;
     }
-
-
 
 
 }

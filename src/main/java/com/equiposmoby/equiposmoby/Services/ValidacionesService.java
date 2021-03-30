@@ -2,6 +2,10 @@ package com.equiposmoby.equiposmoby.Services;
 
 import com.equiposmoby.equiposmoby.EquiposmobyApplication;
 import com.equiposmoby.equiposmoby.Models.Entity.Integrante;
+import com.equiposmoby.equiposmoby.Models.Entity.Jefe;
+import com.equiposmoby.equiposmoby.Models.Entity.Lider;
+import com.equiposmoby.equiposmoby.Models.Entity.Programador;
+import org.apache.tomcat.jni.Local;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,9 +13,6 @@ import java.time.LocalDate;
 import java.util.Date;
 
 public class ValidacionesService {
-
-
-
 
     private static Logger LOG = LoggerFactory.getLogger(EquiposmobyApplication.class);
 
@@ -28,6 +29,36 @@ public class ValidacionesService {
         }
         return validacion;
     }
+
+    public boolean validarFechaJefe(Integrante integrante,LocalDate date) {
+        LocalDate minima = LocalDate.now().minusYears(30);
+        boolean validacion=true;
+        if (integrante.isJefe() == true) {
+            if (date.isBefore(minima)) {
+                validacion = true;
+            }
+            else{
+                validacion = false;
+            }
+        }
+        return validacion;
+    }
+
+    public boolean validarFechaProgramador(Integrante integrante, LocalDate date) {
+        LocalDate minima = LocalDate.now().minusYears(18);
+        boolean validacion=true;
+        if (integrante.isJefe() == true) {
+            if (date.isBefore(minima)) {
+                validacion = true;
+            }
+            else{
+                validacion = false;
+            }
+        }
+        return validacion;
+    }
+
+
 
     public boolean validarIntegrante(Integrante integrante){
         boolean validacion = true;
@@ -66,11 +97,25 @@ public class ValidacionesService {
 
                    }
                    }
-                   case 7->{ if (integrante.getUsuario() == null){
-                            validacion= false;
-                            LOG.error("Usuario del integrante vacio");
+                   case 7-> {
+                       if (integrante.getUsuario() == null) {
+                           validacion = false;
+                           LOG.error("Usuario del integrante vacio");
+                       }
                    }
+                   case 8-> {
+                       validacion = validarFechaJefe(integrante,integrante.getFechaNacimiento());
+                       if (validacion == false){
+                           LOG.error("El jefe debe tener al menos 30 años");
+                       }
                    }
+                   case 9-> {
+                       validacion = validarFechaProgramador(integrante,integrante.getFechaNacimiento());
+                       if (validacion == false){
+                           LOG.error("El programador debe tener al menos 18 años");
+                       }
+                   }
+
                }
            i++;
         }while (validacion &&  i < 9);

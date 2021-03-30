@@ -238,7 +238,6 @@ public class IntegranteService extends ValidacionesService{
         this.editar(integrante);
     }
 
-
     public void borrarEquipoDeTodosLosIntegrantes(Equipo equipo){
 
         List<Integrante> integrantes = getIntegrantesByIdEquipo(equipo.getId());

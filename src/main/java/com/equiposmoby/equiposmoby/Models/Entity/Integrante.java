@@ -73,5 +73,9 @@ public  class   Integrante implements Serializable {
         lenguajes = lista;
     }
 
+    public boolean isJefe(){
+        return jefe;
+    }
+
 
 }
