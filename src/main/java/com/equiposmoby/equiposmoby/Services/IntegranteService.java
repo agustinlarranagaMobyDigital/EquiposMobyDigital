@@ -109,8 +109,9 @@ public class IntegranteService {
         return null;
     }
 
-    public User getUserByEmail(String email){
-        return  (User) userDao.buscar(email);
+    public Integrante getIntegranteByEmail(String email){
+        List<Integrante> integrantes = integranteDAO.traerTodas();
+        return integrantes.stream().filter(integrante -> integrante.getUsuario().getEmail().equals(email)).findFirst().get();
     }
 
     // ------------------------------------------------------------------------ METODOS EXTERNOS

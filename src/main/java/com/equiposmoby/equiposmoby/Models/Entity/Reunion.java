@@ -8,20 +8,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.List;
 
 @Builder
 @Data //Crea los getters and setter, equals, toString.
@@ -33,21 +25,19 @@ import java.util.Date;
 public class Reunion implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_reunion")
     private Integer idReunion;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "fecha")
     private LocalDate fecha;
 
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @Column(name = "hora_inicial")
     private LocalTime horaInicial;
 
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @Column(name = "hora_final")
     private LocalTime horaFinal;
 
@@ -55,6 +45,13 @@ public class Reunion implements Serializable {
     @OneToOne(fetch = FetchType.LAZY, cascade= CascadeType.ALL)
     @JoinColumn(name = "id_tipo_reunion")
     private TipoReunion tipoReunion;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "AGENDAXREUNION",
+            joinColumns = @JoinColumn(name = "id_reunion"),
+            inverseJoinColumns = @JoinColumn(name = "id_agenda"))
+    private List<Agenda> agenda;
 
 
 

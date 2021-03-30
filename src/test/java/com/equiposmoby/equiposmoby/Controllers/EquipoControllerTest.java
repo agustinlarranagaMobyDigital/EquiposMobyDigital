@@ -104,8 +104,7 @@ public class EquipoControllerTest {
 
     @Test
     public void agregarIntegranteTest() throws Exception{
-
-        doNothing().when(integranteService).asignarEquipo(1,1);
+        doNothing().when(integranteService).asignarEquipo(Integrante.builder().build(), Equipo.builder().id(1).build());
         mockMvc.perform(post("/agregarIntegrante/{Eid}/{Iid}",1,1)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isFound())

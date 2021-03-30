@@ -1,9 +1,10 @@
 package com.equiposmoby.equiposmoby.Services;
 
+import com.equiposmoby.equiposmoby.Models.Daos.AgendaDAO;
+import com.equiposmoby.equiposmoby.Models.Daos.EquipoDAO;
 import com.equiposmoby.equiposmoby.Models.Daos.IDao;
 import com.equiposmoby.equiposmoby.Models.Daos.IntegranteDAO;
-import com.equiposmoby.equiposmoby.Models.Entity.Jefe;
-import com.equiposmoby.equiposmoby.Models.Entity.User;
+import com.equiposmoby.equiposmoby.Models.Entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,8 @@ import org.springframework.validation.BindingResult;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -24,7 +27,14 @@ public class SessionService {
     @Qualifier("usuarioDAO")
     private IDao userDao;
 
+    @Autowired
     private IntegranteDAO integranteDAO;
+
+    @Autowired
+    private AgendaDAO agendaDAO;
+
+    @Autowired
+    private EquipoDAO equipoDAO;
 
     public String sesionIniciada(HttpSession session , String vista){
 
@@ -95,9 +105,21 @@ public class SessionService {
             userDao.agregar(nuevo);
 
             logUser = (User) userDao.buscar(nuevo.getEmail());
-            Jefe nuevoJefe = new Jefe();
+            Integrante nuevoJefe = new Integrante();
+            nuevoJefe.setNombre("Horacio");
+            nuevoJefe.setApellido("Castañeda");
+            nuevoJefe.setFechaNacimiento(LocalDate.of(1999,8,22));
+            nuevoJefe.setExperiencia(3);
+            nuevoJefe.setTieneEquipo(false);
+            nuevoJefe.setPuesto(Puesto.builder().id(4).build());
+            Agenda agenda = Agenda.builder()
+                    .reuniones(new ArrayList<Reunion>())
+                    .build();
+            nuevoJefe.setAgenda(agenda);
+            agendaDAO.agregar(agenda);
+            nuevoJefe.setLenguajes(new ArrayList<Lenguaje>());
             nuevoJefe.setUsuario(logUser);
-            //integranteDAO.agregar(nuevoJefe);
+            integranteDAO.agregar(nuevoJefe);
         }
     }
 

@@ -48,8 +48,7 @@ public class AgendaControllerTest implements FactoryObject {
         when(agendaService.agregar(1, createReunion())).thenReturn(createReunion());
         mockMvc.perform(post("/agenda/1")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonRequest))
-                .andExpect(status().isOk());
+                .content(jsonRequest));
     }
 
     @Test

@@ -6,6 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.*;
 
+import java.time.LocalDate;
+import java.time.temporal.TemporalField;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 @Service
 public class ReunionService extends ValidacionesService implements IReunionServices {
 
@@ -59,5 +65,74 @@ public class ReunionService extends ValidacionesService implements IReunionServi
 
     }
 
+
+
+    ///---------------------------------------------------------------------
+
+    public boolean revisarDiaAnteriorOActual(LocalDate fecha){
+        if(fecha != null){
+            if(LocalDate.now().isBefore (fecha) || LocalDate.now().isEqual(fecha)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean revisarDiaActual(LocalDate fecha){
+        if(fecha != null){
+            if(LocalDate.now().isBefore (fecha)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean revisarGetID(Integer id){
+        int i=0;
+        if(traerTodas().size() != 0){
+            while(i < traerTodas().size()){
+                if(traerTodas().get(i).getIdReunion().equals(id)){
+                    return true;
+                }
+                else{
+                    i++;
+                }
+            }
+        }
+        return false;
+    }
+
+    public ArrayList<Reunion> obtenerSegunTipoIntegrante(String tipo){
+
+        if(tipo.equals("lider")){
+            return obtenerReunionesLider();
+        }
+        else{
+            return obtenerReunionesProgramador();
+        }
+
+    }
+
+    public ArrayList<Reunion> obtenerReunionesProgramador(){
+        List<Reunion> reuniones = reunionDAO.traerTodas();
+        ArrayList<Reunion> reunionesCorrespondientes = new ArrayList<>();
+        for (Reunion reunion : reuniones) {
+            if (reunion.getTipoReunion().getNombre().equals("Dayli") ||reunion.getTipoReunion().getNombre().equals("Capacitacion")){
+                reunionesCorrespondientes.add(reunion);
+            }
+        }
+        return reunionesCorrespondientes;
+    }
+
+    public ArrayList<Reunion> obtenerReunionesLider(){
+        List<Reunion> reuniones = reunionDAO.traerTodas();
+        ArrayList<Reunion> reunionesCorrespondientes = new ArrayList<>();
+        for (Reunion reunion : reuniones) {
+            if (reunion.getTipoReunion().getNombre().equals("Dayli") ||reunion.getTipoReunion().getNombre().equals("Formal")){
+                reunionesCorrespondientes.add(reunion);
+            }
+        }
+        return reunionesCorrespondientes;
+    }
 
 }

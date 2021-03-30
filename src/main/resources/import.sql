@@ -17,3 +17,7 @@ INSERT INTO cuentas (nombre,valor) VALUES ('Lolo', 698.8);
 INSERT INTO cuentas (nombre,valor) VALUES ('Andres', 333.5);
 
 
+INSERT INTO tipo_reunion (nombre) VALUES ('Dayli');
+INSERT INTO tipo_reunion (nombre) VALUES ('Capacitacion');
+INSERT INTO tipo_reunion (nombre) VALUES ('Formal');
+
