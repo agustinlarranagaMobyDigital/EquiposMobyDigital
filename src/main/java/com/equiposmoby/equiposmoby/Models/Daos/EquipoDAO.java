@@ -23,9 +23,15 @@ public class EquipoDAO implements IDao<Equipo, Integer>{
     @Transactional
     @Override
     public void agregar(Equipo equipo) {
-        em.persist(equipo);
+
+        if (equipo.getId() != null && equipo.getId() > 0){
+            em.merge(equipo);
+        }else {
+            em.persist(equipo);
+        }
     }
 
+    @Transactional
     @Override
     public void eliminar(Equipo equipo){
         em.remove(equipo);

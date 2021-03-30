@@ -41,6 +41,7 @@
                     <th>Integrantes</th>
                     <th>Cuenta</th>
                     <th>Agenda</th>
+                    <th>Completo</th>
                     <th>Gestion de integrantes</th>
 
                 </tr>
@@ -52,19 +53,27 @@
                         <div th:if="${equipo.getLider() != null}">
                             <td th:text="${equipo.getLider().nombre} + ${equipo.getLider().apellido}"></td>
                         </div>
+                        <td th:if="${equipo.getLider() == null}">   </td>
                         <div th:if="${equipo.getProgramadores() != null}">
                             <td>
                                 <p th:each="integrante : ${equipo.getProgramadores()}" th:text="${integrante.nombre} + ${integrante.apellido}"></p>
                             </td>
                         </div>
+                        <td th:if="${equipo.getProgramadores() == null}">   </td>
+
                     </div>
                     <td th:text="${equipo.cuenta.nombre}"></td>
                     <td>
-                        <a th:href="@{/agendaEquipo/} + ${equipo.id}" th:text="agenda"></a>
+                        <a th:href="@{/consultaEquipo/} + ${equipo.id}" th:text="agenda"></a>
                     </td>
+                    <td th:if="${equipo.completo == true}"> Si </td>
+                    <td th:if="${equipo.completo == false}"> No </td>
+
                     <td>
                         <a th:href="@{/gestionarEquipo/} + ${equipo.id}" th:text=" aqui "></a>
                     </td>
+                    <td>    <a th:href="@{/eliminarEquipo/} + ${equipo.id}" th:text="eliminar"></a></td>
+
 
                 </tr>
             </tbody>

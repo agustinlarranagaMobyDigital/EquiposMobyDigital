@@ -12,9 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Data
 @Entity
 @Table(name = "cuentas")
@@ -28,4 +28,5 @@ public class Cuenta implements Serializable {
     private String nombre;
 
     private Double valor;
+
 }

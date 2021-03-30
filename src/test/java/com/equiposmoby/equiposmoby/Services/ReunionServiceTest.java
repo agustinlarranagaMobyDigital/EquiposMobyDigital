@@ -121,19 +121,19 @@ public class ReunionServiceTest {
         Reunion resultado = reunionService.getById(1);
         assertEquals(reunion,resultado);
     }
-    /*
+
     @Test
     public void buscarIdIncorrecto(){
         Reunion reunion = new Reunion();
-
+        reunion.setIdReunion(1);
         reunion.setFecha(LocalDate.of(2021,6,15));
         reunion.setHoraInicial(LocalTime.of(8,45));
         reunion.setHoraFinal(LocalTime.of(9,00));
 
-        when(reunionDaoImple.getById(-55)).thenThrow(new IdIncorrectoException());
+        when(reunionDaoImple.getById(1)).thenReturn(reunion);
         Reunion resultado = reunionService.getById(-55);
-        assertEquals(reunion,resultado);
-    }*/
+        assertNull(resultado);
+    }
 
 
 

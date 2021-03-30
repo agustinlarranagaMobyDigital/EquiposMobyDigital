@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/index.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{css/table.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/table.css}" type="text/css">
 </head>
 
 <body>
@@ -31,16 +31,13 @@
 
     </nav>
 </header>
-
-<h1 th:text="${titulo}"></h1>
-
-<h4> Integrantes: </h4>
-
+<br><br><br><br><br>
 <section class="content-info">
     <table >
         <thead>
-        <tr class="tr">
+        <tr>
             <th>Nombre</th>
+            <th>Email</th>
             <th>Apellido</th>
             <th>Puesto</th>
             <th>Eliminar</th>

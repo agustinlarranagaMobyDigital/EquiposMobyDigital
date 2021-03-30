@@ -1,4 +1,5 @@
 package com.equiposmoby.equiposmoby.Models.Entity;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -7,6 +8,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
+@Builder
 @Data
 @Entity
 @Table(name = "usuarios")

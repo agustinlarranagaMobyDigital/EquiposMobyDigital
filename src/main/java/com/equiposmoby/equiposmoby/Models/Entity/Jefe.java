@@ -9,9 +9,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
-/*
-@AllArgsConstructor
-@NoArgsConstructor*/
+
+//@AllArgsConstructor
+//@NoArgsConstructor
 public class Jefe extends Integrante{
 
     public Jefe () throws ParseException {
