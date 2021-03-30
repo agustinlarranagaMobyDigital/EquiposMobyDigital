@@ -234,7 +234,7 @@ public class ValidacionesService {
         do {
             switch (i) {
                 case 0 -> {
-                    if (reunion.getHoraInicial() == reunion.getHoraFinal()) { //No se pueden crear reuniones que comiencen y terminen a la misma hora
+                    if (reunion.getHoraInicial() != null && reunion.getHoraFinal() != null &&  reunion.getHoraInicial() == reunion.getHoraFinal()) { //No se pueden crear reuniones que comiencen y terminen a la misma hora
                         validacion = false;
                         errores.put("coincidencia","No se puede crear una reunion que inicie y finalice a la misma hora");
                     }
@@ -252,15 +252,15 @@ public class ValidacionesService {
                     }
                 }
                 case 3 -> {
-                    if (revisarFechaPasada(reunion.getFecha()) == false) { //No se puede ingresar una fecha que sea anterior a la actualidad
-                        validacion = false;
-                        errores.put("fechaAnterior","No se puede ingresar una fecha anterior a la actual");
-                    }
-                }
-                case 4 -> {
                     if (reunion.getFecha() == null) { //No se ingresa fecha
                         validacion = false;
                         errores.put("fechaNull","Debe ingresar una fecha");
+                    }
+                }
+                case 4 -> {
+                    if (revisarFechaPasada(reunion.getFecha()) == false) { //No se puede ingresar una fecha que sea anterior a la actualidad
+                        validacion = false;
+                        errores.put("fechaAnterior","No se puede ingresar una fecha anterior a la actual");
                     }
                 }
                 case 5 -> {
@@ -275,9 +275,23 @@ public class ValidacionesService {
                         errores.put("horarioPosterior","No puede crear una reunion despues de las 18:00");
                     }
                 }
+                case 7-> {
+                    if(reunion.getTipoReunion() == null){
+                        validacion = false;
+                        errores.put("tipoReunion","Tipo de reunion no puede estar vacio");
+                    }
+
+                }
+                case 8-> {
+                    if(reunion.getHoraFinal().isBefore(reunion.getHoraInicial())){
+                        validacion = false;
+                        errores.put("horarioPosterior","La hora inicial no puede ser superior a la final");
+                    }
+                }
+
             }
             i++;
-        }while(validacion && i<6);
+        }while(validacion && i<9);
         return validacion;
     }
 

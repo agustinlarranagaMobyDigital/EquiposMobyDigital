@@ -1,20 +1,20 @@
 package com.equiposmoby.equiposmoby.Controllers;
 
-import com.equiposmoby.equiposmoby.Models.Entity.Integrante;
-import com.equiposmoby.equiposmoby.Models.Entity.Reunion;
-import com.equiposmoby.equiposmoby.Models.Entity.TipoReunion;
-import com.equiposmoby.equiposmoby.Services.AgendaService;
-import com.equiposmoby.equiposmoby.Services.IntegranteService;
-import com.equiposmoby.equiposmoby.Services.ReunionService;
-import com.equiposmoby.equiposmoby.Services.TipoReunionService;
+import com.equiposmoby.equiposmoby.Models.Editors.EquipoPropertieEditor;
+import com.equiposmoby.equiposmoby.Models.Editors.TipoReunionropertieEditor;
+import com.equiposmoby.equiposmoby.Models.Entity.*;
+import com.equiposmoby.equiposmoby.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller()
 public class ReunionController {
@@ -33,8 +33,19 @@ public class ReunionController {
     @Autowired
     private AgendaService agendaService;
 
+    @Autowired
+    private ValidacionesService validacionesService;
 
-    @RequestMapping(value = "/agregarReunion")
+    @Autowired
+    private TipoReunionropertieEditor tipoReunionropertieEditor;
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder){
+        binder.registerCustomEditor(TipoReunion.class,"tipoReunion",tipoReunionropertieEditor);
+
+    }
+
+    @RequestMapping(value = "/formReunion")
     public String addReunionView(Model model){
         Reunion reunion = new Reunion();
         List<TipoReunion> tiposReunion = tiposReunionService.getAll();
@@ -45,12 +56,22 @@ public class ReunionController {
     }
 
     @PostMapping(value = "/agregarReunion")
-    public String addReunion(Model model , Reunion reunion  , @RequestParam int id){
-        reunion.setTipoReunion(tiposReunionService.getById(id));
-        model.addAttribute("titulo","Agregar Reunion");
-        model.addAttribute("reunion" , reunion);
-        reunionService.agregar(reunion);
-        return "agregar-reunion";
+    public String addReunion(Model model , Reunion reunion){
+        Map<String,String> errores = new HashMap<>();
+
+        if(validacionesService.revisarReunion(reunion,errores)){
+            //reunion.setTipoReunion(tiposReunionService.getById(id));
+            reunionService.agregar(reunion);
+            return "redirect:/listarReuniones";
+        }
+        else{
+            List<TipoReunion> tiposReunion = tiposReunionService.getAll();
+            model.addAttribute("titulo","Agregar Reunion");
+            model.addAttribute("reunion",reunion);
+            model.addAttribute("errores",errores);
+            model.addAttribute("tipoReunion" , tiposReunion);
+            return "agregar-reunion";
+        }
     }
 
     @RequestMapping( "/listarReuniones") // Si esta vacio, implicitamente es GET
@@ -62,11 +83,17 @@ public class ReunionController {
 
     @RequestMapping( "/listarReuniones/{id}") // Si esta vacio, implicitamente es GET
     public String listarReunionesPorTipo(Model model ,@PathVariable(value = "id") Integer id){
-        Integrante integrante = integranteService.getById(id);
-        List<Reunion> reuniones = reunionService.obtenerSegunTipoIntegrante(integrante.getPuesto().getNombre());
-        model.addAttribute("integrante",integrante);
-        model.addAttribute("reuniones",reuniones);
-        return "reuniones-disponibles";
+        if(id > 0){
+            Integrante integrante = integranteService.getById(id);
+            if(integrante != null){
+                List<Reunion> reuniones = reunionService.obtenerSegunTipoIntegrante(integrante.getPuesto().getNombre());
+                model.addAttribute("integrante",integrante);
+                model.addAttribute("reuniones",reuniones);
+                return "reuniones-disponibles";
+            }
+        }
+        return "redirect:/app";
+
     }
 
     @RequestMapping( "/listarReuniones/{id}/{reunion}")

@@ -63,6 +63,8 @@ public class AgendaController {
             @PathVariable(value = "id-integrante") Integer idIntegrante, Model model){
 
         Agenda agenda = agendaService.consultaAgendaUsuario(idIntegrante);
+
+        System.out.println("agenda.toString = " + agenda.toString());
         model.addAttribute("agenda",agenda);
         return "agendaPersonal";
     }
@@ -72,6 +74,7 @@ public class AgendaController {
             @PathVariable(value = "id-equipo") Integer idEquipo, Model model){
 
         Agenda agenda = agendaService.consultaAgendaEquipo(idEquipo);
+        System.out.println("agenda.toString = " + agenda.toString());
         model.addAttribute("agenda",agenda);
         return "agendaEquipo";
     }

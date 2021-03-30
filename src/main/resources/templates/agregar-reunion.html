@@ -37,23 +37,37 @@
         <!-- DATOS NATIVOS DE LA ENTIDAD EQUIPO -->
         <label for="dia">Dia: </label>
         <input type="date" th:field="*{fecha}" id="dia">
+        <div th:if="${errores != null && errores.containsKey('fechaAnterior')}" th:text="${errores.fechaAnterior}" class="error"></div>
+        <div th:if="${errores != null && errores.containsKey('fechaNull')}" th:text="${errores.fechaNull}" class="error"></div>
 
         <label for="horaInicial">Hora de inicio: </label>
         <input type="time" th:field="*{horaInicial}" id="horaInicial">
+        <div th:if="${errores != null && errores.containsKey('horaInicial')}" th:text="${errores.horaInicial}" class="error"></div>
+        <div th:if="${errores != null && errores.containsKey('horarioAnterior')}" th:text="${errores.horarioAnterior}" class="error"></div>
+
 
         <label for="horaFinal">Hora de cierre: </label>
         <input type="time" th:field="*{horaFinal}" id="horaFinal">
+        <div th:if="${errores != null && errores.containsKey('coincidencia')}" th:text="${errores.coincidencia}" class="error"></div>
+        <div th:if="${errores != null && errores.containsKey('horaFinal')}" th:text="${errores.horaFinal}" class="error"></div>
+        <div th:if="${errores != null && errores.containsKey('horarioPosterior')}" th:text="${errores.horarioPosterior}" class="error"></div>
+
 
         <label for="horaFinal">Tipo de reunion </label>
-        <select id="tipoReunion" name="id">
-            <option value=""> Seleccione uno </option>
+        <select id="tipoReunion" th:field="*{tipoReunion}">
+            <option value="0"> Seleccione uno </option>
             <option th:each="p:${tipoReunion}" th:text="${p.nombre}" th:value="${p.idTipoReunion}"></option>
         </select>
+        <div th:if="${errores != null && errores.containsKey('tipoReunion')}" th:text="${errores.tipoReunion}" class="error"></div>
 
         <input class="submit" type="submit">
 
     </form>
 </div>
 </body>
-
+<style>
+    .error{
+        color: red;
+    }
+</style>
 </html>

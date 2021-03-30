@@ -43,10 +43,13 @@
             </thead>
             <tbody>
                 <tr th:each="reunion : ${reuniones}" class="tr">
-                    <td th:text="${reunion.fecha}"></td>
-                    <td th:text="${reunion.horaInicial}"></td>
-                    <td th:text="${reunion.horaFinal}"></td>
-                    <td th:text="${reunion.tipoReunion.nombre}"></td>
+                    <div th:if="${reunion != null }">
+                        <td th:text="${reunion.fecha}"></td>
+                        <td th:text="${reunion.horaInicial}"></td>
+                        <td th:text="${reunion.horaFinal}"></td>
+                        <td th:text="${reunion.tipoReunion.nombre}"></td>
+                    </div>
+
                 </tr>
             </tbody>
         </table>

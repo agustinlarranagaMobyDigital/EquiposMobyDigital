@@ -1,15 +1,14 @@
 package com.equiposmoby.equiposmoby.Services;
 
 import com.equiposmoby.equiposmoby.Models.Daos.ReunionDaoImple;
+import com.equiposmoby.equiposmoby.Models.Daos.TipoReunionDAO;
 import com.equiposmoby.equiposmoby.Models.Entity.Reunion;
+import com.equiposmoby.equiposmoby.Models.Entity.TipoReunion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.*;
 
 import java.time.LocalDate;
-import java.time.temporal.TemporalField;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -18,6 +17,9 @@ public class ReunionService extends ValidacionesService implements IReunionServi
     @Autowired
     private ReunionDaoImple reunionDAO;
 
+    @Autowired
+    private TipoReunionDAO tipoReunionDAO;
+
     @Override
     public List<Reunion> traerTodas() {
         return reunionDAO.traerTodas();
@@ -25,10 +27,8 @@ public class ReunionService extends ValidacionesService implements IReunionServi
 
     @Override
     public boolean agregar(Reunion reunion) {
-        Map<String , String> errores = new HashMap<>();
-        boolean verificarFecha = revisarReunion(reunion,errores);
         reunionDAO.agregar(reunion);
-        return verificarFecha;
+        return false;
     }
 
     @Override
@@ -65,6 +65,19 @@ public class ReunionService extends ValidacionesService implements IReunionServi
 
     }
 
+    public TipoReunion getTipoReunionByID(Integer id) {
+        TipoReunion resultado = null;
+        if (id > 0) {
+            List<TipoReunion> lista = tipoReunionDAO.traerTodas();
+            for (TipoReunion tipoReunion : lista) {
+                if (id.equals(tipoReunion.getIdTipoReunion())) {
+                    resultado = tipoReunion;
+                    break;
+                }
+            }
+        }
+        return resultado;
+    }
     ///---------------------------------------------------------------------
 
     public boolean revisarDiaAnteriorOActual(LocalDate fecha){
