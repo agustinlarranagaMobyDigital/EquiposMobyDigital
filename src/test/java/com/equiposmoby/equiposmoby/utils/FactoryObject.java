@@ -63,7 +63,7 @@ public interface FactoryObject {
                 .experiencia(1)
                 .agenda(createAgenda())
                 .fechaNacimiento(LocalDate.now())
-                .jefe(false)
+                .lider(false)
                 .usuario(createUsuario())
                 .puesto(createPuesto())
                 .lenguajes(cargarListDeLenguaje()).build();

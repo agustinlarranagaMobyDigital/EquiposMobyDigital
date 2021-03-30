@@ -19,7 +19,7 @@ public class Jefe extends Integrante{
         this.setApellido("Castañeda");
         this.setFechaNacimiento(LocalDate.of(1999,8,22));
         this.setExperiencia(3);
-        this.setJefe(true);
+        this.setLider(true);
         this.setPuesto(new Puesto());
         this.setAgenda(new Agenda());
         this.setLenguajes(new ArrayList<Lenguaje>());

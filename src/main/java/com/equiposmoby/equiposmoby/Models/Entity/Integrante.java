@@ -21,8 +21,6 @@ import java.util.List;
 @Entity
 @Table(name = "integrantes")
 public  class   Integrante implements Serializable {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_integrante")
@@ -36,9 +34,10 @@ public  class   Integrante implements Serializable {
     @Column(name = "fecha_nacimiento")
     private LocalDate fechaNacimiento;
 
-    private int experiencia;
+    private Integer experiencia;
 
-    private boolean jefe;
+    private boolean lider;
+
 
     // Foreing Keys
 
@@ -69,9 +68,14 @@ public  class   Integrante implements Serializable {
     @JoinColumn(name = "id_usuario")
     private User usuario;
 
+    public <T> Integrante(int i, String agustin, String larra, LocalDate now, int i1, boolean b, Equipo equipo, boolean b1, Puesto puesto, List<T> asList, Agenda agenda, User user) {
+    }
+
     public void setLenguajes(List <Lenguaje> lista){
         lenguajes = lista;
     }
+
+
 
 
 }

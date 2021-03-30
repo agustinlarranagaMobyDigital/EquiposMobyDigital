@@ -20,7 +20,7 @@ import java.io.Serializable;
 public class TipoReunion implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_tipo_reunion")
     private Integer idTipoReunion;
 

@@ -50,7 +50,7 @@ public class AgendaDAO implements IDao<Agenda, Integer> {
 
         Agenda agenda = buscarPorId(id)
                 .orElseThrow(AgendaNoEncontradaException::new);;
-        return ModificarAgenda(agenda, reunions);
+        return modificarAgenda(agenda, reunions);
     }
 
     @Transactional
@@ -60,9 +60,9 @@ public class AgendaDAO implements IDao<Agenda, Integer> {
     }
 
     @Transactional
-    public Agenda ModificarAgenda(Agenda agenda,List<Reunion> reunions){
-
+    public Agenda modificarAgenda(Agenda agenda,List<Reunion> reunions){
         agenda.setReuniones(reunions);
+        em.flush();
         em.refresh(agenda);
         return agenda;
     }

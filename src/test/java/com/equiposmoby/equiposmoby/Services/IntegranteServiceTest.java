@@ -53,7 +53,7 @@ class IntegranteServiceTest {
         nuevo.setApellido("calfin");
         nuevo.setFechaNacimiento(LocalDate.of(1999,8,22));
         nuevo.setExperiencia(2);
-        nuevo.setJefe(false);
+        nuevo.setLider(false);
         nuevo.setAgenda(Agenda.builder().reuniones(new ArrayList<Reunion>()).build());
         Puesto puesto = new Puesto();
         puesto.setNombre("frontend");
@@ -71,7 +71,7 @@ class IntegranteServiceTest {
         nuevo.setApellido("calfin");
         nuevo.setFechaNacimiento(LocalDate.of(1999,8,22));
         nuevo.setExperiencia(2);
-        nuevo.setJefe(false);
+        nuevo.setLider(false);
         nuevo.setAgenda(Agenda.builder().reuniones(new ArrayList<Reunion>()).build());
         Puesto puesto = new Puesto();
         puesto.setNombre("frontend");
@@ -88,7 +88,7 @@ class IntegranteServiceTest {
         nuevo.setNombre("isaias");
         nuevo.setFechaNacimiento(LocalDate.of(1999,8,22));
         nuevo.setExperiencia(2);
-        nuevo.setJefe(false);
+        nuevo.setLider(false);
         nuevo.setAgenda(Agenda.builder().reuniones(new ArrayList<Reunion>()).build());
         Puesto puesto = new Puesto();
         puesto.setNombre("frontend");
@@ -105,7 +105,7 @@ class IntegranteServiceTest {
         nuevo.setNombre("isaias");
         nuevo.setApellido("calfin");
         nuevo.setExperiencia(2);
-        nuevo.setJefe(false);
+        nuevo.setLider(false);
         nuevo.setAgenda(Agenda.builder().reuniones(new ArrayList<Reunion>()).build());
         Puesto puesto = new Puesto();
         puesto.setNombre("frontend");
@@ -123,7 +123,7 @@ class IntegranteServiceTest {
         nuevo.setApellido("calfin");
         nuevo.setFechaNacimiento(LocalDate.now());
         nuevo.setExperiencia(2);
-        nuevo.setJefe(false);
+        nuevo.setLider(false);
         nuevo.setAgenda(Agenda.builder().reuniones(new ArrayList<Reunion>()).build());
         Puesto puesto = new Puesto();
         puesto.setNombre("frontend");
@@ -141,7 +141,7 @@ class IntegranteServiceTest {
         nuevo.setApellido("calfin");
         nuevo.setFechaNacimiento(LocalDate.now().plusDays(1));
         nuevo.setExperiencia(2);
-        nuevo.setJefe(false);
+        nuevo.setLider(false);
         nuevo.setAgenda(Agenda.builder().reuniones(new ArrayList<Reunion>()).build());
         Puesto puesto = new Puesto();
         puesto.setNombre("frontend");
@@ -158,7 +158,7 @@ class IntegranteServiceTest {
         nuevo.setNombre("isaias");
         nuevo.setApellido("calfin");
         nuevo.setFechaNacimiento(LocalDate.of(1999,8,22));
-        nuevo.setJefe(false);
+        nuevo.setLider(false);
         nuevo.setAgenda(Agenda.builder().reuniones(new ArrayList<Reunion>()).build());
         Puesto puesto = new Puesto();
         puesto.setNombre("frontend");
@@ -176,7 +176,7 @@ class IntegranteServiceTest {
         nuevo.setApellido("calfin");
         nuevo.setFechaNacimiento(LocalDate.of(1999,8,22));
         nuevo.setExperiencia(2);
-        nuevo.setJefe(false);
+        nuevo.setLider(false);
         Puesto puesto = new Puesto();
         puesto.setNombre("frontend");
         nuevo.setPuesto(puesto);
@@ -193,7 +193,7 @@ class IntegranteServiceTest {
         nuevo.setApellido("calfin");
         nuevo.setFechaNacimiento(LocalDate.of(1999,8,22));
         nuevo.setExperiencia(2);
-        nuevo.setJefe(false);
+        nuevo.setLider(false);
         nuevo.setAgenda(Agenda.builder().reuniones(new ArrayList<Reunion>()).build());
         nuevo.setLenguajes(new ArrayList<Lenguaje>());
         nuevo.setUsuario(new User("isaias@emal","password"));
@@ -208,7 +208,7 @@ class IntegranteServiceTest {
         nuevo.setApellido("calfin");
         nuevo.setFechaNacimiento(LocalDate.of(1999,8,22));
         nuevo.setExperiencia(2);
-        nuevo.setJefe(false);
+        nuevo.setLider(false);
         nuevo.setAgenda(Agenda.builder().reuniones(new ArrayList<Reunion>()).build());
         Puesto puesto = new Puesto();
         puesto.setNombre("frontend");
@@ -225,7 +225,7 @@ class IntegranteServiceTest {
         nuevo.setApellido("calfin");
         nuevo.setFechaNacimiento(LocalDate.of(1999,8,22));
         nuevo.setExperiencia(2);
-        nuevo.setJefe(false);
+        nuevo.setLider(false);
         nuevo.setAgenda(Agenda.builder().reuniones(new ArrayList<Reunion>()).build());
         Puesto puesto = new Puesto();
         puesto.setNombre("frontend");

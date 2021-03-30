@@ -8,14 +8,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-@Repository
+@Repository(value = "tipoReunionDao")
 public class TipoReunionDAO implements IDao<TipoReunion, Integer> {
 
 
     @PersistenceContext
     private EntityManager em;
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public List<TipoReunion> traerTodas() {
         return em.createQuery("from TipoReunion").getResultList();

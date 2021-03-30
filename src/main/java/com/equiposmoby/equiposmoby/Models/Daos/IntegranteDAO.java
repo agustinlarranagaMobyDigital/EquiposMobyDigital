@@ -1,18 +1,12 @@
 package com.equiposmoby.equiposmoby.Models.Daos;
 
 import com.equiposmoby.equiposmoby.Models.Entity.Integrante;
-import com.equiposmoby.equiposmoby.Models.Entity.Lenguaje;
-import com.equiposmoby.equiposmoby.Models.Entity.Programador;
-import org.apache.tomcat.jni.Directory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NamedNativeQuery;
 import javax.persistence.PersistenceContext;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository(value = "integranteDAO")

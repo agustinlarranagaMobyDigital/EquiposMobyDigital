@@ -21,7 +21,7 @@ import java.util.*;
 
 
 @Service
-public class IntegranteService extends ValidacionesService{
+public class IntegranteService {
 
     // ------------------------------------------------------------------------ INYECCIONES
 
@@ -52,16 +52,21 @@ public class IntegranteService extends ValidacionesService{
     @Qualifier("usuarioDAO")
     private IDao userDao;
 
+    @Autowired
+    private ValidacionesService validacionesService;
+
     // ------------------------------------------------------------------------ METODOS INTERNOS
 
-    public boolean add(Integrante integrante){
+    public boolean validarIntegrante(Map<String, String> errores,Integrante integrante){
+        return validacionesService.validarIntegrante(errores,integrante);
+    }
 
-        if(validarIntegrante(integrante)){
+    public boolean add(Integrante integrante){
+        if (integrante!= null){
             integranteDAO.agregar(integrante);
             return true;
         }
         return false;
-
     }
 
     public Integrante agregarAgenda(Integrante integrante){
@@ -78,7 +83,7 @@ public class IntegranteService extends ValidacionesService{
     }
     
     public void editar(Integrante integrante){
-        integranteDAO.agregar(integrante);
+            integranteDAO.agregar(integrante);
     }
 
     public List<Integrante> listar(){
@@ -104,8 +109,9 @@ public class IntegranteService extends ValidacionesService{
         return null;
     }
 
-    public User getUserByEmail(String email){
-        return  (User) userDao.buscar(email);
+    public Integrante getIntegranteByEmail(String email){
+        List<Integrante> integrantes = integranteDAO.traerTodas();
+        return integrantes.stream().filter(integrante -> integrante.getUsuario().getEmail().equals(email)).findFirst().get();
     }
 
     // ------------------------------------------------------------------------ METODOS EXTERNOS
@@ -162,7 +168,7 @@ public class IntegranteService extends ValidacionesService{
         return equipoDAO.traerTodas();
     }
 
-    public ArrayList<Integrante> getOrderIntegrante(){
+    public List<Integrante> getOrderIntegrante(){
 
         ArrayList<Integrante> integrantes = obtenerLideres();
 
@@ -221,9 +227,8 @@ public class IntegranteService extends ValidacionesService{
         return programadores;
     }
 
-    public void asignarEquipo(Integer idIntegrante, Integer idEquipo){
-        Integrante integrante = getById(idIntegrante);
-        Equipo equipo = equipoService.getById(idEquipo);
+    public void asignarEquipo(Integrante integrante,  Equipo equipo){
+
         if(equipo != null){
             integrante.setEquipo(equipo);
             integrante.setTieneEquipo(true);
@@ -237,7 +242,6 @@ public class IntegranteService extends ValidacionesService{
         integrante.setTieneEquipo(false);
         this.editar(integrante);
     }
-
 
     public void borrarEquipoDeTodosLosIntegrantes(Equipo equipo){
 

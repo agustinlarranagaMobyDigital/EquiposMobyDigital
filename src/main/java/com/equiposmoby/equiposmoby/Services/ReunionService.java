@@ -2,17 +2,18 @@ package com.equiposmoby.equiposmoby.Services;
 
 import com.equiposmoby.equiposmoby.Models.Daos.ReunionDaoImple;
 import com.equiposmoby.equiposmoby.Models.Entity.Reunion;
-import com.equiposmoby.equiposmoby.excepciones.FechaErroneaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.*;
 
 import java.time.LocalDate;
 import java.time.temporal.TemporalField;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Service
-public class ReunionService implements IReunionServices {
+public class ReunionService extends ValidacionesService implements IReunionServices {
 
     @Autowired
     private ReunionDaoImple reunionDAO;
@@ -24,7 +25,8 @@ public class ReunionService implements IReunionServices {
 
     @Override
     public boolean agregar(Reunion reunion) {
-        boolean verificarFecha = revisarDiaAnteriorOActual(reunion.getFecha());
+        Map<String , String> errores = new HashMap<>();
+        boolean verificarFecha = revisarReunion(reunion,errores);
         reunionDAO.agregar(reunion);
         return verificarFecha;
     }
@@ -42,7 +44,6 @@ public class ReunionService implements IReunionServices {
     }
 
     public Reunion agregarReunion(Reunion reunion){
-
 
         Reunion reunionNew = Reunion.builder()
                 .idReunion(reunion.getIdReunion())
@@ -101,7 +102,37 @@ public class ReunionService implements IReunionServices {
         return false;
     }
 
+    public ArrayList<Reunion> obtenerSegunTipoIntegrante(String tipo){
 
+        if(tipo.equals("lider")){
+            return obtenerReunionesLider();
+        }
+        else{
+            return obtenerReunionesProgramador();
+        }
 
+    }
+
+    public ArrayList<Reunion> obtenerReunionesProgramador(){
+        List<Reunion> reuniones = reunionDAO.traerTodas();
+        ArrayList<Reunion> reunionesCorrespondientes = new ArrayList<>();
+        for (Reunion reunion : reuniones) {
+            if (reunion.getTipoReunion().getNombre().equals("Dayli") ||reunion.getTipoReunion().getNombre().equals("Capacitacion")){
+                reunionesCorrespondientes.add(reunion);
+            }
+        }
+        return reunionesCorrespondientes;
+    }
+
+    public ArrayList<Reunion> obtenerReunionesLider(){
+        List<Reunion> reuniones = reunionDAO.traerTodas();
+        ArrayList<Reunion> reunionesCorrespondientes = new ArrayList<>();
+        for (Reunion reunion : reuniones) {
+            if (reunion.getTipoReunion().getNombre().equals("Dayli") ||reunion.getTipoReunion().getNombre().equals("Formal")){
+                reunionesCorrespondientes.add(reunion);
+            }
+        }
+        return reunionesCorrespondientes;
+    }
 
 }
