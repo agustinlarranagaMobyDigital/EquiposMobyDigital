@@ -62,6 +62,7 @@
                 <option th:each="p:${listaPuestos}" th:text="${p.nombre}" th:value="${p.id}"></option>
             </select>
             <div th:if="${errores != null && errores.containsKey('puesto')}" th:text="${errores.puesto}" class="error"></div>
+            <div th:if="${errores != null && errores.containsKey('puestoCompleto')}" th:text="${errores.puestoCompleto}" class="error"></div>
 
 
             <!--EQUIPOS-->

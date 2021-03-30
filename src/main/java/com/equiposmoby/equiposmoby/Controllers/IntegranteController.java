@@ -9,6 +9,7 @@ import com.equiposmoby.equiposmoby.Models.Entity.Integrante;
 import com.equiposmoby.equiposmoby.Models.Entity.Lenguaje;
 import com.equiposmoby.equiposmoby.Models.Entity.Puesto;
 import com.equiposmoby.equiposmoby.Models.Entity.User;
+import com.equiposmoby.equiposmoby.Services.EquipoServiceIMP;
 import com.equiposmoby.equiposmoby.Services.IntegranteService;
 import com.equiposmoby.equiposmoby.Services.SessionService;
 import com.equiposmoby.equiposmoby.Services.UsuarioServiceIMP;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpSession;
 
 import javax.validation.Valid;
@@ -54,6 +56,9 @@ public class IntegranteController {
 
     @Autowired
     private UsuarioServiceIMP usuarioServiceIMP;
+
+    @Autowired
+    private EquipoServiceIMP equipoServiceIMP;
 
     @InitBinder
     public void initBinder(WebDataBinder binder){
@@ -86,11 +91,13 @@ public class IntegranteController {
     @PostMapping(value = "/formIntegrante")
     public String addIntegrante(@Valid Integrante integrante,BindingResult result, Model model, 
                                 @RequestParam String email,@RequestParam String password , HttpSession session) {
-
+// Validaciones
         HashMap<String, String> errores = new HashMap<>();
         boolean integranteValido = integranteService.validarIntegrante(errores,integrante);
         usuarioServiceIMP.crearUsuario(email, password,errores);
-
+        Integer idEquipo = integrante.getEquipo().getId();
+        Equipo equipoCheck = equipoServiceIMP.getById(idEquipo);
+        equipoServiceIMP.validarNuevoIntegrante(integrante,equipoCheck,errores);
 
         if (integranteValido && errores.isEmpty()) {
 
@@ -113,7 +120,7 @@ public class IntegranteController {
             List<Lenguaje> listaLenguajes = integranteService.getLenguajes();
             List<Equipo> listaEquipos = integranteService.getEquipos();
 
-            model.addAttribute("integrante",integrante);
+            model.addAttribute("integrante",new Integrante());
             model.addAttribute("listaPuestos",listaPuestos);
             model.addAttribute("listaLenguajes",listaLenguajes);
             model.addAttribute("listaEquipos",listaEquipos);

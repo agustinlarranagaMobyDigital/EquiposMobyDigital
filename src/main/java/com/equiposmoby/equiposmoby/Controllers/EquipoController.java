@@ -132,6 +132,8 @@ public class EquipoController {
                                      @PathVariable(value = "Iid") Integer idIntegrante){
 
         integranteService.quitarEquipo(idIntegrante);
+        Equipo equipo = equipoServiceIMP.getById(idEquipo);
+        equipoServiceIMP.checkEquipoCompleto(equipo);
         return "redirect:/listarEquipos";
     }
 
