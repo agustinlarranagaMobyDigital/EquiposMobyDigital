@@ -9,12 +9,13 @@ import com.equiposmoby.equiposmoby.Services.IntegranteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.Valid;
+import java.util.*;
 
 
 @Controller
@@ -48,14 +49,27 @@ public class EquipoController {
     }
 
     @PostMapping("/guardarEquipo")
-    public String guardarEquipo (Model model, Equipo equipo){
-            // el equipo viene con un nombre y una cuenta asignada
-            // le asigno una agenda
-            equipoServiceIMP.agregarAgenda(equipo);
-            // guardo
-            equipoServiceIMP.agregar(equipo);
+    public String guardarEquipo (@Valid Equipo equipo, BindingResult result, Model model){
 
+        if ( !result.hasErrors()){
+
+            equipoServiceIMP.agregarAgenda(equipo);
+            equipoServiceIMP.agregar(equipo);
             return "redirect:/listarEquipos";
+        }else {
+
+            Map<String,String> errores = new HashMap<>();
+            result.getFieldErrors().forEach(err ->{
+                errores.put(err.getField(),"El campo ".concat(err.getField()).concat(" ").concat(err.getDefaultMessage()));
+            });
+
+            model.addAttribute("titulo", "Agregando un equipo");
+            model.addAttribute("equipo", equipo);
+            model.addAttribute("listaCuentas" , cuentaService.traerTodas());
+            model.addAttribute("error", errores);
+
+            return "agregar-equipo";
+        }
     }
     @RequestMapping("/eliminarEquipo/{id}")
     public String eliminarEquipo (Model model, @PathVariable(value = "id") Integer id){
@@ -125,8 +139,37 @@ public class EquipoController {
     public String agregarIntegrante(Model model, HttpSession session, @PathVariable(value = "Eid") Integer idEquipo,
                                     @PathVariable(value = "Iid") Integer idIntegrante){
 
-        integranteService.asignarEquipo(idIntegrante,idEquipo);
+        Map<String, String> errores = new HashMap<>();
 
-        return "redirect:/listarEquipos";
+      boolean isOk = equipoServiceIMP.agregarIntegrante(errores,idIntegrante,idEquipo);
+
+      if (isOk){
+          return "redirect:/listarEquipos";
+
+      }else{    // SI HAY ALGUN ERROR AGREGANDO INTEGRANTES SE CARGA DEVUELTA EL FORMULARIO MOSTRANDO EL ERROR
+
+          Equipo equipo = equipoServiceIMP.getById(idEquipo);
+          Integrante lider = equipo.getLider();
+          List<Integrante> programadores = equipo.getProgramadores();
+
+          //agarro los integrantes del sistema y le saco los de este equipo
+          List<Integrante> listaIntegrantes = integranteService.getOrderIntegrante();
+          for (int i = 0; i < listaIntegrantes.size(); i++) {
+              if(listaIntegrantes.get(i).getEquipo() != null) {
+                  if(listaIntegrantes.get(i).getEquipo().getId() == equipo.getId()){
+                      listaIntegrantes.remove(i);
+                  }
+              }
+          }
+
+          model.addAttribute("titulo" , "Gestionar integrantes del equipo: " + equipo.getNombre());
+          model.addAttribute("equipo", equipo);
+          model.addAttribute("programadores",programadores);
+          model.addAttribute("lider", lider);
+          model.addAttribute("listaIntegrantes", listaIntegrantes);
+          model.addAttribute("error", errores);
+
+          return "gestionar-equipo";
+      }
     }
 }

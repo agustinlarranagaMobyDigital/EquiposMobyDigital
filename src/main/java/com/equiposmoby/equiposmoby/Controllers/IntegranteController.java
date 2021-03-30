@@ -29,6 +29,7 @@ import javax.servlet.http.HttpSession;
 
 import javax.validation.Valid;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -70,9 +71,7 @@ public class IntegranteController {
         Integrante integrante = new Integrante();
 
         List<Puesto> listaPuestos= integranteService.getPuestos();
-
         List<Lenguaje> listaLenguajes = integranteService.getLenguajes();
-
         List<Equipo> listaEquipos = integranteService.getEquipos();
 
         model.addAttribute("titulo",titulo);
@@ -88,40 +87,30 @@ public class IntegranteController {
     public String addIntegrante(@Valid Integrante integrante,BindingResult result, Model model, 
                                 @RequestParam String email,@RequestParam String password , HttpSession session) {
 
-        Map<String, String> errores = usuarioServiceIMP.crearUsuario(result, email, password);
+        HashMap<String, String> errores = new HashMap<>();
+        boolean integranteValido = integranteService.validarIntegrante(errores,integrante);
+        usuarioServiceIMP.crearUsuario(email, password,errores);
 
-        if (errores.isEmpty()) {
 
-            if (integrante.getId() > 0) {
-                integranteService.editar(integrante);
+        if (integranteValido && errores.isEmpty()) {
 
-            } else {
-                // agarro el ultimo usuario creado [el de arriba] y lo guardo en Integrante
+
                 User user = usuarioServiceIMP.getUsuarioByEmail(email);
                 integrante.setUsuario(user);
 
-                System.out.println("estoy agregando");
-
-                // si eligio lider, le asigno true al campo booleano
                 if (integrante.getPuesto().getNombre().equals("lider")) {
-                    integrante.setJefe(true);
+                    integrante.setLider(true);
                 }
                 integrante.setTieneEquipo(true);
-                // guardo en la base de datos
+
                 integranteService.agregarAgenda(integrante);
+                integranteService.add(integrante);
 
-            }
+                return sessionService.sesionIniciada(session, "redirect:/listaIntegrantes");
+        } else {
 
-        }
-        if (integranteService.add(integrante)) {
-
-            return sessionService.sesionIniciada(session, "redirect:/listaIntegrantes");
-        }
-        else {
             List<Puesto> listaPuestos= integranteService.getPuestos();
-
             List<Lenguaje> listaLenguajes = integranteService.getLenguajes();
-
             List<Equipo> listaEquipos = integranteService.getEquipos();
 
             model.addAttribute("integrante",integrante);

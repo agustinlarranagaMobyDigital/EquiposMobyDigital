@@ -5,12 +5,16 @@ import com.equiposmoby.equiposmoby.Models.Entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
-public class EquipoServiceIMP implements IEquipoService{
+public class EquipoServiceIMP {
 
     @Autowired
     @Qualifier("equipoDAO")
@@ -30,41 +34,40 @@ public class EquipoServiceIMP implements IEquipoService{
     @Autowired
     private CuentaService cuentaService;
 
-
+    @Autowired
+    private ValidacionesService validacionesService;
 
 
     // ----------------------------------------------------- METODOS DE INTERFACE
-    @Override
     public List<Equipo> traerTodas() {
 
         List<Equipo> listaEquipos = equipoDAO.traerTodas();
 
         for (int i = 0; i < listaEquipos.size(); i++) {
-            this.agregarIntegrantesAEquipo(listaEquipos.get(i));
+            this.agregarListaIntegrantesAEquipo(listaEquipos.get(i));
         }
 
 
         return listaEquipos;
     }
 
-    @Override
-    public void agregar(Equipo equipo) {
-        equipo.setCompleto(false);
-        equipoDAO.agregar(equipo);
+    public boolean agregar(Equipo equipo) {
+
+            equipo.setCompleto(false);
+            equipoDAO.agregar(equipo);
+            return true;
     }
 
     public void editar(Equipo equipo) {
         equipoDAO.agregar(equipo);
     }
 
-    @Override
     public void eliminar(Equipo equipo) {
 
         integranteService.borrarEquipoDeTodosLosIntegrantes(equipo);
         equipoDAO.eliminar(equipo);
     }
 
-    @Override
     public Equipo buscar(String nombre) {
             Equipo equipoBuscado = (Equipo) equipoDAO.buscar(nombre);
             if(!equipoBuscado.getNombre().isEmpty()){
@@ -78,14 +81,14 @@ public class EquipoServiceIMP implements IEquipoService{
     public Equipo getById (Integer id){
 
         Equipo equipo = (Equipo) equipoDAO.getById(id);
-        this.agregarIntegrantesAEquipo(equipo);
+        this.agregarListaIntegrantesAEquipo(equipo);
         return equipo;
     }
 
 
 
     // ------------------------------------------------------------------- METODOS INTERNOS
-        private void agregarIntegrantesAEquipo(  Equipo equipo){
+        private void agregarListaIntegrantesAEquipo(  Equipo equipo){
 
             Integer idEquipo = 0 ;
             idEquipo = equipo.getId();
@@ -104,11 +107,17 @@ public class EquipoServiceIMP implements IEquipoService{
             }
         }
 
-        public void eliminarIntegrante(){
+        public boolean agregarIntegrante(Map<String, String> errores,Integer idIntegrante, Integer idEquipo) {
 
-            // borrar integrante de equipo
-            // borrar equipo de integrante
+            Integrante integrante = integranteService.getById(idIntegrante);
+            Equipo equipo = this.getById(idEquipo);
 
+            boolean isOk = validacionesService.validarNuevoIntegranteAEquipo(errores,integrante,equipo.getArrayList());
+            if(isOk){
+                integranteService.asignarEquipo(integrante,equipo);
+            }
+
+            return isOk;
         }
 
     // ------------------------------------------------- METODOS FORANEOS
@@ -175,4 +184,5 @@ public class EquipoServiceIMP implements IEquipoService{
             return false;
         }
     }
+
 }

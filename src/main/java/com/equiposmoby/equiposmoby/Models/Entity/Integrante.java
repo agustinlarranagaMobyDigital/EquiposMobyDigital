@@ -36,9 +36,9 @@ public  class   Integrante implements Serializable {
     @Column(name = "fecha_nacimiento")
     private LocalDate fechaNacimiento;
 
-    private int experiencia;
+    private Integer experiencia;
 
-    private boolean jefe;
+    private boolean lider;
 
     // Foreing Keys
 

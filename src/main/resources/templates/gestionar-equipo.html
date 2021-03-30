@@ -32,6 +32,8 @@
     </nav>
 </header>
 <br><br><br><br><br>
+
+<h2 th:if="${error != null && error.containsKey('nombre')}" th:text="${error.nombre}"></h2>
 <section class="content-info">
     <table >
         <thead>

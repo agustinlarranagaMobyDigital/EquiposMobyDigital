@@ -38,17 +38,22 @@
             <!-- DATOS NATIVOS DE LA ENTIDAD EQUIPO -->
             <label for="nombre">Nombre: </label>
             <input type="text" name="nombre" id="nombre">
+            <div th:if="${error != null && error.containsKey('nombre')}" th:text="${error.nombre}" class="error"></div>
 
             <label for="cuenta">Cuenta: </label>
             <select id="cuenta" name="cuenta">
-            <option value=""> Seleccione uno </option>
-            <option th:each=" cuenta :${listaCuentas}" th:text="${cuenta.nombre}" th:value="${cuenta.id_cuenta}" th:field="*{cuenta}"></option>
-        </select>
+                <option value=""> Seleccione uno </option>
+                <option th:each=" cuenta :${listaCuentas}" th:text="${cuenta.nombre}" th:value="${cuenta.id_cuenta}" th:field="*{cuenta}"></option>
+            </select>
+            <div th:if="${error != null && error.containsKey('cuenta')}" th:text="${error.cuenta}" class="error"></div>
 
             <input class="submit" type="submit">
         </form>
 
     </div>
 </body>
-
+<style>
+    .error{
+        color: red;
+    }
 </html>
