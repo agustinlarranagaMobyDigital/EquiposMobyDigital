@@ -15,6 +15,7 @@ import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
+
 @Builder
 @Data //Crea los getters and setter, equals, toString.
 @AllArgsConstructor /// Crea el constructor con todos los atributos

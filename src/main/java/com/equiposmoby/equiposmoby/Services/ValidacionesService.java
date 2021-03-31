@@ -67,29 +67,6 @@ public class ValidacionesService {
         return true;
     }
 
-
-    ///----------------------Validaciones Reuniones --------------------------
-
-    public boolean revisarFechaPasada(LocalDate fecha){
-        if(fecha != null){
-            if(LocalDate.now().isAfter (fecha)){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public boolean revisarDiaActual(LocalDate fecha){
-        if(fecha != null){
-            if(LocalDate.now().isBefore (fecha)){
-                return false;
-            }
-        }
-        return true;
-    }
-
-
-
     public boolean validarIntegrante(Map<String, String> errores,Integrante integrante) {
         boolean validacion = true;
         int i = 0;
@@ -127,7 +104,6 @@ public class ValidacionesService {
 
         return validacion;
     }
-
 
     public boolean validarNuevoIntegranteAEquipo(Map<String, String> errores, Integrante integrante, List<Integrante> listaIntegrantesEquipo) {
         boolean validacion = true;
@@ -222,6 +198,26 @@ public class ValidacionesService {
         else { return  false; }
     }
 
+    ///----------------------Validaciones Reuniones --------------------------
+
+    public boolean revisarFechaPasada(LocalDate fecha){
+        if(fecha != null){
+            if(LocalDate.now().isAfter (fecha)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean revisarDiaActual(LocalDate fecha){
+        if(fecha != null){
+            if(LocalDate.now().isBefore (fecha)){
+                return false;
+            }
+        }
+        return true;
+    }
+
     /** Generica */
     ///Si devuelve true esta bien
     public boolean revisarReunion(Reunion reunion, Map<String,String> errores){
@@ -293,6 +289,5 @@ public class ValidacionesService {
         }while(validacion && i<9);
         return validacion;
     }
-
 
 }

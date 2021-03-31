@@ -34,7 +34,9 @@ public class ReunionService extends ValidacionesService implements IReunionServi
     @Override
     public boolean eliminar(Reunion reunion) {
         boolean verificarEliminar = revisarDiaActual(reunion.getFecha());
-        reunionDAO.eliminar(reunion);
+        if(verificarEliminar == true){
+            reunionDAO.eliminar(reunion);
+        }
         return verificarEliminar;
     }
 
