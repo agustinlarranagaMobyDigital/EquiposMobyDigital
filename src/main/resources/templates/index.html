@@ -52,7 +52,7 @@
         <h3>Equipos</h3>
         <div class="content-entrada">
             <a th:href="@{/agregarEquipo}" class="entrada">
-                Crear un equipo <i class="fas fa-user-tie"></i>
+                Crear un equipo <i class="fas fa-people-carry"></i>
             </a>
             <a th:href="@{/listarEquipos}" class="entrada">
                 Listar equipos <i class="fas fa-user-tie"></i>
@@ -89,6 +89,15 @@
             </a>
             <a th:if="${integrante.id != null}" th:href="@{/listarReuniones/} + ${integrante.id}" class="entrada">
                 Reuniones disponibles<i class="fas fa-user-tie"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="title-entrada">
+        <h3>Agenda</h3>
+        <div class="content-entrada">
+            <a th:href="@{/agenda/consulta/} + ${integrante.id}" class="entrada">
+                Mi Agenda <i class="fas fa-user-tie"></i>
             </a>
         </div>
     </div>

@@ -3,8 +3,10 @@ package com.equiposmoby.equiposmoby.Controllers;
 import com.equiposmoby.equiposmoby.Models.Entity.Agenda;
 import com.equiposmoby.equiposmoby.Models.Entity.Reunion;
 import com.equiposmoby.equiposmoby.Services.AgendaService;
+import com.equiposmoby.equiposmoby.Services.IntegranteService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,8 +26,11 @@ import java.util.Optional;
 @RequestMapping("/agenda")
 public class AgendaController {
 
+    @Autowired
     private final AgendaService agendaService;
 
+    @Autowired
+    private IntegranteService integranteService;
 
     @PostMapping("/{id-agenda}")
     public ResponseEntity agregarEvento(@PathVariable(value = "id-agenda") Integer idAgenda, @RequestBody Reunion reunion) {
@@ -62,10 +67,9 @@ public class AgendaController {
     public String consultarAgendaPersonal(
             @PathVariable(value = "id-integrante") Integer idIntegrante, Model model){
 
-        Agenda agenda = agendaService.consultaAgendaUsuario(idIntegrante);
+        Agenda agenda = integranteService.getById(idIntegrante).getAgenda();
 
-        System.out.println("agenda.toString = " + agenda.toString());
-        model.addAttribute("agenda",agenda);
+        model.addAttribute("reuniones",agenda.getReuniones());
         return "agendaPersonal";
     }
 

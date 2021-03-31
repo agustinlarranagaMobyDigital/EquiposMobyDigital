@@ -86,7 +86,7 @@ public class ReunionController {
         if(id > 0){
             Integrante integrante = integranteService.getById(id);
             if(integrante != null){
-                List<Reunion> reuniones = reunionService.obtenerSegunTipoIntegrante(integrante.getPuesto().getNombre());
+                List<Reunion> reuniones = reunionService.obtenerSegunTipoIntegrante(integrante);
                 model.addAttribute("integrante",integrante);
                 model.addAttribute("reuniones",reuniones);
                 return "reuniones-disponibles";

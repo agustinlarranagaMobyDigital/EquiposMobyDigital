@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title th:text="${titulo}"></title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/index.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{css/table.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/table.css}" type="text/css">
 </head>
 
 <body>
@@ -32,20 +32,28 @@
     </nav>
 </header>
 <section class="content-info">
-<table>
-    <thead>
-    <tr>
-        <th>Email</th>
-        <th>Contraseña</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="usuario : ${usuarios}">
-        <td th:text="${usuario.email}"></td>
-        <td th:text="${usuario.password}"></td>
-    </tr>
-    </tbody>
-</table>
+    <table>
+        <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Hora Inicial</th>
+            <th>Hora Final</th>
+            <th>Tipo Reunion</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="reunion : ${reuniones}" class="tr">
+            <div th:if="${reunion != null }">
+                <td th:text="${reunion.fecha}"></td>
+                <td th:text="${reunion.horaInicial}"></td>
+                <td th:text="${reunion.horaFinal}"></td>
+                <td th:text="${reunion.tipoReunion.nombre}"></td>
+            </div>
+
+        </tr>
+        </tbody>
+    </table>
 </section>
 </body>
+
 </html>

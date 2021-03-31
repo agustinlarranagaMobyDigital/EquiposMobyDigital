@@ -43,7 +43,7 @@ public class ValidacionesService {
     public boolean validarEdadIntegrante(Map<String, String> errores,Integrante integrante) {
 
         LocalDate minimaLider = LocalDate.now().minusYears(30);
-        LocalDate minimaProg = LocalDate.now().minusYears(30);
+        LocalDate minimaProg = LocalDate.now().minusYears(18);
 
         boolean validacion=false;
 
@@ -53,14 +53,14 @@ public class ValidacionesService {
             }
             else{
                 validacion = true;
-                errores.put("edad","No admitimos lideres menores de 30 anos");
+                errores.put("edad","No admitimos lideres menores de 30 años");
             }
         }else{
             if (integrante.getFechaNacimiento()!=null && integrante.getFechaNacimiento().isBefore(minimaProg)) {
                 validacion = false;
             }
             else{
-                errores.put("edad","No admitimos programadores menores de 18 anos");
+                errores.put("edad","No admitimos programadores menores de 18 años");
                 validacion = true;
             }
         }

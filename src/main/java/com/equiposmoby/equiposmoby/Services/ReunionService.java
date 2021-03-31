@@ -1,7 +1,9 @@
 package com.equiposmoby.equiposmoby.Services;
 
+import com.equiposmoby.equiposmoby.Models.Daos.IntegranteDAO;
 import com.equiposmoby.equiposmoby.Models.Daos.ReunionDaoImple;
 import com.equiposmoby.equiposmoby.Models.Daos.TipoReunionDAO;
+import com.equiposmoby.equiposmoby.Models.Entity.Integrante;
 import com.equiposmoby.equiposmoby.Models.Entity.Reunion;
 import com.equiposmoby.equiposmoby.Models.Entity.TipoReunion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -115,15 +118,20 @@ public class ReunionService extends ValidacionesService implements IReunionServi
         return false;
     }
 
-    public ArrayList<Reunion> obtenerSegunTipoIntegrante(String tipo){
+    public List<Reunion> obtenerSegunTipoIntegrante(Integrante integrante){
 
-        if(tipo.equals("lider")){
-            return obtenerReunionesLider();
+        List<Reunion> asiste = integrante.getAgenda().getReuniones();
+
+        if(integrante.getPuesto().equals("lider")){
+            asiste.addAll(obtenerReunionesLider());
         }
         else{
-            return obtenerReunionesProgramador();
+            asiste.addAll(obtenerReunionesProgramador());
         }
-
+        HashSet<Reunion> reuniones = new HashSet<Reunion>(asiste);
+        asiste.clear();
+        asiste.addAll(reuniones);
+        return asiste;
     }
 
     public ArrayList<Reunion> obtenerReunionesProgramador(){
