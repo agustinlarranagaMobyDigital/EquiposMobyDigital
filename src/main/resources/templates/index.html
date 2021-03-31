@@ -37,13 +37,13 @@
         <h3>Empleado</h3>
         <div class="content-entrada">
             <a th:href="@{/formIntegrante}" class="entrada">
-                Agregar Empleados <i class="fas fa-user-tie"></i>
+                Agregar Empleados <i class="far fa-address-card"></i>
             </a>
             <a th:href="@{/listaIntegrantes}" class="entrada">
-                Listar Empleados <i class="fas fa-user-tie"></i>
+                Listar Empleados <i class="far fa-address-book"></i>
             </a>
             <a href="" class="entrada">
-               Mi informacion <i class="fas fa-user-tie"></i>
+               Mi informacion <<i class="far fa-user"></i>
             </a>
         </div>
     </div>
@@ -52,13 +52,13 @@
         <h3>Equipos</h3>
         <div class="content-entrada">
             <a th:href="@{/agregarEquipo}" class="entrada">
-                Crear un equipo <i class="fas fa-people-carry"></i>
+                Crear un equipo <i class="far fa-plus-square"></i>
             </a>
             <a th:href="@{/listarEquipos}" class="entrada">
-                Listar equipos <i class="fas fa-user-tie"></i>
+                Listar equipos <i class="fas fa-user-friends"></i>
             </a>
             <a href="" class="entrada">
-               Mi Equipo <i class="fas fa-user-tie"></i>
+               Mi Equipo <i class="far fa-window-maximize"></i>
             </a>
         </div>
     </div>
@@ -67,13 +67,13 @@
         <h3>Cuentas</h3>
         <div class="content-entrada">
             <a th:href="@{/agregarCuenta}" class="entrada">
-                Crear Cuenta <i class="fas fa-user-tie"></i>
+                Crear Cuenta <i class="far fa-plus-square"></i>
             </a>
             <a th:href="@{/listarCuentas}" class="entrada">
-                Listar Cuentas <i class="fas fa-user-tie"></i>
+                Listar Cuentas <i class="fas fa-layer-group"></i>
             </a>
             <a href="" class="entrada">
-                Mi Cuenta <i class="fas fa-user-tie"></i>
+                Mi Cuenta <i class="fas fa-info"></i>
             </a>
         </div>
     </div>
@@ -82,13 +82,13 @@
         <h3>Reunion</h3>
         <div class="content-entrada">
             <a th:href="@{/formReunion}" class="entrada">
-                Crear Reunion <i class="fas fa-user-tie"></i>
+                Crear Reunion <i class="far fa-handshake"></i>
             </a>
             <a  th:href="@{/listarReuniones}" class="entrada">
-                Todas las reuniones<i class="fas fa-user-tie"></i>
+                Todas las reuniones<i class="fas fa-binoculars"></i>
             </a>
             <a th:if="${integrante.id != null}" th:href="@{/listarReuniones/} + ${integrante.id}" class="entrada">
-                Reuniones disponibles<i class="fas fa-user-tie"></i>
+                Reuniones disponibles<i class="far fa-envelope"></i>
             </a>
         </div>
     </div>
@@ -97,7 +97,7 @@
         <h3>Agenda</h3>
         <div class="content-entrada">
             <a th:href="@{/agenda/consulta/} + ${integrante.id}" class="entrada">
-                Mi Agenda <i class="fas fa-user-tie"></i>
+                Mi Agenda <i class="far fa-address-book"></i>
             </a>
         </div>
     </div>
@@ -106,7 +106,7 @@
         <h3>Usuarios</h3>
         <div class="content-entrada">
             <a th:href="@{/listarUsuarios}" class="entrada">
-                Listar Usuarios <i class="fas fa-user-tie"></i>
+                Listar Usuarios <i class="fas fa-book-reader"></i>
             </a>
         </div>
     </div>
