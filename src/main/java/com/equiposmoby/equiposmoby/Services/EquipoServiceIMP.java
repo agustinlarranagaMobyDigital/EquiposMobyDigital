@@ -45,6 +45,7 @@ public class EquipoServiceIMP {
 
         for (int i = 0; i < listaEquipos.size(); i++) {
             this.agregarListaIntegrantesAEquipo(listaEquipos.get(i));
+            checkEquipoCompleto(listaEquipos.get(i));
         }
 
 
@@ -88,6 +89,40 @@ public class EquipoServiceIMP {
 
 
     // ------------------------------------------------------------------- METODOS INTERNOS
+
+    public void validarNuevoIntegrante(Integrante integrante,Equipo equipo ,Map<String, String> errores){
+
+        boolean isCompleto = isPuestoCompleto(integrante.getPuesto().getNombre(),equipo);
+        if (isCompleto){
+            errores.put("puestoCompleto","No hay mas vacantes en este equipo para el puesto "+integrante.getPuesto().getNombre()+" esta completo");
+        }
+
+    }
+
+    private boolean isPuestoCompleto(String puesto,Equipo equipo){
+        int vacantes = 0;
+        if(puesto.equals("lider")){vacantes = 1;}
+        if(puesto.equals("tester")){vacantes = 2;}
+        if(puesto.equals("backend")){vacantes = 3;}
+        if(puesto.equals("frontend")){vacantes = 4;}
+
+        int cantidad = 0;
+        for (int i = 0; i < equipo.getArrayList().size(); i++) {
+            if(equipo.getArrayList().get(i).getPuesto().getNombre().equals(puesto)){
+                cantidad++;
+            }
+        }
+        System.out.println("cantidad = " + cantidad);
+        System.out.println("vacantes = " + vacantes);
+
+        //cuenta cuantos integrantes tengo en este puesto
+        // si las vacantes estan llenas tira true
+        if(vacantes==cantidad){
+            return true;
+        }else{
+            return false;
+        }
+    }
         private void agregarListaIntegrantesAEquipo(  Equipo equipo){
 
             Integer idEquipo = 0 ;
@@ -115,6 +150,7 @@ public class EquipoServiceIMP {
             boolean isOk = validacionesService.validarNuevoIntegranteAEquipo(errores,integrante,equipo.getArrayList());
             if(isOk){
                 integranteService.asignarEquipo(integrante,equipo);
+                checkEquipoCompleto(equipo);
             }
 
             return isOk;
@@ -152,7 +188,7 @@ public class EquipoServiceIMP {
         return false;
     }
 
-    public boolean equipoCompleto(Equipo equipo){
+    public void checkEquipoCompleto(Equipo equipo){
 
         int lider = 0;
         int back = 0;
@@ -164,10 +200,10 @@ public class EquipoServiceIMP {
                 lider++;
             }
             if(equipo.getArrayList().get(i).getPuesto().equals("frontend")){
-                back++;
+                front++;
             }
             if(equipo.getArrayList().get(i).getPuesto().equals("backend")){
-                front++;
+                back++;
             }
             if(equipo.getArrayList().get(i).getPuesto().equals("tester")){
                 tester++;
@@ -179,9 +215,8 @@ public class EquipoServiceIMP {
                 equipo.setCompleto(true);
                 editar(equipo);
             }
-            return true;
         }else{
-            return false;
+            equipo.setCompleto(false);
         }
     }
 

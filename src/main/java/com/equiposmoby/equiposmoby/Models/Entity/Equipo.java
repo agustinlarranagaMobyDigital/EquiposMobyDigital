@@ -35,7 +35,7 @@ public class Equipo implements Serializable {
     private List<Integrante> arrayList;
 
     @NotNull
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_cuenta")
     private Cuenta cuenta;
 
