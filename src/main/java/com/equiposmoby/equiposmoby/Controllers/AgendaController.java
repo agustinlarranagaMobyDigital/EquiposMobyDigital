@@ -70,8 +70,7 @@ public class AgendaController {
     }
 
     @GetMapping("/consultaEquipo/{id-equipo}")
-    public String consultarAgendaEquipo(
-            @PathVariable(value = "id-equipo") Integer idEquipo, Model model){
+    public String consultarAgendaEquipo(@PathVariable(value = "id-equipo") Integer idEquipo, Model model){
 
         Agenda agenda = agendaService.consultaAgendaEquipo(idEquipo);
         System.out.println("agenda.toString = " + agenda.toString());

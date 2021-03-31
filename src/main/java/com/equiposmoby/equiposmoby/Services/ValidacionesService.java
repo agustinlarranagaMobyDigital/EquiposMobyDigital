@@ -19,8 +19,7 @@ import java.util.Map;
 public class ValidacionesService {
 
     private static Logger LOG = LoggerFactory.getLogger(EquiposmobyApplication.class);
-
-
+    
     public boolean validarFecha(Map<String, String> errores,Integrante integrante,LocalDate date) {
 
         boolean validacion = false;
